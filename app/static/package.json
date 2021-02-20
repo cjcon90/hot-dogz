@@ -1,0 +1,35 @@
+{
+  "name": "hot-dogz",
+  "version": "1.0.0",
+  "description": "A dog photo sharing app built with Flask",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "postcss css/app.css -o css/compiled.css",
+    "watch:css": "postcss css/app.css -o css/compiled.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjcon90/hot-dogz.git"
+  },
+  "keywords": [
+    "flask",
+    "python",
+    "tailwind",
+    "photo",
+    "sharing"
+  ],
+  "author": "Ciaran Concannon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cjcon90/hot-dogz/issues"
+  },
+  "homepage": "https://github.com/cjcon90/hot-dogz#readme",
+  "dependencies": {
+    "postcss-cli": "^8.3.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.4",
+    "postcss": "^8.2.6",
+    "tailwindcss": "^2.0.3"
+  }
+}
