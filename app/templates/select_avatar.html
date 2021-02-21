@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-10 text-5xl text-center">Select Your Avatar</h1>
+<div class="container grid max-w-3xl grid-cols-4 mx-auto">
+    {% for avatar in avatars %}
+        <div><a href="{{url_for('select_avatar', selected=avatar)}}"><img src="{{avatar}}" alt=""></a></div>
+    {% endfor %}
+</div>
+{% endblock content %}

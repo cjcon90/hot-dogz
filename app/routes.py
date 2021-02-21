@@ -53,10 +53,23 @@ def register():
         return redirect(url_for('gallery'))
     form = RegisterForm()
     if request.method == 'POST' and form.validate_on_submit():
-        print(form.username.data)
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         user.save()
-        flash("You have successfully registered")
-        return redirect(url_for('gallery'))
+        login_user(user)
+        flash("Registered! Please choose an avatar")
+        return redirect(url_for('select_avatar'))
     return render_template('register.html', title="Register", form=form)
+
+
+@app.route('/select_avatar')
+@login_required
+def select_avatar():
+    if request.args.get('selected'):
+        user = User.objects.get(username=current_user.username)
+        user.set_avatar(request.args.get('selected'))
+        user.save()
+        flash('Your avatar has been updated!')
+        return redirect(url_for('gallery'))
+    avatars = [f'https://res.cloudinary.com/cjcon90/image/upload/v1613871615/codeinstitute/hot_dogz/dog_avatars/dog{i}.jpg' for i in range(1,17)]
+    return render_template('select_avatar.html', avatars=avatars, title='Choose Avatar')

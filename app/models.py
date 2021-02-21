@@ -16,6 +16,9 @@ class User(UserMixin, db.Document):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def set_avatar(self, img_url):
+        self.img_url = img_url
+
     def to_json(self):
         return {
             '_id': str(self.pk),
