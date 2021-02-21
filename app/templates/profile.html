@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container mx-auto mt-20 border border-gray-300 shadow-lg">
-        <div class="flex items-center border-b-2 border-gray-300 ">
-            <img src="{{user.img_url}}" alt="" class="border border-gray-300 rounded-full shadow-lg w-52">
-            <div class="flex flex-col ">
-                <h1 class=""> {{user.username}} </h1>
-                <div class="flex gap-5">
-                    <a href=" {{url_for('select_avatar')}} " class=" hover:text-red-500">Edit Avatar</a>
-                    <a href="">Edit Account</a>
+    <div class="container mx-auto border border-gray-300 shadow-lg">
+        <div class="flex items-center border-b-2 border-gray-300 justify-evenly ">
+            <img src="{{user.img_url}}" alt="" class="w-32 ">
+            <div class="flex flex-col justify-between h-24">
+                <h1 class="text-4xl text-center "> {{user.username}} </h1>
+                <div class="flex gap-2">
+                    <a href=" {{url_for('select_avatar')}} " class="px-2 py-1 text-sm text-white rounded-lg bg-sunset-500">Edit Avatar</a>
+                    <a href="" class="px-2 py-1 text-sm text-white rounded-lg bg-sunset-500">Edit Account</a>
                 </div>
             </div>
         </div>
