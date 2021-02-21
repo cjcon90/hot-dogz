@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container mx-auto mt-20 border border-gray-300">
-        <div class="flex items-center p-10 border-b-2 border-gray-300 ">
-            <img src="{{user.img_url}}" alt="" class="p-2 border border-gray-300 rounded-full shadow-lg hover:bg-blue-100 w-52">
-            <div class="flex flex-col ml-10 ">
-                <h1 class="text-7xl"> {{user.username}} </h1>
-                <div class="flex gap-5 mt-10">
+    <div class="container mx-auto mt-20 border border-gray-300 shadow-lg">
+        <div class="flex items-center border-b-2 border-gray-300 ">
+            <img src="{{user.img_url}}" alt="" class="border border-gray-300 rounded-full shadow-lg w-52">
+            <div class="flex flex-col ">
+                <h1 class=""> {{user.username}} </h1>
+                <div class="flex gap-5">
                     <a href=" {{url_for('select_avatar')}} " class=" hover:text-red-500">Edit Avatar</a>
                     <a href="">Edit Account</a>
                 </div>
             </div>
         </div>
-        <div class="flex items-center p-10 border-b-2 border-gray-300 ">
-            <h1 class="ml-10 text-5xl"> Uploads </h1>
+        <div class="flex items-center border-b-2 border-gray-300 ">
+            <h1 class=""> Uploads </h1>
         </div>
-        <div class="flex items-center p-10 border-b-2 border-gray-300 ">
-            <h1 class="ml-10 text-5xl"> Favourites </h1>
+        <div class="flex items-center border-b-2 border-gray-300 ">
+            <h1 class=""> Favourites </h1>
         </div>
     </div>
 

@@ -13,7 +13,6 @@ def index():
     return render_template('index.html')
 
 @app.route('/gallery')
-@login_required
 def gallery():
     return render_template('gallery.html', title="Gallery")
 
@@ -22,6 +21,7 @@ def gallery():
 def login():
     """route for logging in users"""
     if current_user.is_authenticated:
+        # redirect users to main page if they are already registered
         return redirect(url_for('gallery'))
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
@@ -54,6 +54,7 @@ def logout():
 def register():
     """route for registering new users"""
     if current_user.is_authenticated:
+        # redirect users to main page if they are already registered
         return redirect(url_for('gallery'))
     form = RegisterForm()
     if request.method == 'POST' and form.validate_on_submit():
