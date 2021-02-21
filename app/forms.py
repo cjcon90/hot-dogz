@@ -1,7 +1,9 @@
 from flask.app import Flask
 from flask_wtf import FlaskForm
+from mongoengine.errors import DoesNotExist
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Email, Length, EqualTo
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from app.models import User
 
 
 class LoginForm(FlaskForm):
@@ -16,3 +18,13 @@ class RegisterForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(message="We gotta double check that password"), EqualTo('password', message="Passwords don't match! Try again")])
     submit = SubmitField('Register')
+
+    def validate_username(self, username):
+        existing = User.objects(username=username.data).count()
+        if existing:
+            raise ValidationError('Please use a different username.')
+
+    def validate_email(self, email):
+        existing = User.objects(email=email.data).count()
+        if existing:
+            raise ValidationError('Please use a different email.')
