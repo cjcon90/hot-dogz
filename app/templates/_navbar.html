@@ -1,31 +1,31 @@
 <nav class="flex flex-wrap items-end justify-between p-2 mx-auto text-center md:items-center max-w-screen-2xl ">      
-    <a href="{{url_for('gallery')}}" aria-label="Home" class="p-1 rounded-full outline-none text-sunset-500 focus:ring-4 focus:ring-sunset-400 hover:text-sunset-600">
+    <a href="{{url_for('gallery')}}" aria-label="Home" class="p-1 rounded-full outline-none text-primary-500 focus:ring-4 focus:ring-primary-400 hover:text-primary-600">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 512 512"  xmlns:v="https://vecta.io/nano" class="fill-current" width="48px" height="48px">
             <path d="M342.38 239.35c-23.039-35.941-62.277-57.402-104.96-57.402s-81.926 21.461-104.96 57.402l-55.516 86.605c-9.211 14.367-13.461 30.969-12.293 47.996s7.648 32.891 18.738 45.875c11.098 12.973 25.762 21.84 42.406 25.645s33.707 2.18 49.34-4.691l1.047-.465c39.336-16.945 84.285-16.789 123.52.465 10.121 4.449 20.844 6.699 31.664 6.699 5.883 0 11.801-.668 17.664-2.004 16.645-3.801 31.309-12.668 42.41-25.645 11.094-12.973 17.578-28.836 18.75-45.871a78.38 78.38 0 0 0-12.289-48.008zm-250.485-.11c16.516-6.344 29.062-19.652 35.328-37.477 5.965-16.961 5.477-36.109-1.379-53.922-6.859-17.801-19.336-32.332-35.133-40.922-16.594-9.019-34.824-10.488-51.312-4.133-33.172 12.754-48.395 53.746-33.93 91.398 11.555 29.969 38.504 48.887 65.75 48.887a57.31 57.31 0 0 0 20.676-3.832zm107.715-67.85c41.469 0 75.207-38.438 75.207-85.684 0-47.258-33.738-85.703-75.207-85.703s-75.199 38.445-75.199 85.703c0 47.246 33.734 85.684 75.199 85.684zm129.89 21.05h.004a61.3 61.3 0 0 0 19.367 3.129c30.242 0 59.715-22.012 70.961-55.84 6.477-19.473 6.051-40.062-1.199-57.973-7.586-18.75-21.645-32.359-39.59-38.324s-37.359-3.477-54.66 7c-16.527 10.008-29.191 26.246-35.66 45.719-13.652 41.078 4.641 84.273 40.777 96.289zm158.38-10l-.012-.012c-28.598-21.125-71.367-11.969-95.348 20.422-23.957 32.406-20.211 75.973 8.344 97.113 10.414 7.715 22.719 11.402 35.312 11.402 21.949 0 44.785-11.203 60.051-31.805 23.953-32.406 20.211-75.973-8.348-97.121z"/>
         </svg>
     </a>
        
     {% if current_user.is_authenticated %}
-        <h2 class="text-4xl text-left font-title text-sunset-500 md:hidden">Hot Dogz</h2>
+        <h2 class="text-4xl text-left font-title text-primary-500 md:hidden">Hot Dogz</h2>
         <div class="flex md:hidden">
-        <button id="hamburger" class="focus:outline-none text-sunset-500 hover:text-sunset-600">
+        <button id="hamburger" class="focus:outline-none text-primary-500 hover:text-primary-600">
             <i class="block w-12 text-4xl fas fa-bars toggle"></i>
             <i class="hidden w-12 text-4xl fas fa-times toggle"></i>
         </button>
         </div>
     
-        <div class="hidden w-full mt-5 text-lg text-right border-sunset-900 toggle md:w-auto md:flex text-bold md:mt-0 md:border-none">        
+        <div class="hidden w-full mt-5 text-lg text-right border-primary-900 toggle md:w-auto md:flex text-bold md:mt-0 md:border-none">        
             <a href=" {{ url_for('logout') }} " class="nav-link">Logout</a>
             <a href="#" class="nav-link">Contact Us</a>
             <a href="{{ url_for('upload_dog') }}" class="nav-link">Upload</a>
             <a href="{{ url_for('gallery') }}" class="nav-link">Gallery</a>
         </div>
-        <a href=" {{url_for('profile', username=current_user.username)}} " class="hidden w-full px-4 py-2 text-lg text-right text-white md:text-center md:inline-block md:w-36 md:rounded toggle bg-sunset-500 hover:bg-sunset-600">My profile</a>
+        <a href=" {{url_for('profile', username=current_user.username)}} " class="hidden w-full px-4 py-2 text-lg text-right text-white md:text-center md:inline-block md:w-36 md:rounded toggle bg-primary-500 hover:bg-primary-600">My profile</a>
 
 
     {% else %}
-        <a href="{{ url_for('login') }}" class="inline-block w-24 px-4 py-2 ml-auto mr-6 text-lg text-center text-white rounded bg-turquoise-500 hover:bg-turquoise-600 focus:ring-3 focus:ring-turquoise-400 md:w-36">Login</a>
-        <a href="{{ url_for('register') }}" class="inline-block w-24 px-4 py-2 text-lg text-center text-white rounded bg-sunset-500 hover:bg-sunset-600 focus:ring-3 focus:ring-sunset-400 md:w-36">Sign Up</a>
+        <a href="{{ url_for('login') }}" class="inline-block w-24 px-4 py-2 ml-auto mr-6 text-lg text-center text-white rounded bg-secondary-500 hover:bg-secondary-600 focus:ring-3 focus:ring-secondary-400 md:w-36">Login</a>
+        <a href="{{ url_for('register') }}" class="inline-block w-24 px-4 py-2 text-lg text-center text-white rounded bg-primary-500 hover:bg-primary-600 focus:ring-3 focus:ring-primary-400 md:w-36">Sign Up</a>
     {% endif %}
 
   </nav>  

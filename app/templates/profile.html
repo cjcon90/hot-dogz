@@ -7,8 +7,8 @@
             <div class="flex flex-col justify-between h-24">
                 <h1 class="text-4xl text-center "> {{user.username}} </h1>
                 <div class="flex gap-2">
-                    <a href=" {{url_for('select_avatar')}} " class="px-2 py-1 text-sm text-white rounded-lg bg-sunset-500">Edit Avatar</a>
-                    <a href="" class="px-2 py-1 text-sm text-white rounded-lg bg-sunset-500">Edit Account</a>
+                    <a href=" {{url_for('select_avatar')}} " class="px-2 py-1 text-sm text-white rounded-lg bg-primary-500">Edit Avatar</a>
+                    <a href="" class="px-2 py-1 text-sm text-white rounded-lg bg-primary-500">Edit Account</a>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
                     {% endfor %}
                 {% else %}
                         <p>No dogs uploaded yet!</p>
-                        <a href=" {{url_for('upload_dog')}} " class="w-40 py-1 my-2 text-base text-center text-white rounded-lg bg-turquoise-500 hover:bg-turquoise-600 focus:outline-none focus:ring-2 focus:ring-turquoise-400 ">Upload dog</a>
+                        <a href=" {{url_for('upload_dog')}} " class="w-40 py-1 my-2 text-base text-center text-white rounded-lg bg-secondary-500 hover:bg-secondary-600 focus:outline-none focus:ring-2 focus:ring-secondary-400 ">Upload dog</a>
                 {% endif %}
             </div>
         </div>

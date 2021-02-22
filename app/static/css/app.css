@@ -3,21 +3,21 @@
 @tailwind utilities;
 
 .nav-link {
-    @apply block px-3 py-1 border-t-2 text-sunset-900 border-turquoise-200 md:inline-block hover:text-sunset-500 md:border-none;
+    @apply block px-3 py-1 border-t-2 text-primary-900 border-secondary-200 md:inline-block hover:text-primary-500 md:border-none;
 }
 
 .form-input {
-    @apply w-full px-4 py-3 mb-3 bg-white border border-gray-400 rounded-md focus:outline-none focus:ring-1 focus:ring-turquoise-400;
+    @apply w-full px-4 py-3 mb-3 bg-white border border-gray-400 rounded-md focus:outline-none focus:ring-1 focus:ring-secondary-400;
 }
 
 /* .nav-btn {
     @apply w-full px-4 py-2 text-lg text-right text-white md:text-center md:inline-block md:w-36 md:rounded;
 }
 
-.nav-btn-turquoise {
-    @apply bg-turquoise-500 hover:bg-turquoise-600;
+.nav-btn-secondary {
+    @apply bg-secondary-500 hover:bg-secondary-600;
 }
 
-.nav-btn-sunset {
-    @apply bg-sunset-500 hover:bg-sunset-600;
+.nav-btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600;
 } */
