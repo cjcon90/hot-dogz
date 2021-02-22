@@ -2,9 +2,9 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login.utils import login_required
 from mongoengine.errors import DoesNotExist
 from app import app
-from app.forms import LoginForm, RegisterForm
+from app.forms import LoginForm, RegisterForm, UploadForm
 from flask_login import current_user, login_user, logout_user
-from app.models import User
+from app.models import User, Dog, Breed
 from random import randint
 
 
@@ -67,7 +67,21 @@ def register():
         flash("Registered! Please choose an avatar")
         # Redirect to avatar select screen for manual select
         return redirect(url_for('select_avatar'))
+    # 'GET' functioning
     return render_template('register.html', title="Register", form=form)
+
+@app.route('/upload_dog', methods = ['GET', 'POST'])
+@login_required
+def upload_dog():
+    form = UploadForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        # TODO replace current image url placeholder with uploaded image from form
+        dog = Dog(name=form.name.data, img_url='https://i.imgur.com/4zSAWJ5.jpg', owner=current_user.id, breed=form.breed.data,about=form.about.data)
+        dog.save()
+        flash('Dog Uploaded!')
+        return redirect(url_for('gallery'))
+    # 'GET' functioning
+    return render_template('upload_dog.html', form=form)
 
 
 @app.route('/select_avatar')
@@ -90,3 +104,4 @@ def select_avatar():
 def profile(username):
     user = User.objects.get(username=username)
     return render_template('profile.html', user=user)
+

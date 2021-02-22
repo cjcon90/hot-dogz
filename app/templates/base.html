@@ -19,18 +19,19 @@
     <header>
         {% include '_navbar.html' %}
     </header>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li class="text-xl text-center text-white bg-turquoise-500 ">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-
-    {% block content %}
-    {% endblock %}
+    <main>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li class="text-xl text-center text-white bg-turquoise-500 ">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}
+        {% endblock %}
+    </main>
     <script src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>
 </html>

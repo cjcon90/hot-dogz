@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="mb-10 text-5xl">Upload Dog</h1>
+    <div class="container flex flex-col items-center mx-auto">
+        <form action="" method="POST" enctype="multipart/form-data" class="flex flex-col max-w-2xl p-4 border border-gray-100 rounded-lg shadow-lg " novalidate>
+                {{ form.hidden_tag()}}
+                <fieldset class="pb-2 ">
+                    {{form.name.label}}
+                    {{form.name(class_='form-input ')}}
+                    {% for error in form.name.errors %}
+                        <span class="text-red-500"> {{error}} </span>
+                    {% endfor %}
+                </fieldset>
+                <fieldset class="pb-2 ">
+                    {{form.img_url.label}}
+                    {{form.img_url(class_='form-input ')}}
+                    {% for error in form.img_url.errors %}
+                        <span class="text-red-500 "> {{error}} </span>
+                    {% endfor %}
+                </fieldset>
+                <fieldset class="pb-2 ">
+                    {{form.breed.label}}
+                    {{form.breed(class_='form-input ')}}
+                    {% for error in form.breed.errors %}
+                        <span class="text-red-500 "> {{error}} </span>
+                    {% endfor %}
+                </fieldset>
+                <fieldset class="pb-2 ">
+                    {{form.about.label}}
+                    {{form.about(class_='form-input h-32', placeholder="Age / \nLikes /\nDislikes /\nSocial media links, etc!")}}
+                    {% for error in form.about.errors %}
+                        <span class="text-red-500 "> {{error}} </span>
+                    {% endfor %}
+                </fieldset>
+                <fieldset class="pb-2 ">
+                    {{form.submit(class_='w-full bg-turquoise-500 hover:bg-turquoise-600 text-white p-3 rounded-lg font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-turquoise-400 ')}}
+                </fieldset>
+                
+        </form>
+    </div>
+{% endblock content %}
