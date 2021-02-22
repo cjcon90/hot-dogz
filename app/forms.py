@@ -1,13 +1,8 @@
-from flask.app import Flask
 from flask_wtf import FlaskForm
-from mongoengine.errors import DoesNotExist
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FileField, SelectField, TextAreaField
-# from wtforms_components import SelectField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from werkzeug.utils import secure_filename
+from wtforms import StringField, PasswordField, SubmitField, FileField, SelectField, TextAreaField
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from app.models import User, Breed
-import requests
 
 
 class LoginForm(FlaskForm):
@@ -36,7 +31,7 @@ class RegisterForm(FlaskForm):
 
 class UploadForm(FlaskForm):
     name = StringField("Dog's name", validators=[DataRequired()])
-    img_url = FileField("Photo", validators=[DataRequired()])
+    img_url = FileField("Photo", validators=[FileRequired(), FileAllowed(['jpg', 'png'])])
     breed = SelectField("Breed", choices=[(breed.pk, breed.breed_name) for breed in Breed.objects], validators=[DataRequired()])
     about = TextAreaField("Tell us about your dog!")
     submit = SubmitField('Upload')

@@ -4,7 +4,7 @@ from mongoengine.errors import DoesNotExist
 from app import app
 from app.forms import LoginForm, RegisterForm, UploadForm
 from flask_login import current_user, login_user, logout_user
-from app.models import User, Dog, Breed
+from app.models import User, Dog
 from random import randint
 
 
@@ -61,7 +61,7 @@ def register():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         # Set a random avatar in case the user exits out of avatar select screen
-        user.set_avatar(f'https://res.cloudinary.com/cjcon90/image/upload/v1613871615/codeinstitute/hot_dogz/dog_avatars/dog{randint(1,16)}.png')
+        user.set_avatar(f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{randint(1,16)}.png')
         user.save()
         login_user(user)
         flash("Registered! Please choose an avatar")
@@ -76,7 +76,8 @@ def upload_dog():
     form = UploadForm()
     if request.method == 'POST' and form.validate_on_submit():
         # TODO replace current image url placeholder with uploaded image from form
-        dog = Dog(name=form.name.data, img_url='https://i.imgur.com/4zSAWJ5.jpg', owner=current_user.id, breed=form.breed.data,about=form.about.data)
+        dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data)
+        dog.set_user_image(form.img_url.data, current_user.username)
         dog.save()
         flash('Dog Uploaded!')
         return redirect(url_for('gallery'))
@@ -95,7 +96,7 @@ def select_avatar():
         user.save()
         flash('Your avatar has been updated!')
         return redirect(url_for('profile', username=current_user.username))
-    avatars = [f'https://res.cloudinary.com/cjcon90/image/upload/v1613871615/codeinstitute/hot_dogz/dog_avatars/dog{i}.png' for i in range(1,17)]
+    avatars = [f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{i}.png' for i in range(1,17)]
     return render_template('select_avatar.html', avatars=avatars, title='Choose Avatar')
 
 
