@@ -1,7 +1,10 @@
+from mongoengine.fields import DateTimeField, StringField, ReferenceField, EmailField, URLField
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
+import datetime
+
 
 class User(UserMixin, db.Document):
     username = db.StringField(required=True)
@@ -19,14 +22,19 @@ class User(UserMixin, db.Document):
     def set_avatar(self, img_url):
         self.img_url = img_url
 
-    def to_json(self):
-        return {
-            '_id': str(self.pk),
-            'username': self.username,
-            'email': self.email,
-            'password': self.password_hash,
-            'img_url': self.img_url
-        }
+
+class Breed(db.Document):
+    breed_name = db.StringField(required=True)
+
+
+class Dog(db.Document):
+    name = db.StringField(required=True)
+    img_url = db.URLField(required=True)
+    owner = db.ReferenceField(User)
+    breed = db.ReferenceField(Breed)
+    about = db.StringField(default="No info on this doggo yet!")
+    upload_date = db.DateTimeField(default=datetime.datetime.utcnow)
+
 
 # Load the user from the database for flask-login
 @login.user_loader
