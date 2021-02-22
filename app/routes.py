@@ -70,20 +70,6 @@ def register():
     # 'GET' functioning
     return render_template('register.html', title="Register", form=form)
 
-@app.route('/upload_dog', methods = ['GET', 'POST'])
-@login_required
-def upload_dog():
-    form = UploadForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        # TODO replace current image url placeholder with uploaded image from form
-        dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data)
-        dog.set_user_image(form.img_url.data, current_user.username)
-        dog.save()
-        flash('Dog Uploaded!')
-        return redirect(url_for('gallery'))
-    # 'GET' functioning
-    return render_template('upload_dog.html', form=form)
-
 
 @app.route('/select_avatar')
 @login_required
@@ -103,6 +89,22 @@ def select_avatar():
 @app.route('/profile/<username>')
 @login_required
 def profile(username):
-    user = User.objects.get(username=username)
-    return render_template('profile.html', user=user)
+    user = User.objects(username=username).first_or_404()
+    user_dogs = Dog.objects(owner=user)
+    return render_template('profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs)
+
+
+
+@app.route('/upload_dog', methods = ['GET', 'POST'])
+@login_required
+def upload_dog():
+    form = UploadForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data)
+        dog.set_user_image(form.img_url.data, current_user.username)
+        dog.save()
+        flash('Dog Uploaded!')
+        return redirect(url_for('profile', username=current_user.username))
+    # 'GET' functioning
+    return render_template('upload_dog.html', form=form, title="Upload Dog")
 

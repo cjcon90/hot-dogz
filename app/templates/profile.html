@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container mx-auto border border-gray-300 shadow-lg">
-        <div class="flex items-center border-b-2 border-gray-300 justify-evenly ">
+        <div class="flex items-center py-4 border-b-2 border-gray-300 justify-evenly">
             <img src="{{user.img_url}}" alt="" class="w-32 ">
             <div class="flex flex-col justify-between h-24">
                 <h1 class="text-4xl text-center "> {{user.username}} </h1>
@@ -12,10 +12,20 @@
                 </div>
             </div>
         </div>
-        <div class="flex items-center border-b-2 border-gray-300 ">
-            <h1 class=""> Uploads </h1>
+        <div class="border-b-2 border-gray-300 ">
+            <h1 class="py-2 text-3xl"> My Dogs </h1>
+            <div class="flex flex-col p-2">
+                {% if user_dogs|length %}
+                    {% for dog in user_dogs %}
+                        {% include '_dog_card.html' %}
+                    {% endfor %}
+                {% else %}
+                        <p>No dogs uploaded yet!</p>
+                        <a href=" {{url_for('upload_dog')}} " class="w-40 py-1 my-2 text-base text-center text-white rounded-lg bg-turquoise-500 hover:bg-turquoise-600 focus:outline-none focus:ring-2 focus:ring-turquoise-400 ">Upload dog</a>
+                {% endif %}
+            </div>
         </div>
-        <div class="flex items-center border-b-2 border-gray-300 ">
+        <div class="border-b-2 border-gray-300 ">
             <h1 class=""> Favourites </h1>
         </div>
     </div>
