@@ -4,12 +4,17 @@ from mongoengine.errors import DoesNotExist
 from app import app
 from app.forms import LoginForm, RegisterForm, UploadForm
 from flask_login import current_user, login_user, logout_user
+from werkzeug.urls import url_parse
 from app.models import User, Dog
 from random import randint
 
 
 @app.route('/')
 def index():
+    """Landing page"""
+    if current_user.is_authenticated:
+        # redirect users to main page if they are already registered
+        return redirect(url_for('gallery'))
     return render_template('index.html')
 
 @app.route('/gallery')
@@ -21,7 +26,6 @@ def gallery():
 def login():
     """route for logging in users"""
     if current_user.is_authenticated:
-        # redirect users to main page if they are already registered
         return redirect(url_for('gallery'))
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
@@ -37,7 +41,12 @@ def login():
         # else login the user and redirect
         login_user(user)
         flash(f"Hello {user.username}, have successfully Logged in")
-        return redirect(url_for('index'))
+        next_page = request.args.get('next')
+        # If the user had pressed to go to a page behind a @login_required
+        # Then redirect to that 'next' page, otherwise go to main gallery
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('gallery')
+        return redirect(next_page)
     # 'GET' functioning
     return render_template('login.html', title="Login", form=form)
 
@@ -87,7 +96,6 @@ def select_avatar():
 
 
 @app.route('/profile/<username>')
-@login_required
 def profile(username):
     user = User.objects(username=username).first_or_404()
     user_dogs = Dog.objects(owner=user)

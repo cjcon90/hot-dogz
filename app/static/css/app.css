@@ -2,13 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-.nav-link {
-    @apply block px-3 py-1 border-t-2 text-primary-900 border-secondary-200 md:inline-block hover:text-primary-500 md:border-none;
+
+.btn {
+    @apply px-4 py-3 text-lg font-semibold leading-none text-center border rounded text-gray-50 focus:ring-2;
 }
 
-.form-input {
-    @apply w-full px-4 py-3 mb-3 bg-white border border-gray-400 rounded-md focus:outline-none focus:ring-1 focus:ring-secondary-400;
+.btn-secondary {
+    @apply border-secondary-600 bg-secondary-500 hover:border-transparent hover:bg-secondary-600 focus:ring-secondary-300;
 }
+
+.btn-primary {
+    @apply bg-primary-500 border-primary-600 hover:border-transparent hover:bg-primary-600 focus:ring-primary-300;
+}
+
+
 
 /* .nav-btn {
     @apply w-full px-4 py-2 text-lg text-right text-white md:text-center md:inline-block md:w-36 md:rounded;
