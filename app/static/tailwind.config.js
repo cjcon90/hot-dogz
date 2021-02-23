@@ -6,10 +6,9 @@ module.exports = {
       title: ['Lobster', 'cursive']
     },
     extend: {
-      height: theme => ({
-        "screen/2": "50vh",
-        "screen-less-nav": 'calc(100vh - 5rem)'
-      }),
+      minHeight: {
+        "screen/2": "50vh"
+      },
       screens: {
         'landscape': {'raw': '(orientation: landscape)'},
       },

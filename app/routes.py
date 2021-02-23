@@ -40,7 +40,7 @@ def login():
             return redirect(url_for('login'))
         # else login the user and redirect
         login_user(user)
-        flash(f"Hello {user.username}, have successfully Logged in")
+        flash(f"Welcome back, {user.username}!")
         next_page = request.args.get('next')
         # If the user had pressed to go to a page behind a @login_required
         # Then redirect to that 'next' page, otherwise go to main gallery
@@ -115,4 +115,10 @@ def upload_dog():
         return redirect(url_for('profile', username=current_user.username))
     # 'GET' functioning
     return render_template('upload_dog.html', form=form, title="Upload Dog")
+
+
+@app.route('/dog/<dog_id>')
+def dog_page(dog_id):
+    dog = Dog.objects(pk=dog_id).first()
+    return render_template('dog_page.html', dog=dog)
 

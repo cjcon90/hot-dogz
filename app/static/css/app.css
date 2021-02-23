@@ -1,5 +1,10 @@
 @tailwind base;
 @tailwind components;
+
+html {
+    scroll-behavior: smooth;
+}
+
 @tailwind utilities;
 
 
