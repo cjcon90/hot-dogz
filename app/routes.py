@@ -2,10 +2,10 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login.utils import login_required
 from mongoengine.errors import DoesNotExist
 from app import app
-from app.forms import LoginForm, RegisterForm, UploadForm
+from app.forms import CommentInput, LoginForm, RegisterForm, UploadForm
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
-from app.models import User, Dog
+from app.models import Comment, User, Dog
 from random import randint
 
 
@@ -117,8 +117,17 @@ def upload_dog():
     return render_template('upload_dog.html', form=form, title="Upload Dog")
 
 
-@app.route('/dog/<dog_id>')
+@app.route('/dog/<dog_id>', methods=['GET', 'POST'])
 def dog_page(dog_id):
     dog = Dog.objects(pk=dog_id).first()
-    return render_template('dog_page.html', dog=dog)
+    form = CommentInput()
+    if request.method == 'POST' and form.validate_on_submit():
+        comment = Comment(author=current_user.id, dog=dog, content=form.content.data)
+        comment.save()
+        flash('Your comment has been submitted!')
+        return redirect(url_for('dog_page', dog_id=dog_id))
+    comments=Comment.objects(dog=dog)
+    for comment in comments:
+        print(comment)
+    return render_template('dog_page.html', dog=dog, form=form, comments=comments)
 

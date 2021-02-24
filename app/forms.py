@@ -1,3 +1,4 @@
+from typing import ValuesView
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, PasswordField, SubmitField, FileField, SelectField, TextAreaField
@@ -35,6 +36,11 @@ class UploadForm(FlaskForm):
     breed = SelectField("Breed", choices=[(breed.pk, breed.breed_name) for breed in Breed.objects], validators=[DataRequired()])
     about = TextAreaField("Tell us about your dog!")
     submit = SubmitField('Upload')
+
+
+class CommentInput(FlaskForm):
+    content = TextAreaField(validators=[DataRequired('Please enter a comment first!')])
+    submit = SubmitField('Submit')
 
 
 

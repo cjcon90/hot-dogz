@@ -1,3 +1,4 @@
+from wtforms.fields.core import StringField
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -58,6 +59,12 @@ class Dog(db.Document):
         self.img_url = f"{endpoint}{transformation}{version}{public_id}.{image_format}"
         
 
+
+class Comment(db.Document):
+    author = db.ReferenceField(User)
+    dog = db.ReferenceField(Dog)
+    content = db.StringField(required=True)
+    date = db.DateTimeField(default=datetime.datetime.utcnow)
 
 # Load the user from the database for flask-login
 @login.user_loader

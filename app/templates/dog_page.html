@@ -5,30 +5,41 @@
         <img src="{{dog.img_url}}" alt="A picture of {{dog.name}}" class="object-cover rounded shadow-xl h-72">
         <a href="{{dog.img_url}}" target="_blank" class="px-1 -mt-6 font-semibold text-gray-300 bg-gray-700 opacity-70 hover:opacity-100 focus:opacity-100">Full-size image <i class="fas fa-external-link-alt"></i></a>
     </div>
-    <div>
-        <div class="text-lg text-center">
-            <h2 class="py-4 text-5xl tracking-wide uppercase font-title text-primary-500 ">{{dog.name}}</h2>
-            <div class="flex gap-2 justify-evenly">
-                <div class="flex-1">
-                    <p class="text-xs text-gray-600 uppercase">Breed</p>
-                    <p class="font-semibold text-secondary-500 ">{{dog.breed.breed_name}}</p>
-                </div>
-                <div class="flex-1">
-                    <p class="text-xs text-gray-600 uppercase ">Owner</p>
-                    <p class="font-semibold text-secondary-500 ">{{dog.owner.username}}</p>
-                    <p class="mt-2 text-xs italic text-gray-600">Added on: {{dog.upload_date.strftime('%d.%m.%Y')}}</p>
-                </div>
+    <div class="text-lg text-center">
+        <h2 class="py-4 text-5xl tracking-wide uppercase font-title text-primary-500 ">{{dog.name}}</h2>
+        <div class="flex gap-2 justify-evenly">
+            <div class="flex-1">
+                <p class="text-xs text-gray-600 uppercase">Breed</p>
+                <p class="font-semibold text-secondary-500 ">{{dog.breed.breed_name}}</p>
             </div>
-            <div class="px-1 text-left">
-                <p class="text-sm text-gray-600 uppercase">About:</p>
-                <p class="text-base font-semibold text-secondary-500 ">{{dog.about}}</p>
-            </div>
-            <div class="py-4">
-                <a href="#comments" class="text-2xl tracking-wide font-title text-primary-500">Leave {{dog.name}} a comment! <i class="fas fa-hand-point-down"></i></a>
-            </div>
-            <div class="flex flex-col min-h-screen/2" id="comments">
-                COMMENTS
+            <div class="flex-1">
+                <p class="text-xs text-gray-600 uppercase ">Owner</p>
+                <p class="font-semibold text-secondary-500 ">{{dog.owner.username}}</p>
+                <p class="mt-2 text-xs italic text-gray-600">Added on: {{dog.upload_date.strftime('%d.%m.%Y')}}</p>
             </div>
         </div>
+        <div class="px-4 text-left">
+            <p class="text-sm text-gray-600 uppercase">About:</p>
+            <p class="text-base font-semibold text-secondary-500 ">{{dog.about}}</p>
+        </div>
+        <div class="py-4">
+            <a href="#comment" class="text-2xl tracking-wide font-title text-primary-500">Leave {{dog.name}} a comment! <i class="fas fa-hand-point-down"></i></a>
+        </div>
     </div>
+    <div class="flex flex-col gap-4">
+        {% if comments|length %}
+            {% for comment in comments %}
+                {% include '_comment_card.html' %}
+            {% endfor %}
+        {% else %}
+            <p>No comments yet!</p>
+        {% endif %}
+        <form action="" method='POST' class="px-4 border border-gray-100 rounded-lg shadow-lg">
+            {{form.hidden_tag()}}
+            {{form.content(placeholder="Add your comment here", rows="3", class_='form-input', id="comment")}}
+            {{form.submit(class_="w-full bg-secondary-500 hover:bg-secondary-600 text-white p-3 rounded-lg font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-secondary-400")}}
+        </form>
+    </div>
+
+
 {% endblock content %}
