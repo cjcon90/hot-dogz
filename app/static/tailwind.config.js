@@ -6,6 +6,10 @@ module.exports = {
       title: ['Lobster', 'cursive']
     },
     extend: {
+      backgroundImage: {
+        'dog1': "url('https://res.cloudinary.com/cjcon90/image/upload/v1614203125/hot_dogz/wallpapers/dog1.jpg')",
+        'dog5': "url('https://res.cloudinary.com/cjcon90/image/upload/v1614203125/hot_dogz/wallpapers/dog5.jpg')",
+       },
       minHeight: {
         "screen/2": "50vh"
       },

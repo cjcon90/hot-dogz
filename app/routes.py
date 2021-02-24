@@ -19,7 +19,8 @@ def index():
 
 @app.route('/gallery')
 def gallery():
-    return render_template('gallery.html', title="Gallery")
+    dogs = Dog.objects()
+    return render_template('gallery.html', title="Gallery", dogs=dogs)
 
 
 @app.route('/login', methods=['GET', 'POST'])
