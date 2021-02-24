@@ -40,8 +40,8 @@ class Dog(db.Document):
     def set_user_image(self, dog_img, user):
         # Get an individual folder for each user's dog uploads
         folder = f"hot_dogz/{user}/"
-        # upload image to identified folder and include in public ID
-        res = cloudinary.uploader.upload(dog_img, folder=folder)
+        # upload image to identified folder with Cloudinary image optimization
+        res = cloudinary.uploader.upload(dog_img, folder=folder, transformation=[{'quality': "auto"}])
         # Get already configurated cloud name
         cloud_name = os.environ.get("CLOUD_NAME")
         # add to URL for building URL
@@ -52,6 +52,7 @@ class Dog(db.Document):
         image_format = res["format"]
         # compile above details to build full URL for uploaded image
         self.img_url = f"{endpoint}{version}{public_id}.{image_format}"
+        
 
 
 # Load the user from the database for flask-login

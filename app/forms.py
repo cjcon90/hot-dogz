@@ -31,7 +31,7 @@ class RegisterForm(FlaskForm):
 
 class UploadForm(FlaskForm):
     name = StringField("Dog's name", validators=[DataRequired()])
-    img_url = FileField("Photo", validators=[FileRequired(), FileAllowed(['jpg', 'png'])])
+    img_url = FileField("Photo", validators=[FileRequired(), FileAllowed(['jpg', 'jpeg', 'png'])])
     breed = SelectField("Breed", choices=[(breed.pk, breed.breed_name) for breed in Breed.objects], validators=[DataRequired()])
     about = TextAreaField("Tell us about your dog!")
     submit = SubmitField('Upload')
