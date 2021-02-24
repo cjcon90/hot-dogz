@@ -41,17 +41,21 @@ class Dog(db.Document):
         # Get an individual folder for each user's dog uploads
         folder = f"hot_dogz/{user}/"
         # upload image to identified folder with Cloudinary image optimization
-        res = cloudinary.uploader.upload(dog_img, folder=folder, transformation=[{'quality': "auto"}])
+        res = cloudinary.uploader.upload(dog_img, folder=folder)
         # Get already configurated cloud name
         cloud_name = os.environ.get("CLOUD_NAME")
         # add to URL for building URL
         endpoint = f"https://res.cloudinary.com/{cloud_name}/image/upload"
+        # Set the image automatically scaled to the maximum width available
+        # auto optimize image quality
+        # deliver in jpg
+        transformation = '/f_jpg,w_auto,c_scale,q_auto:low'
         # Get the version, id and format details from uploaded image
         version = f"/v{res['version']}/"
         public_id = res["public_id"]
         image_format = res["format"]
         # compile above details to build full URL for uploaded image
-        self.img_url = f"{endpoint}{version}{public_id}.{image_format}"
+        self.img_url = f"{endpoint}{transformation}{version}{public_id}.{image_format}"
         
 
 
