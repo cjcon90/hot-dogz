@@ -14,7 +14,7 @@
             </div>
             <div class="flex-1">
                 <p class="text-xs text-gray-600 uppercase ">Owner</p>
-                <p class="font-semibold text-secondary-500 ">{{dog.owner.username}}</p>
+                <a href="{{url_for('profile', username=dog.owner.username)}}" class="font-semibold text-secondary-500 ">{{dog.owner.username}}</a>
                 <p class="mt-2 text-xs italic text-gray-600">Added on: {{dog.upload_date.strftime('%d.%m.%Y')}}</p>
             </div>
         </div>

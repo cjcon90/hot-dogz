@@ -1,0 +1,11 @@
+<div class="flex items-center px-2 mx-4 border-2 border-gray-300 border-dashed rounded-lg">
+    <img src="{{comment.author.img_url}}" alt="{{comment.author.username}}'s avatar" class="w-auto h-20 ">
+    <div class="flex flex-col justify-center flex-1 gap-1 p-1">
+        <p class="text ">{{comment.content}}</p>
+        <hr class="border border-dashed">
+        <div class="flex items-baseline justify-between text-xs ">
+            <p>{{comment.author.username}}</p>
+            <p class="italic">{{comment.date.strftime('%d.%m.%Y')}}</p>
+        </div>
+    </div>
+</div>
