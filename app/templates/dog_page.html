@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="flex flex-col items-center justify-end w-full">
-        <img src="{{dog.img_url}}" alt="A picture of {{dog.name}}" class="object-cover rounded shadow-xl h-72">
+        <img src="{{dog.img_url_thumb}}" alt="A picture of {{dog.name}}" class="object-cover rounded shadow-xl h-72">
         <a href="{{dog.img_url}}" target="_blank" class="px-1 -mt-6 font-semibold text-gray-300 bg-gray-700 opacity-70 hover:opacity-100 focus:opacity-100">Full-size image <i class="fas fa-external-link-alt"></i></a>
     </div>
     <div class="text-lg text-center">
