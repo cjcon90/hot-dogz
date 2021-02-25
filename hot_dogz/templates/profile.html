@@ -8,7 +8,7 @@
                 <h1 class="text-4xl text-center "> {{user.username}} </h1>
                  {% if user.username == current_user.username %}
                  <div class="flex gap-2">
-                    <a href=" {{url_for('select_avatar')}} " class="px-2 py-1 text-sm text-white rounded-lg bg-primary-500">Edit Avatar</a>
+                    <a href=" {{url_for('users.select_avatar')}} " class="px-2 py-1 text-sm text-white rounded-lg bg-primary-500">Edit Avatar</a>
                     <a href="" class="px-2 py-1 text-sm text-white rounded-lg bg-primary-500">Edit Account</a>
                 </div>
                  {% endif %}
@@ -25,7 +25,7 @@
                     <p>No dogs uploaded yet!</p>
                 {% endif %}
                 {% if user.username == current_user.username %}
-                    <a href=" {{url_for('upload_dog')}} " class="w-40 py-1 text-base text-center text-white rounded-lg bg-secondary-500 hover:bg-secondary-600 focus:outline-none focus:ring-2 focus:ring-secondary-400 ">Upload dog</a>
+                    <a href=" {{url_for('dogs.upload_dog')}} " class="w-40 py-1 text-base text-center text-white rounded-lg bg-secondary-500 hover:bg-secondary-600 focus:outline-none focus:ring-2 focus:ring-secondary-400 ">Upload dog</a>
                 {% endif %}
             </div>
         </div>

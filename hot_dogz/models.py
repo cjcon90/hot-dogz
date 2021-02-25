@@ -1,8 +1,8 @@
 from wtforms.fields.core import StringField
-from app import db
+from hot_dogz import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app import login
+from hot_dogz import login
 import datetime
 import cloudinary.api
 import cloudinary.uploader

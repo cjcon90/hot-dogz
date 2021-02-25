@@ -1,33 +1,19 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
 from mongoengine.errors import DoesNotExist
-from app import app
-from app.forms import CommentInput, LoginForm, RegisterForm, UploadForm
+from hot_dogz.users.forms import LoginForm, RegisterForm
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
-from app.models import Comment, User, Dog
+from hot_dogz.models import User, Dog
 from random import randint
 
+users = Blueprint('users', __name__)
 
-@app.route('/')
-def index():
-    """Landing page"""
-    if current_user.is_authenticated:
-        # redirect users to main page if they are already registered
-        return redirect(url_for('gallery'))
-    return render_template('index.html')
-
-@app.route('/gallery')
-def gallery():
-    dogs = Dog.objects()
-    return render_template('gallery.html', title="Gallery", dogs=dogs)
-
-
-@app.route('/login', methods=['GET', 'POST'])
+@users.route('/login', methods=['GET', 'POST'])
 def login():
     """route for logging in users"""
     if current_user.is_authenticated:
-        return redirect(url_for('gallery'))
+        return redirect(url_for('main.gallery'))
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
         # Used try/except, as mongoengine objects.get() returns DoesNotExist error if document doesn't exist
@@ -38,7 +24,7 @@ def login():
         # If user doesn't exist or password doesn't match, notify user and reload page
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect(url_for('users.login'))
         # else login the user and redirect
         login_user(user)
         flash(f"Welcome back, {user.username}!")
@@ -46,26 +32,26 @@ def login():
         # If the user had pressed to go to a page behind a @login_required
         # Then redirect to that 'next' page, otherwise go to main gallery
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('gallery')
+            next_page = url_for('main.gallery')
         return redirect(next_page)
     # 'GET' functioning
     return render_template('login.html', title="Login", form=form)
 
 
-@app.route('/logout')
+@users.route('/logout')
 def logout():
     """route to log out current user"""
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
 
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@users.route('/register', methods=['GET', 'POST'])
 def register():
     """route for registering new users"""
     if current_user.is_authenticated:
         # redirect users to main page if they are already registered
-        return redirect(url_for('gallery'))
+        return redirect(url_for('main.gallery'))
     form = RegisterForm()
     if request.method == 'POST' and form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
@@ -76,12 +62,18 @@ def register():
         login_user(user)
         flash("Registered! Please choose an avatar")
         # Redirect to avatar select screen for manual select
-        return redirect(url_for('select_avatar'))
+        return redirect(url_for('users.select_avatar'))
     # 'GET' functioning
     return render_template('register.html', title="Register", form=form)
 
+@users.route('/profile/<username>')
+def profile(username):
+    user = User.objects(username=username).first_or_404()
+    user_dogs = Dog.objects(owner=user)
+    return render_template('profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs)
 
-@app.route('/select_avatar')
+
+@users.route('/select_avatar')
 @login_required
 def select_avatar():
     """route for selecting avatar for new users
@@ -91,44 +83,6 @@ def select_avatar():
         user.set_avatar(request.args.get('selected'))
         user.save()
         flash('Your avatar has been updated!')
-        return redirect(url_for('profile', username=current_user.username))
+        return redirect(url_for('users.profile', username=current_user.username))
     avatars = [f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{i}.png' for i in range(1,17)]
     return render_template('select_avatar.html', avatars=avatars, title='Choose Avatar')
-
-
-@app.route('/profile/<username>')
-def profile(username):
-    user = User.objects(username=username).first_or_404()
-    user_dogs = Dog.objects(owner=user)
-    return render_template('profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs)
-
-
-
-@app.route('/upload_dog', methods = ['GET', 'POST'])
-@login_required
-def upload_dog():
-    form = UploadForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data)
-        dog.set_user_image(form.img_url.data, current_user.username)
-        dog.save()
-        flash('Dog Uploaded!')
-        return redirect(url_for('profile', username=current_user.username))
-    # 'GET' functioning
-    return render_template('upload_dog.html', form=form, title="Upload Dog")
-
-
-@app.route('/dog/<dog_id>', methods=['GET', 'POST'])
-def dog_page(dog_id):
-    dog = Dog.objects(pk=dog_id).first()
-    form = CommentInput()
-    if request.method == 'POST' and form.validate_on_submit():
-        comment = Comment(author=current_user.id, dog=dog, content=form.content.data)
-        comment.save()
-        flash('Your comment has been submitted!')
-        return redirect(url_for('dog_page', dog_id=dog_id))
-    comments=Comment.objects(dog=dog)
-    for comment in comments:
-        print(comment)
-    return render_template('dog_page.html', dog=dog, form=form, comments=comments)
-

@@ -1,10 +1,7 @@
-from typing import ValuesView
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import StringField, PasswordField, SubmitField, FileField, SelectField, TextAreaField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
-from app.models import User, Breed
-
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from hot_dogz.models import User
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(message="I'm gonna need your email"), Email(message="Are you sure this is an email?")])
@@ -28,19 +25,3 @@ class RegisterForm(FlaskForm):
         existing = User.objects(email=email.data).count()
         if existing:
             raise ValidationError('Please use a different email.')
-
-
-class UploadForm(FlaskForm):
-    name = StringField("Dog's name", validators=[DataRequired()])
-    img_url = FileField("Photo", validators=[FileRequired(), FileAllowed(['jpg', 'jpeg', 'png'])])
-    breed = SelectField("Breed", choices=[(breed.pk, breed.breed_name) for breed in Breed.objects], validators=[DataRequired()])
-    about = TextAreaField("Tell us about your dog!")
-    submit = SubmitField('Upload')
-
-
-class CommentInput(FlaskForm):
-    content = TextAreaField(validators=[DataRequired('Please enter a comment first!')])
-    submit = SubmitField('Submit')
-
-
-

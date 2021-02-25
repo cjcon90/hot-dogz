@@ -1,5 +1,8 @@
-from app import app, db
-from app.models import User, Dog, Breed
+from hot_dogz import create_app, db
+from hot_dogz.models import User, Dog, Breed
+
+
+app = create_app()
 
 # automatically add database instance and models to 'flask shell'
 @app.shell_context_processor

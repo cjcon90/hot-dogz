@@ -4,7 +4,7 @@
 <h1 class="mb-10 text-5xl text-center">Select Avatar</h1>
 <div class="container grid max-w-3xl grid-cols-4 gap-2 mx-auto">
     {% for avatar in avatars %}
-        <div class="p-2 border border-gray-300 rounded-full shadow-lg hover:bg-blue-100"><a href="{{url_for('select_avatar', selected=avatar)}}"><img src="{{avatar}}" alt=""></a></div>
+        <div class="p-2 border border-gray-300 rounded-full shadow-lg hover:bg-blue-100"><a href="{{url_for('users.select_avatar', selected=avatar)}}"><img src="{{avatar}}" alt=""></a></div>
     {% endfor %}
 </div>
 {% endblock content %}
