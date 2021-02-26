@@ -4,7 +4,7 @@ from mongoengine.errors import DoesNotExist
 from hot_dogz.users.forms import LoginForm, RegisterForm
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
-from hot_dogz.models import User, Dog
+from hot_dogz.models import User, Dog, Favourite
 from random import randint
 
 users = Blueprint('users', __name__)
@@ -70,7 +70,8 @@ def register():
 def profile(username):
     user = User.objects(username=username).first_or_404()
     user_dogs = Dog.objects(owner=user)
-    return render_template('profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs)
+    favourites = Dog.objects(faved_by__contains=current_user.id)
+    return render_template('profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs, favourites=favourites)
 
 
 @users.route('/select_avatar')
@@ -86,3 +87,25 @@ def select_avatar():
         return redirect(url_for('users.profile', username=current_user.username))
     avatars = [f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{i}.png' for i in range(1,17)]
     return render_template('select_avatar.html', avatars=avatars, title='Choose Avatar')
+
+
+@users.route('/like/<dog_id>')
+def like(dog_id):
+    dog = Dog.objects(pk=dog_id).first_or_404()
+    if current_user in dog.liked_by:
+        dog.update(pull__liked_by=current_user.id)
+    else:
+        dog.update(push__liked_by=current_user.id)
+    return redirect(request.referrer)
+
+
+@users.route('/favourite/<dog_id>')
+def favourite(dog_id):
+    dog = Dog.objects(pk=dog_id).first_or_404()
+    if current_user in dog.faved_by:
+        dog.update(pull__faved_by=current_user.id)
+    else:
+        dog.update(push__faved_by=current_user.id)
+    print()
+
+    return redirect(request.referrer)

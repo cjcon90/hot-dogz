@@ -37,6 +37,8 @@ class Dog(db.Document):
     owner = db.ReferenceField(User)
     breed = db.ReferenceField(Breed)
     about = db.StringField(default="No info on this doggo yet!")
+    liked_by = db.ListField(db.ReferenceField(User))
+    faved_by = db.ListField(db.ReferenceField(User))
     upload_date = db.DateTimeField(default=datetime.datetime.utcnow)
 
     def set_user_image(self, dog_img, user):
@@ -65,6 +67,11 @@ class Comment(db.Document):
     dog = db.ReferenceField(Dog)
     content = db.StringField(required=True)
     date = db.DateTimeField(default=datetime.datetime.utcnow)
+
+
+class Favourite(db.Document):
+    user = db.ReferenceField(User)
+    dog = db.ReferenceField(Dog)
 
 # Load the user from the database for flask-login
 @login.user_loader

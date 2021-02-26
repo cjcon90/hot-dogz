@@ -13,14 +13,7 @@
             Human: {{dog.owner.username}}
         {% endif %}
         <p>Breed: {{dog.breed.breed_name}}</p>
-        <div class="flex py-2 text-base justify-evenly ">
-            <div class="like-box">
-                <p><i class="text-blue-600 fas fa-thumbs-up"></i> 20</p>
-            </div>
-            <div class="fave-box">
-                <p><i class="text-red-600 fas fa-heart"></i> 10</p>
-            </div>
-        </div>
+        {% include '_interactions.html' %}
         <a href="{{url_for('dogs.dog_page', dog_id=dog.pk)}}" class="underline">Full Size / Comments</a>
     </div>
 </div>

@@ -30,7 +30,16 @@
             </div>
         </div>
         <div class="border-b-2 border-gray-300 ">
-            <h1 class=""> Favourites </h1>
+            <h1 class="py-2 text-3xl"> Favourites </h1>
+            <div class="flex flex-col gap-4 p-2">
+                {% if favourites|length %}
+                    {% for dog in favourites %}
+                        {% include '_dog_card.html' %}
+                    {% endfor %}
+                {% else %}
+                    <p>No favouite dogs saved yet!</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 
