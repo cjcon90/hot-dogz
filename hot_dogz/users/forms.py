@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from hot_dogz.models import User
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(message="I'm gonna need your email"), Email(message="Are you sure this is an email?")])
+    username = StringField('Username', validators=[DataRequired(message="I'm gonna need your username")])
     password = PasswordField('Password', validators=[DataRequired(message="Can't let you in without a password!")])
     submit = SubmitField('Sign In')
 

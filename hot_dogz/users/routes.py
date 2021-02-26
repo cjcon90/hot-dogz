@@ -18,7 +18,7 @@ def login():
     if request.method == 'POST' and form.validate_on_submit():
         # Used try/except, as mongoengine objects.get() returns DoesNotExist error if document doesn't exist
         try:
-            user = User.objects.get(email=form.email.data)
+            user = User.objects.get(username=form.username.data)
         except DoesNotExist:
             user = None
         # If user doesn't exist or password doesn't match, notify user and reload page
