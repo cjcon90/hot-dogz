@@ -23,11 +23,11 @@ def login():
             user = None
         # If user doesn't exist or password doesn't match, notify user and reload page
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash('Invalid username or password', 'exclamation')
             return redirect(url_for('users.login'))
         # else login the user and redirect
         login_user(user)
-        flash(f"Welcome back, {user.username}!")
+        flash(f"Welcome back, {user.username}!", 'check-circle')
         next_page = request.args.get('next')
         # If the user had pressed to go to a page behind a @login_required
         # Then redirect to that 'next' page, otherwise go to main gallery
@@ -60,7 +60,7 @@ def register():
         user.set_avatar(f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{randint(1,16)}.png')
         user.save()
         login_user(user)
-        flash("Registered! Please choose an avatar")
+        flash("Registered! Please choose an avatar", 'check-circle')
         # Redirect to avatar select screen for manual select
         return redirect(url_for('users.select_avatar'))
     # 'GET' functioning
@@ -83,7 +83,7 @@ def select_avatar():
         user = User.objects.get(username=current_user.username)
         user.set_avatar(request.args.get('selected'))
         user.save()
-        flash('Your avatar has been updated!')
+        flash('Your avatar has been updated!', 'check-circle')
         return redirect(url_for('users.profile', username=current_user.username))
     avatars = [f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{i}.png' for i in range(1,17)]
     return render_template('select_avatar.html', avatars=avatars, title='Choose Avatar')
@@ -99,7 +99,7 @@ def like(dog_id):
     else:
         dog.update(push__liked_by=current_user.id)
         dog.update(inc__likes=1)
-        flash(f'"Thanks for the like!" ~ {dog.name}')
+        flash(f'"Thanks for the like!" ~ {dog.name}', 'thumbs-up')
 
     return redirect(request.referrer)
 
@@ -111,6 +111,6 @@ def favourite(dog_id):
         dog.update(pull__faved_by=current_user.id)
     else:
         dog.update(push__faved_by=current_user.id)
-    print()
+        flash(f"{dog.name} added to favourites!", 'heart')
 
     return redirect(request.referrer)

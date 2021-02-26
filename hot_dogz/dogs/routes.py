@@ -14,7 +14,7 @@ def upload_dog():
         dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data)
         dog.set_dog_image(form.img_url.data, current_user.username)
         dog.save()
-        flash('Dog Uploaded!')
+        flash('Dog Uploaded!', 'dog')
         return redirect(url_for('users.profile', username=current_user.username))
     # 'GET' functioning
     return render_template('upload_dog.html', form=form, title="Upload Dog")
@@ -27,7 +27,7 @@ def dog_page(dog_id):
     if request.method == 'POST' and form.validate_on_submit():
         comment = Comment(author=current_user.id, dog=dog, content=form.content.data)
         comment.save()
-        flash('Your comment has been submitted!')
+        flash('Your comment has been submitted!', 'comment')
         return redirect(url_for('dogs.dog_page', dog_id=dog_id))
     comments=Comment.objects(dog=dog)
     for comment in comments:
