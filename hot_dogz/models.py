@@ -1,4 +1,3 @@
-from wtforms.fields.core import StringField
 from hot_dogz import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -38,10 +37,11 @@ class Dog(db.Document):
     breed = db.ReferenceField(Breed)
     about = db.StringField(default="No info on this doggo yet!")
     liked_by = db.ListField(db.ReferenceField(User))
+    likes = db.IntField(default=0)
     faved_by = db.ListField(db.ReferenceField(User))
     upload_date = db.DateTimeField(default=datetime.datetime.utcnow)
 
-    def set_user_image(self, dog_img, user):
+    def set_dog_image(self, dog_img, user):
         # Get an individual folder for each user's dog uploads
         folder = f"hot_dogz/{user}/"
         # upload image to identified folder with Cloudinary image optimization

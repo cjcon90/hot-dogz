@@ -15,5 +15,5 @@ def index():
 
 @main.route('/gallery')
 def gallery():
-    dogs = Dog.objects()
+    dogs = Dog.objects.order_by('-likes')
     return render_template('gallery.html', title="Gallery", dogs=dogs)

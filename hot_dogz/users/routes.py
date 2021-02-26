@@ -94,8 +94,13 @@ def like(dog_id):
     dog = Dog.objects(pk=dog_id).first_or_404()
     if current_user in dog.liked_by:
         dog.update(pull__liked_by=current_user.id)
+        dog.update(dec__likes=1)
+
     else:
         dog.update(push__liked_by=current_user.id)
+        dog.update(inc__likes=1)
+        flash(f'"Thanks for the like!" ~ {dog.name}')
+
     return redirect(request.referrer)
 
 

@@ -12,7 +12,7 @@ def upload_dog():
     form = UploadForm()
     if request.method == 'POST' and form.validate_on_submit():
         dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data)
-        dog.set_user_image(form.img_url.data, current_user.username)
+        dog.set_dog_image(form.img_url.data, current_user.username)
         dog.save()
         flash('Dog Uploaded!')
         return redirect(url_for('users.profile', username=current_user.username))
