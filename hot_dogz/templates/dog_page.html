@@ -7,6 +7,7 @@
     </div>
     <div class="text-lg text-center">
         <h2 class="title text-primary-500 ">{{dog.name}}</h2>
+        <p class="text-xs italic text-gray-600">Added on: {{dog.upload_date.strftime('%d.%m.%Y')}}</p>
         <div class="flex gap-2 justify-evenly">
             <div class="flex-1">
                 <p class="text-xs text-gray-600 uppercase">Breed</p>
@@ -15,14 +16,13 @@
             <div class="flex-1">
                 <p class="text-xs text-gray-600 uppercase ">Owner</p>
                 <a href="{{url_for('users.profile', username=dog.owner.username)}}" class="font-semibold text-secondary-500 ">{{dog.owner.username}}</a>
-                <p class="mt-2 text-xs italic text-gray-600">Added on: {{dog.upload_date.strftime('%d.%m.%Y')}}</p>
             </div>
         </div>
-        <div class="px-4 text-left">
+        <div class="p-4 py-6 text-left">
             <p class="text-sm text-gray-600 uppercase">About:</p>
             <p class="text-base font-semibold text-secondary-500 ">{{dog.about}}</p>
         </div>
-        <div class="py-4">
+        <div>
             <a href="#comment" class="text-2xl tracking-wide font-title text-primary-500">Leave {{dog.name}} a comment! <i class="fas fa-hand-point-down"></i></a>
         </div>
     </div>

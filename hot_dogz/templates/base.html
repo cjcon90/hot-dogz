@@ -48,7 +48,9 @@
         {% if messages %}
           <div class="absolute w-full top-10">
             {% for category, message in messages %}
-              {% include '_alert.html' %}
+              <div class="w-11/12 p-2 m-2 mx-auto text-center text-white {{category}} rounded-lg shadow-xl animate-flash">
+                <p><i class="fas fa-{{category}} mr-4"></i>{{message}}</p>
+              </div>
             {% endfor %}
           </div>
         {% endif %}
