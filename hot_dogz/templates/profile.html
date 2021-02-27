@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <!-- USER PROFILE -->
     <div class="container mx-auto border border-gray-300 shadow-lg">
+        <!-- DETAILS (avatar, username, edit buttons if current user) -->
         <div class="flex items-center py-4 border-b-2 border-gray-300 justify-evenly">
             <img src="{{user.img_url}}" alt="" class="w-32 ">
             <div class="flex flex-col justify-between h-24">
@@ -14,6 +16,7 @@
                  {% endif %}
             </div>
         </div>
+        <!-- USER UPLOADS -->
         <div class="border-b-2 border-gray-300 ">
             <h1 class="py-2 text-3xl"> My Dogs </h1>
             <div class="flex flex-col gap-4 p-2">
@@ -29,6 +32,7 @@
                 {% endif %}
             </div>
         </div>
+        <!-- USER FAVOURITES -->
         <div class="border-b-2 border-gray-300 ">
             <h1 class="py-2 text-3xl"> Favourites </h1>
             <div class="flex flex-col gap-4 p-2">

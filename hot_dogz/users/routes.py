@@ -68,6 +68,10 @@ def register():
 
 @users.route('/profile/<username>')
 def profile(username):
+    """
+    Route for displaying a user's profile page
+    displaying own dogs and favourite dogs
+    """
     user = User.objects(username=username).first_or_404()
     user_dogs = Dog.objects(owner=user)
     favourites = Dog.objects(faved_by__contains=current_user.id)
@@ -91,6 +95,10 @@ def select_avatar():
 
 @users.route('/like/<dog_id>')
 def like(dog_id):
+    """
+    Route for liking a dog and increasing their
+    like count
+    """
     dog = Dog.objects(pk=dog_id).first_or_404()
     if current_user in dog.liked_by:
         dog.update(pull__liked_by=current_user.id)
@@ -106,6 +114,10 @@ def like(dog_id):
 
 @users.route('/favourite/<dog_id>')
 def favourite(dog_id):
+    """
+    Route for saving a dog to the current
+    user's favourites
+    """
     dog = Dog.objects(pk=dog_id).first_or_404()
     if current_user in dog.faved_by:
         dog.update(pull__faved_by=current_user.id)

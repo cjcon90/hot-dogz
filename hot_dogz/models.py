@@ -37,7 +37,7 @@ class Dog(db.Document):
     breed = db.ReferenceField(Breed)
     about = db.StringField(default="No info on this doggo yet!")
     liked_by = db.ListField(db.ReferenceField(User))
-    likes = db.IntField(default=0)
+    likes = db.IntField()
     faved_by = db.ListField(db.ReferenceField(User))
     upload_date = db.DateTimeField(default=datetime.datetime.utcnow)
 

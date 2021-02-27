@@ -9,9 +9,13 @@ dogs = Blueprint('dogs', __name__)
 @dogs.route('/upload_dog', methods = ['GET', 'POST'])
 @login_required
 def upload_dog():
+    """
+    Route for uploading a dog to the database
+    """
     form = UploadForm()
     if request.method == 'POST' and form.validate_on_submit():
-        dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data)
+        # Upload dog and add owner likes by default
+        dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data, liked_by=[current_user.id], likes=1)
         dog.set_dog_image(form.img_url.data, current_user.username)
         dog.save()
         flash('Dog Uploaded!', 'dog')
@@ -22,6 +26,10 @@ def upload_dog():
 
 @dogs.route('/dog/<dog_id>', methods=['GET', 'POST'])
 def dog_page(dog_id):
+    """
+    Route for displaying the a dog's profile page,
+    with larger image, about info and comment section
+    """
     dog = Dog.objects(pk=dog_id).first()
     form = CommentInput()
     if request.method == 'POST' and form.validate_on_submit():
@@ -32,4 +40,4 @@ def dog_page(dog_id):
     comments=Comment.objects(dog=dog)
     for comment in comments:
         print(comment)
-    return render_template('dog_page.html', dog=dog, form=form, comments=comments)
+    return render_template('dog_page.html', dog=dog, form=form, comments=comments, title=f"{dog.name}'s Page")
