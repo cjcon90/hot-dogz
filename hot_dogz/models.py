@@ -3,8 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from hot_dogz import login
 import datetime
-import cloudinary.api
-import cloudinary.uploader
+from cloudinary import api, uploader, utils, CloudinaryImage
 import os
 
 
@@ -31,8 +30,8 @@ class Breed(db.Document):
 
 class Dog(db.Document):
     name = db.StringField(required=True)
-    img_url = db.URLField(required=True)
-    img_url_thumb = db.URLField(required=True)
+    img_url = db.URLField()
+    img_url_thumb = db.URLField()
     owner = db.ReferenceField(User)
     breed = db.ReferenceField(Breed)
     about = db.StringField(default="No info on this doggo yet!")
@@ -41,17 +40,17 @@ class Dog(db.Document):
     faved_by = db.ListField(db.ReferenceField(User))
     upload_date = db.DateTimeField(default=datetime.datetime.utcnow)
 
-    def set_dog_image(self, dog_img, user):
+    def set_dog_image(self, dog_img, user, pk):
         # Get an individual folder for each user's dog uploads
-        folder = f"hot_dogz/{user}/"
-        # upload image to identified folder with Cloudinary image optimization
-        res = cloudinary.uploader.upload(dog_img, folder=folder)
+        public_id = f"hot_dogz/{user}/{pk}"
+        # upload image to identified folder with eager transformations for smaller image
+        res = uploader.upload(dog_img, public_id=public_id, eager = [{"width": 500, "crop": "scale", "quality": "auto:low"}], overwrite=True)
         # Get already configurated cloud name
         cloud_name = os.environ.get("CLOUD_NAME")
         # add to URL for building URL
         endpoint = f"https://res.cloudinary.com/{cloud_name}/image/upload"
         # Add transformations for delivering lower quality, smaller thumbnails
-        transformation = '/f_auto,w_500,c_scale,q_auto:low'
+        transformation = '/w_500,c_scale,q_auto:low'
         # Get the version, id and format details from uploaded image
         version = f"/v{res['version']}/"
         public_id = res["public_id"]

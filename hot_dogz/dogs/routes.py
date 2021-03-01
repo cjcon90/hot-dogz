@@ -14,9 +14,11 @@ def upload_dog():
     """
     form = UploadForm()
     if request.method == 'POST' and form.validate_on_submit():
-        # Upload dog and add owner likes by default
+        # Upload dog and add owner to likes by default
         dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data, liked_by=[current_user.id], likes=1)
-        dog.set_dog_image(form.img_url.data, current_user.username)
+        dog.save()
+        # Set dog image url to be dog's primary key, for easy deletion and overwriting
+        dog.set_dog_image(form.img_url.data, current_user.username, dog.pk)
         dog.save()
         flash('Dog Uploaded!', 'dog')
         return redirect(url_for('users.profile', username=current_user.username))

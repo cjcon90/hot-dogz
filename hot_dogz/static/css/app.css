@@ -37,7 +37,7 @@ html {
     @apply bg-yellow-600;
 }
 .dog {
-    @apply bg-primary-500;
+    @apply bg-green-500;
 }
 .thumbs-up {
     @apply bg-blue-500;
@@ -55,7 +55,7 @@ html {
 /* FLASH ANIMATIONS */
 
 .animate-flash {
-    animation: animate-flash 2s ease-out forwards;
+    animation: animate-flash 2.5s ease-out forwards;
 }
 
 @keyframes animate-flash {
