@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
 from mongoengine.errors import DoesNotExist
-from hot_dogz.users.forms import LoginForm, RegisterForm
+from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 from hot_dogz.models import User, Dog, Favourite
@@ -83,14 +83,36 @@ def profile(username):
 def select_avatar():
     """route for selecting avatar for new users
         or editing avatar for current users"""
+    
+    #Fuctioning if user has selected a new avatar
     if request.args.get('selected'):
         user = User.objects.get(username=current_user.username)
         user.set_avatar(request.args.get('selected'))
         user.save()
         flash('Your avatar has been updated!', 'check-circle')
         return redirect(url_for('users.profile', username=current_user.username))
+    #Default functioning to present available avatars
     avatars = [f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{i}.png' for i in range(1,17)]
     return render_template('select_avatar.html', avatars=avatars, title='Choose Avatar')
+
+
+@users.route('/edit_profile/', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    """route for editing username, email
+    or password"""
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        current_user.save()
+        flash('Account updated successfully!', 'check-circle')
+        return redirect(url_for('users.profile', username=current_user.username))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    return render_template('edit_profile.html', title='Edit Profile', form=form)
+
 
 
 @users.route('/like/<dog_id>')
