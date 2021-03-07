@@ -1,8 +1,9 @@
+from hashlib import new
 from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
-from hot_dogz.dogs.forms import CommentInput, UploadForm
+from hot_dogz.dogs.forms import CommentInput, UploadForm, EditForm
 from flask_login import current_user
-from hot_dogz.models import Comment, Dog
+from hot_dogz.models import Comment, Dog, Breed
 
 dogs = Blueprint('dogs', __name__)
 
@@ -30,9 +31,24 @@ def upload_dog():
 @dogs.route('/edit_dog/<dog_id>', methods=['GET', 'POST'])
 @login_required
 def edit_dog(dog_id):
-    dog = Dog.objects(pk=dog_id)
-    print(dog)
-    return redirect(request.referrer)
+    dog = Dog.objects(pk=dog_id).first()
+    form = EditForm()
+    if form.validate_on_submit():
+        dog.update(name=form.name.data)
+        new_breed = Breed.objects(pk=form.breed.data).first()
+        dog.update(breed=new_breed)
+        dog.update(about=form.about.data)
+        if(form.img_url.data):
+            dog.set_dog_image(form.img_url.data, current_user.username, dog.pk)
+        dog.save()
+        flash('Updated dog details!', 'check-circle')
+        return redirect(url_for('users.profile', username=current_user.username))
+    elif request.method == 'GET':
+        form.name.data = dog.name
+        form.breed.data = dog.breed.breed_name
+        form.img_url.data = dog.img_url
+        form.about.data = dog.about
+    return render_template('upload_dog.html', form=form, title="Edit Dog")
 
 
 @dogs.route('/dog/<dog_id>', methods=['GET', 'POST'])
