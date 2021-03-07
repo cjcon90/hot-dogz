@@ -3,12 +3,15 @@
     <!-- MAIN GALLERY PAGE -->
     <div class="bg-fixed bg-bottom bg-no-repeat bg-contain bg-dog5">
         <h1 class="title text-secondary-500 ">Gallery</h1>
-        <div class="grid grid-cols-3 place-items-center">
-            <p>HOT</p>
-            <p>NEW</p>
-            <p>TOP</p>
+        <div class="grid grid-cols-3 py-4 place-items-center">
+            <a href="{{url_for('main.gallery', view='hot')}}"
+            class="font-title {{'text-3xl text-primary-500' if view == 'hot' else 'text-2xl text-secondary-500'}} hover:underline">HOT</a>
+            <a href="{{url_for('main.gallery', view='new')}}"
+            class="font-title {{'text-3xl text-primary-500' if view == 'new' else 'text-2xl text-secondary-500'}} hover:underline">NEW</a>
+            <a href="{{url_for('main.gallery', view='top')}}"
+            class="font-title {{'text-3xl text-primary-500' if view == 'top' else 'text-2xl text-secondary-500'}} hover:underline">TOP</a>
         </div>
-        <div class="flex flex-col h-screen gap-4 px-4 py-10 bg-white bg-opacity-70">
+        <div class="flex flex-col h-screen gap-4 px-4 py-4 bg-white bg-opacity-70">
                 {% for dog in dogs %}
                     {% include '_dog_card.html' %}
                 {% endfor %}

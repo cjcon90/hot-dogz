@@ -13,7 +13,7 @@ users = Blueprint('users', __name__)
 def login():
     """route for logging in users"""
     if current_user.is_authenticated:
-        return redirect(url_for('main.gallery'))
+        return redirect(url_for('main.gallery', view='hot'))
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
         # Used try/except, as mongoengine objects.get() returns DoesNotExist error if document doesn't exist
@@ -32,7 +32,7 @@ def login():
         # If the user had pressed to go to a page behind a @login_required
         # Then redirect to that 'next' page, otherwise go to main gallery
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('main.gallery')
+            next_page = url_for('main.gallery', view='hot')
         return redirect(next_page)
     # 'GET' functioning
     return render_template('login.html', title="Login", form=form)
@@ -51,7 +51,7 @@ def register():
     """route for registering new users"""
     if current_user.is_authenticated:
         # redirect users to main page if they are already registered
-        return redirect(url_for('main.gallery'))
+        return redirect(url_for('main.gallery', view='hot'))
     form = RegisterForm()
     if request.method == 'POST' and form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)

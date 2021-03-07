@@ -51,7 +51,7 @@ class Dog(db.Document):
 
     def set_dog_image(self, dog_img, user, pk):
         # Get an individual folder for each user's dog uploads
-        # and set filename to dog's primary key, so a new upload photo overwrites the old one
+        # and set filename to dog's primary key, so a new photo upload overwrites the old one
         public_id = f"hot_dogz/{user}/{pk}"
         # upload image to identified folder with eager transformations for smaller image
         res = uploader.upload(dog_img, public_id=public_id, eager = [{"width": 500, "crop": "scale", "quality": "auto:low"}], overwrite=True)

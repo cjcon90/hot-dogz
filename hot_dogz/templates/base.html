@@ -29,7 +29,7 @@
                 <a class="block mr-4 hover:text-primary-600" href="{{url_for('users.logout')}}">Logout</a>
                 <a class="block mr-4 hover:text-primary-600" href="/link">Contact Us</a>
                 <a class="block mr-4 hover:text-primary-600" href="{{url_for('dogs.upload_dog')}}">Upload</a>
-                <a class="block mr-4 hover:text-primary-600" href="{{url_for('main.gallery')}}">Gallery</a>
+                <a class="block mr-4 hover:text-primary-600" href="{{url_for('main.gallery', view='hot')}}">Gallery</a>
               </div>
               {% endif %}
             <div class="flex text-sm" v-else>
@@ -87,7 +87,7 @@
               </a>
             </li>
             <li>
-              <a href="{{url_for('main.gallery')}}" class="focus:text-white ">
+              <a href="{{url_for('main.gallery', view='hot')}}" class="focus:text-white ">
                 <span class="block">Gallery</span>
                 <i class="text-xl fas fa-dog"></i>
               </a>

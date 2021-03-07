@@ -12,11 +12,11 @@ def index():
     """
     if current_user.is_authenticated:
         # redirect users to main page if they are already registered
-        return redirect(url_for('main.gallery'))
+        return redirect(url_for('main.gallery', view='hot'))
     return render_template('index.html')
 
-@main.route('/gallery')
-def gallery():
+@main.route('/gallery/<view>')
+def gallery(view):
     """
     Route for main gallery page with sections to
     display dogs sorted and filtered by:
@@ -24,5 +24,8 @@ def gallery():
     New: The most recently uploaded dogs
     Top: The dogs will the all time highest likes
     """
-    dogs = Dog.objects.order_by('-likes')
-    return render_template('gallery.html', title="Gallery", dogs=dogs)
+    if view == 'top':
+        dogs = Dog.objects.order_by('-likes')
+    else:
+        dogs = Dog.objects()
+    return render_template('gallery.html', title="Gallery", dogs=dogs, view=view)
