@@ -24,8 +24,8 @@ def gallery(view):
     New: The most recently uploaded dogs
     Top: The dogs will the all time highest likes
     """
-    if view == 'top':
+    if view == 'hot':
         dogs = Dog.objects.order_by('-likes')
-    else:
-        dogs = Dog.objects()
+    elif view == 'new':
+        dogs = Dog.objects.order_by('-upload_date')
     return render_template('gallery.html', title="Gallery", dogs=dogs, view=view)
