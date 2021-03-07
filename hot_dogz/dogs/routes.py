@@ -51,6 +51,19 @@ def edit_dog(dog_id):
     return render_template('upload_dog.html', form=form, title="Edit Dog")
 
 
+@dogs.route('/delete_dog/<dog_id>', methods=['GET', 'POST'])
+@login_required
+def delete_dog(dog_id):
+    dog = Dog.objects(pk=dog_id).first()
+    if request.method == 'POST':
+        user = current_user.username
+        dog.delete_dog_image(user, dog.pk)
+        dog.delete()
+        flash("Dog post successfuly deleted", "check-circle")
+        return redirect(url_for('users.profile', username=user))
+    return render_template('delete_dog.html', dog=dog)
+
+
 @dogs.route('/dog/<dog_id>', methods=['GET', 'POST'])
 def dog_page(dog_id):
     """

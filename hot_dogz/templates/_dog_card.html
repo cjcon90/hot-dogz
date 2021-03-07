@@ -7,7 +7,7 @@
         {% if dog.owner == current_user %}
             <div class="flex gap-2">
                 <a href="{{url_for('dogs.edit_dog', dog_id=dog.pk)}}" class="underline">Edit</a>
-                <a href="#" class="underline ">Delete</a>
+                <a href="{{url_for('dogs.delete_dog', dog_id=dog.pk)}}" class="underline ">Delete</a>
             </div>
         {% else %}
             Human: {{dog.owner.username}}

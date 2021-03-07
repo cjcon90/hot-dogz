@@ -1,5 +1,6 @@
 from hot_dogz import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from mongoengine import CASCADE
 from flask_login import UserMixin
 from hot_dogz import login
 import datetime
@@ -38,12 +39,12 @@ class Dog(db.Document):
     name = db.StringField(required=True)
     img_url = db.URLField()
     img_url_thumb = db.URLField()
-    owner = db.ReferenceField(User)
+    owner = db.ReferenceField(User, reverse_delete_rule=CASCADE)
     breed = db.ReferenceField(Breed)
     about = db.StringField(default="No info on this doggo yet!")
-    liked_by = db.ListField(db.ReferenceField(User))
+    liked_by = db.ListField(db.ReferenceField(User, reverse_delete_rule=CASCADE))
     likes = db.IntField()
-    faved_by = db.ListField(db.ReferenceField(User))
+    faved_by = db.ListField(db.ReferenceField(User, reverse_delete_rule=CASCADE))
     upload_date = db.DateTimeField(default=datetime.datetime.utcnow)
 
     def __repr__(self):
@@ -68,12 +69,16 @@ class Dog(db.Document):
         # add links for full quality image and thumbnails to Dog model
         self.img_url = f"{endpoint}{version}{public_id}.{image_format}"
         self.img_url_thumb = f"{endpoint}{transformation}{version}{public_id}.{image_format}"
+
+    def delete_dog_image(self, user, pk):
+        public_id = f"hot_dogz/{user}/{pk}"
+        uploader.destroy(public_id)
         
 
 
 class Comment(db.Document):
-    author = db.ReferenceField(User)
-    dog = db.ReferenceField(Dog)
+    author = db.ReferenceField(User, reverse_delete_rule=CASCADE)
+    dog = db.ReferenceField(Dog, reverse_delete_rule=CASCADE)
     content = db.StringField(required=True)
     date = db.DateTimeField(default=datetime.datetime.utcnow)
 
@@ -82,8 +87,8 @@ class Comment(db.Document):
 
 
 class Favourite(db.Document):
-    user = db.ReferenceField(User)
-    dog = db.ReferenceField(Dog)
+    user = db.ReferenceField(User, reverse_delete_rule=CASCADE)
+    dog = db.ReferenceField(Dog, reverse_delete_rule=CASCADE)
 
     def __repr__(self):
         return f"Favourite('{self.dog.name}', favourited by '{self.user.username}')"
