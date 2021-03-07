@@ -6,7 +6,7 @@
         <p>Name: <span class="text-base text-gray-800 ">{{dog.name}}</span></p>
         {% if dog.owner == current_user %}
             <div class="flex gap-2">
-                <a href="#" class="underline">Edit</a>
+                <a href="{{url_for('dogs.edit_dog', dog_id=dog.pk)}}" class="underline">Edit</a>
                 <a href="#" class="underline ">Delete</a>
             </div>
         {% else %}

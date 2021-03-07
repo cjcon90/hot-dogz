@@ -6,6 +6,7 @@ from hot_dogz.models import Comment, Dog
 
 dogs = Blueprint('dogs', __name__)
 
+
 @dogs.route('/upload_dog', methods = ['GET', 'POST'])
 @login_required
 def upload_dog():
@@ -24,6 +25,14 @@ def upload_dog():
         return redirect(url_for('users.profile', username=current_user.username))
     # 'GET' functioning
     return render_template('upload_dog.html', form=form, title="Upload Dog")
+
+
+@dogs.route('/edit_dog/<dog_id>', methods=['GET', 'POST'])
+@login_required
+def edit_dog(dog_id):
+    dog = Dog.objects(pk=dog_id)
+    print(dog)
+    return redirect(request.referrer)
 
 
 @dogs.route('/dog/<dog_id>', methods=['GET', 'POST'])

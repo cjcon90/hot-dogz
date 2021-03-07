@@ -23,9 +23,15 @@ class User(UserMixin, db.Document):
     def set_avatar(self, img_url):
         self.img_url = img_url
 
+    def __repr__(self):
+        return f"User('{self.username}','{self.email}')"
+
 
 class Breed(db.Document):
     breed_name = db.StringField(required=True)
+
+    def __repr__(self):
+        return f"Breed('{self.breed_name}')"
 
 
 class Dog(db.Document):
@@ -39,6 +45,9 @@ class Dog(db.Document):
     likes = db.IntField()
     faved_by = db.ListField(db.ReferenceField(User))
     upload_date = db.DateTimeField(default=datetime.datetime.utcnow)
+
+    def __repr__(self):
+        return f"Dog('{self.name}', owner = {self.owner.username})"
 
     def set_dog_image(self, dog_img, user, pk):
         # Get an individual folder for each user's dog uploads
@@ -67,10 +76,16 @@ class Comment(db.Document):
     content = db.StringField(required=True)
     date = db.DateTimeField(default=datetime.datetime.utcnow)
 
+    def __repr__(self):
+        return f"Comment('{self.content}', author = '{self.author.username}')"
+
 
 class Favourite(db.Document):
     user = db.ReferenceField(User)
     dog = db.ReferenceField(Dog)
+
+    def __repr__(self):
+        return f"Favourite('{self.dog.name}', favourited by '{self.user.username}')"
 
 # Load the user from the database for flask-login
 @login.user_loader
