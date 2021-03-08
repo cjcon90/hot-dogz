@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Sorry! An unexpected error has occurred (500)</h1>
-    <p>We are experiencing some trouble on our end, please try again soon!</p>
-    <p><a href="{{ url_for('main.index') }}">Back</a></p>
+    <div class="min-h-screen bg-fixed bg-bottom bg-no-repeat bg-contain bg-dog1">
+        <div class="flex flex-col items-center gap-4 py-4 text-center">
+            <h1 class="text-2xl"><span class="text-4xl font-title text-primary-500">Oops.</span> Unexpected error (500)</h1>
+            <p>We are experiencing some trouble on our end, please try again soon!</p>
+            <button class="w-40 btn btn-secondary focus:outline-none" onclick="history.back(-1)">Go Back</button>
+        </div>
+    </div>
 {% endblock %}
