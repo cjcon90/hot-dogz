@@ -31,8 +31,9 @@ html {
 }
 
 /* TYPOGRAPHY */
+
 .title {
-    @apply py-4 text-5xl tracking-wide text-center uppercase font-title;
+    @apply py-4 text-6xl tracking-wide text-center font-title;
 }
 
 
@@ -62,6 +63,14 @@ html {
     animation: animate-flash 2.5s ease-out forwards;
 }
 
+.fade-in {
+    animation-name: fade-in;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both
+}
+
 @keyframes animate-flash {
     0% {
         opacity: 1;
@@ -71,5 +80,14 @@ html {
     }
     100% {
         opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

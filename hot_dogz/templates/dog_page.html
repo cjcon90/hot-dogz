@@ -42,7 +42,7 @@
                 {% include '_comment_card.html' %}
             {% endfor %}
         {% else %}
-            <p>No comments yet!</p>
+            <p class="pt-2 text-lg font-bold text-center text-gray-500">No comments yet!</p>
         {% endif %}
         <form action="" method='POST' class="px-4 border border-gray-100 rounded-lg shadow-lg">
             {{form.hidden_tag()}}

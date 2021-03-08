@@ -2,7 +2,7 @@
     <div class="grid place-items-center">
         <img src="{{dog.img_url_thumb}}" alt="A picture of my dog {{dog.name}}" class="object-cover h-32 px-1 rounded-lg">
     </div>
-    <div class="flex flex-col p-2 text-xs text-gray-600 justify-evenly">
+    <div class="flex flex-col justify-between p-2 text-xs text-gray-600">
         <p>Name: <span class="text-base text-gray-800 ">{{dog.name}}</span></p>
         {% if dog.owner == current_user %}
             <div class="flex gap-2">
@@ -10,9 +10,9 @@
                 <a href="{{url_for('dogs.delete_dog', dog_id=dog.pk)}}" class="underline ">Delete</a>
             </div>
         {% else %}
-            Human: {{dog.owner.username}}
+            <p>Human: <span class="text-sm text-gray-800 ">{{dog.owner.username}}</span></p>
         {% endif %}
-        <p>Breed: {{dog.breed.breed_name}}</p>
+        <p>Breed: <span class="text-gray-800">{{dog.breed.breed_name}}</span></p>
         {% include '_interactions.html' %}
         <a href="{{url_for('dogs.dog_page', dog_id=dog.pk)}}" class="underline">Full Size / Comments</a>
     </div>

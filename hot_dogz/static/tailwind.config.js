@@ -6,7 +6,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      title: ['Lobster', 'cursive']
+      title: ['Crete Round', 'serif'],
+      body: ['Lato', 'sans-serif']
     },
     extend: {
       backgroundImage: {
@@ -60,7 +61,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      // Add font style to focus variant for text change on Gallery screen
+      fontStyle: ['hover', 'focus'],
+    },
   },
   plugins: [],
 }

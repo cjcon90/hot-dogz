@@ -5,11 +5,18 @@
         <h1 class="title text-secondary-500 ">Gallery</h1>
         <div class="grid grid-cols-2 py-4 place-items-center">
             <a href="{{url_for('main.gallery', view='hot')}}"
-            class="font-title {{'text-4xl text-primary-500' if view == 'hot' else 'text-3xl text-secondary-500'}} hover:underline">HOT</a>
+            class="font-title {{'text-4xl text-primary-500 italic' if view == 'hot' else 'text-3xl text-secondary-500'}} hover:underline focus:italic">HOT</a>
             <a href="{{url_for('main.gallery', view='new')}}"
-            class="font-title {{'text-4xl text-primary-500' if view == 'new' else 'text-3xl text-secondary-500'}} hover:underline">NEW</a>
+            class="font-title {{'text-4xl text-primary-500 italic' if view == 'new' else 'text-3xl text-secondary-500'}} hover:underline focus:italic">NEW</a>
         </div>
-        <div class="flex flex-col h-screen gap-4 px-4 py-4 bg-white bg-opacity-70">
+        <p class="text-lg font-bold text-center text-gray-500">
+            {% if view == 'hot' %}
+                The hottest, most liked dogs!
+            {% elif view == 'new' %}
+                Give these new doggos a like!
+            {% endif %}
+        </p>
+        <div class="flex flex-col h-screen gap-4 px-4 py-4 bg-white bg-opacity-70 fade-in">
                 {% for dog in dogs %}
                     {% include '_dog_card.html' %}
                 {% endfor %}
