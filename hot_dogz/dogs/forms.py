@@ -18,7 +18,7 @@ class EditForm(FlaskForm):
     img_url = FileField("Photo", validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
     breed = SelectField("Breed", choices=[(breed.pk, breed.breed_name) for breed in Breed.objects], validators=[DataRequired()])
     about = TextAreaField("Tell us about your dog!")
-    submit = SubmitField('Upload')
+    submit = SubmitField('Submit')
 
 
 class CommentInput(FlaskForm):

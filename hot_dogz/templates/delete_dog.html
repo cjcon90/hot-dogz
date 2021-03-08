@@ -6,7 +6,8 @@
         <img src="{{dog.img_url_thumb}}" alt="A picture of {{dog.name}}" class="max-w-xs mx-auto max-h-80 ">
         <h3 class="text-2xl">This can't be undone!</h3>
     </div>
-    <form action="" method="POST" class="mx-auto w-60" novalidate>
+    <form action="" method="POST" class="flex flex-col gap-4 mx-auto w-60" novalidate>
         <button type="submit" class="w-full btn btn-primary">Delete</button>
+        <input type="button" class="w-full btn btn-secondary focus:outline-none" value="Go Back" onclick="history.back(-1)" />
     </form>
 {% endblock content %}

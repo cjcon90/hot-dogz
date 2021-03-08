@@ -21,7 +21,13 @@
                 <a href="{{url_for('users.profile', username=dog.owner.username)}}" class="font-semibold text-secondary-500 ">{{dog.owner.username}}</a>
             </div>
         </div>
-        <div class="p-4 py-6 text-left">
+        {% if dog.owner == current_user %}
+        <div class="flex gap-2 justify-evenly">
+            <div class="flex-1"><a href=" {{url_for('dogs.edit_dog', dog_id=dog.pk)}} " class="px-2 py-1 text-sm text-white rounded-lg bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-primary-300">Edit Dog</a></div>
+            <div class="flex-1"><a href=" {{url_for('dogs.delete_dog', dog_id=dog.pk)}}  " class="px-2 py-1 text-sm text-white rounded-lg bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-primary-300">Delete Dog</a></div>
+        </div>
+        {% endif %}
+        <div class="p-4 text-left">
             <p class="text-sm text-gray-600 uppercase">About:</p>
             <p class="text-base font-semibold text-secondary-500 ">{{dog.about}}</p>
         </div>
