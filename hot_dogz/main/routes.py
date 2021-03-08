@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, Blueprint
+from flask import render_template, redirect, url_for, Blueprint, request
 from flask_login import current_user
 from hot_dogz.models import Dog
 
@@ -24,8 +24,9 @@ def gallery(view):
     New: The most recently uploaded dogs
     Top: The dogs will the all time highest likes
     """
+    page = request.args.get("page", 1, type=int)
     if view == 'hot':
-        dogs = Dog.objects.order_by('-likes')
+        dogs = Dog.objects.order_by('-likes').paginate(page=page, per_page=1)
     elif view == 'new':
-        dogs = Dog.objects.order_by('-upload_date')
+        dogs = Dog.objects.order_by('-upload_date').paginate(page=page, per_page=1)
     return render_template('gallery.html', title="Gallery", dogs=dogs, view=view)

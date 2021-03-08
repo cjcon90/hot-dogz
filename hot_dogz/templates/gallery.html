@@ -16,10 +16,32 @@
                 Give these new doggos a like!
             {% endif %}
         </p>
-        <div class="flex flex-col h-screen gap-4 px-4 py-4 bg-white bg-opacity-70 fade-in">
-                {% for dog in dogs %}
-                    {% include '_dog_card.html' %}
-                {% endfor %}
+        <div class="flex flex-col min-h-screen gap-4 px-4 py-4 bg-white bg-opacity-70 fade-in">
+            {% for dog in dogs.items %}
+                {% include '_dog_card.html' %}
+            {% endfor %}
+            {# Macro for creating navigation links #}
+            <!-- source: http://docs.mongoengine.org/projects/flask-mongoengine/en/latest/ -->
+            {% macro render_navigation(pagination, endpoint) %}
+                <div class='flex items-center justify-center gap-4 text-center pagination'>
+                    {% for page in pagination.iter_pages() %}
+                        {% if page %}
+                            {% if page != pagination.page %}
+                                <a href="{{ url_for(endpoint, view=view, page=page) }}" class="paginate-btn">{{ page }}</a>
+                            {% else %}
+                            <p class="paginate-btn opacity-30">{{ page }}</p>
+                            {% endif %}
+                        {% else %}
+                            <span class="ellipsis">…</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endmacro %}
+
+            {{ render_navigation(dogs, 'main.gallery') }}
+            <div class="grid py-6 dash-border place-items-center focus:ring-4 focus:ring-primary-300">
+                <a href="{{url_for('dogs.upload_dog')}}" class="px-2 btn btn-primary">Upload a new dog!</a>
+            </div>
         </div>
     </div>
 

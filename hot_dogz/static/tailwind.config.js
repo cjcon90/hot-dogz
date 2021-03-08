@@ -64,6 +64,7 @@ module.exports = {
     extend: {
       // Add font style to focus variant for text change on Gallery screen
       fontStyle: ['hover', 'focus'],
+      opacity: ['disabled']
     },
   },
   plugins: [],

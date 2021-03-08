@@ -7,9 +7,15 @@ html {
 
 @tailwind utilities;
 
+/* Card border style */
+
+.dash-border {
+    @apply border-4 border-gray-300 border-dashed rounded-lg;
+}
+
 /* BUTTONS */
 .btn {
-    @apply py-3 text-lg font-bold leading-none tracking-wide text-center text-white border rounded focus:ring-2;
+    @apply py-3 text-lg font-bold leading-none tracking-wide text-center text-white border rounded focus:outline-none focus:ring-2;
 }
 
 .btn-secondary {
@@ -21,9 +27,12 @@ html {
 }
 
 .btn-small {
-    @apply px-2 py-1 text-sm text-white rounded-md bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-primary-300
+    @apply px-2 py-1 text-sm text-white rounded-md bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-primary-300;
 }
 
+.paginate-btn {
+    @apply w-8 h-8 text-xl font-bold border-2 rounded-full border-primary-500 text-primary-500 focus:text-white focus:border-white focus:bg-primary-500;
+}
 
 /* FORMS */
 .form-input {
@@ -63,14 +72,6 @@ html {
     animation: animate-flash 2.5s ease-out forwards;
 }
 
-.fade-in {
-    animation-name: fade-in;
-    animation-duration: 2s;
-    animation-delay: 1s;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: both
-}
-
 @keyframes animate-flash {
     0% {
         opacity: 1;
@@ -80,14 +81,5 @@ html {
     }
     100% {
         opacity: 0;
-    }
-}
-
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
     }
 }
