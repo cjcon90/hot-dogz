@@ -20,6 +20,10 @@ html {
     @apply bg-primary-500 border-primary-600 hover:border-transparent hover:bg-primary-600 focus:ring-primary-300;
 }
 
+.btn-small {
+    @apply px-2 py-1 text-sm text-white rounded-md bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-primary-300
+}
+
 
 /* FORMS */
 .form-input {
