@@ -9,11 +9,11 @@
             <a href="{{url_for('main.gallery', view='new')}}"
             class="font-title {{'text-4xl text-primary-500 italic' if view == 'new' else 'text-3xl text-secondary-500'}} hover:underline focus:italic">NEW</a>
         </div>
-        <p class="text-lg font-bold text-center text-gray-500">
+        <p class="text-lg font-bold text-center text-primary-500">
             {% if view == 'hot' %}
-                The hottest, most liked dogs!
+                <i class="fas fa-fire"></i> <span class="text-gray-500">The hottest, most liked dogs</span> <i class="fas fa-fire"></i>
             {% elif view == 'new' %}
-                Give these new doggos a like!
+                <i class="far fa-star"></i> <span class="text-gray-500">Check out the newest dogs</span> <i class="far fa-star"></i>
             {% endif %}
         </p>
         <div class="flex flex-col min-h-screen gap-4 px-4 py-4 bg-white bg-opacity-70 fade-in">
@@ -21,10 +21,13 @@
                 {% include '_dog_card.html' %}
             {% endfor %}
             {# Macro for creating navigation links #}
-            <!-- source: http://docs.mongoengine.org/projects/flask-mongoengine/en/latest/ -->
+            <!-- source: https://github.com/MongoEngine/flask-mongoengine/blob/master/flask_mongoengine/pagination.py -->
             {% macro render_navigation(pagination, endpoint) %}
                 <div class='flex items-center justify-center gap-4 text-center pagination'>
-                    {% for page in pagination.iter_pages() %}
+                    {% for page in pagination.iter_pages(left_edge=1, left_current=1, right_current=1, right_edge=1) %}
+                        <!-- Iterates over the page numbers in the pagination.  The four
+                        parameters control the thresholds how many numbers should be produced
+                        from the sides. -->
                         {% if page %}
                             {% if page != pagination.page %}
                                 <a href="{{ url_for(endpoint, view=view, page=page) }}" class="paginate-btn">{{ page }}</a>
@@ -32,7 +35,7 @@
                             <p class="paginate-btn opacity-30">{{ page }}</p>
                             {% endif %}
                         {% else %}
-                            <span class="ellipsis">…</span>
+                            <span class="self-end font-bold ellipsis text-primary-500">…</span>
                         {% endif %}
                     {% endfor %}
                 </div>

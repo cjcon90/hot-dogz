@@ -26,7 +26,7 @@ def gallery(view):
     """
     page = request.args.get("page", 1, type=int)
     if view == 'hot':
-        dogs = Dog.objects.order_by('-likes').paginate(page=page, per_page=1)
+        dogs = Dog.objects.order_by('-likes').paginate(page=page, per_page=5)
     elif view == 'new':
-        dogs = Dog.objects.order_by('-upload_date').paginate(page=page, per_page=1)
+        dogs = Dog.objects.order_by('-upload_date').paginate(page=page, per_page=5)
     return render_template('gallery.html', title="Gallery", dogs=dogs, view=view)
