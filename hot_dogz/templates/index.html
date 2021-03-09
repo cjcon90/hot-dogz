@@ -2,7 +2,17 @@
 
 {% block content %}
 <!-- LANDING PAGE (for anonymous users)-->
-<h1 class="mb-10 text-5xl">Home</h1>
+<div class="flex flex-col items-center mx-auto overflow-hidden min-h-screen-less-nav landscape:flex-row max-w-screen-2xl">
+        <div class="flex flex-col justify-start w-screen text-center landscape:h-2/5 landscape:justify-evenly ">
+                <h1 class="mt-4 tracking-wider text-primary-500 text-7xl font-welcome md:text-9xl landscape:mt-0"><em>Hot
+                                Dogz</em></h1>
+                <h2 class="mt-4 text-lg text-gray-600 md:text-xl lg:text-2xl">The Internet's #1 Dog Rating Gallery</h2>
+                <a href="{{url_for('main.gallery', view='hot')}}" class="z-10 w-auto px-6 mx-auto mt-10 btn btn-switch">SEE THE DOGS</a>
+        </div>
+        <img src="https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1615248344/hot_dogz/wallpapers/dog4_crop.jpg"
+                alt="Photo of a fashionable dog holding a cell phone"
+                class="z-0 flex-1 object-cover landscape:w-6/12 landscape:self-end animate-appear">
+</div>
 
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <!-- MAIN GALLERY PAGE -->
-    <div class="bg-fixed bg-bottom bg-no-repeat bg-contain bg-dog5">
+    <div class="bg-fixed bg-bottom bg-no-repeat bg-contain {{'bg-dog5' if view == 'hot' else 'bg-dog2'}}">
         <h1 class="title text-secondary-500 ">Gallery</h1>
         <div class="grid grid-cols-2 py-4 place-items-center">
             <a href="{{url_for('main.gallery', view='hot')}}"

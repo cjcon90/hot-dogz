@@ -6,16 +6,27 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
+      welcome: ['lobster', 'cursive'],
       title: ['Crete Round', 'serif'],
       body: ['Lato', 'sans-serif']
     },
     extend: {
       backgroundImage: {
-        'dog1': "url('https://res.cloudinary.com/cjcon90/image/upload/v1614203125/hot_dogz/wallpapers/dog1.jpg')",
-        'dog5': "url('https://res.cloudinary.com/cjcon90/image/upload/v1614203125/hot_dogz/wallpapers/dog5.jpg')",
+        'dog1': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog1_crop.jpg')",
+        'dog2': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog2_crop.jpg')",
+        'dog4': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog4_crop.jpg')",
+        'dog5': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog5_crop.jpg')",
        },
       minHeight: {
-        "screen/2": "50vh"
+        "screen/2": "50vh",
+        "screen-less-nav": "calc(100vh - 4rem)"
+      },
+      maxHeight: {
+        "screen/2": "50vh",
+        "screen-less-nav": "calc(100vh - 4rem)"
+      },
+      width: {
+        "screen/2": "calc(100vw / 2)",
       },
       screens: {
         'landscape': {'raw': '(orientation: landscape)'},
