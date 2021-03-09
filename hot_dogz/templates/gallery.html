@@ -2,48 +2,49 @@
 {% block content %}
     <!-- MAIN GALLERY PAGE -->
     <div class="bg-fixed bg-bottom bg-no-repeat bg-contain {{'bg-dog5' if view == 'hot' else 'bg-dog2'}}">
-        <h1 class="title text-secondary-500 ">Gallery</h1>
-        <div class="grid grid-cols-2 py-4 place-items-center">
-            <a href="{{url_for('main.gallery', view='hot')}}"
-            class="font-title {{'text-4xl text-primary-500 italic' if view == 'hot' else 'text-3xl text-secondary-500'}} hover:underline focus:italic">HOT</a>
-            <a href="{{url_for('main.gallery', view='new')}}"
-            class="font-title {{'text-4xl text-primary-500 italic' if view == 'new' else 'text-3xl text-secondary-500'}} hover:underline focus:italic">NEW</a>
-        </div>
-        <p class="text-lg font-bold text-center text-primary-500">
-            {% if view == 'hot' %}
-                <i class="fas fa-fire"></i> <span class="text-gray-500">The hottest, most liked dogs</span> <i class="fas fa-fire"></i>
-            {% elif view == 'new' %}
-                <i class="far fa-star"></i> <span class="text-gray-500">Check out the newest dogs</span> <i class="far fa-star"></i>
-            {% endif %}
-        </p>
-        <div class="flex flex-col min-h-screen gap-4 px-4 py-4 bg-white bg-opacity-70 fade-in">
-            {% for dog in dogs.items %}
-                {% include '_dog_card.html' %}
-            {% endfor %}
-            {# Macro for creating navigation links #}
-            <!-- source: https://github.com/MongoEngine/flask-mongoengine/blob/master/flask_mongoengine/pagination.py -->
-            {% macro render_navigation(pagination, endpoint) %}
-                <div class='flex items-center justify-center gap-4 text-center pagination'>
-                    {% for page in pagination.iter_pages(left_edge=1, left_current=1, right_current=1, right_edge=1) %}
-                        <!-- Iterates over the page numbers in the pagination.  The four
-                        parameters control the thresholds how many numbers should be produced
-                        from the sides. -->
-                        {% if page %}
-                            {% if page != pagination.page %}
-                                <a href="{{ url_for(endpoint, view=view, page=page) }}" class="paginate-btn">{{ page }}</a>
+        <div class="bg-fade ">
+            <h1 class="title text-secondary-500 ">Gallery</h1>
+            <div class="grid grid-cols-2 py-4 place-items-center">
+                <a href="{{url_for('main.gallery', view='hot')}}"
+                class="font-title {{'text-4xl text-primary-500 italic' if view == 'hot' else 'text-3xl text-secondary-500'}} hover:underline focus:italic">HOT</a>
+                <a href="{{url_for('main.gallery', view='new')}}"
+                class="font-title {{'text-4xl text-primary-500 italic' if view == 'new' else 'text-3xl text-secondary-500'}} hover:underline focus:italic">NEW</a>
+            </div>
+            <p class="text-lg font-bold text-center text-primary-500">
+                {% if view == 'hot' %}
+                    <i class="fas fa-fire"></i> <span class="text-gray-500">The hottest, most liked dogs</span> <i class="fas fa-fire"></i>
+                {% elif view == 'new' %}
+                    <i class="far fa-star"></i> <span class="text-gray-500">Check out the newest dogs</span> <i class="far fa-star"></i>
+                {% endif %}
+            </p>
+            <div id="gallery-container" class="flex flex-col min-h-screen gap-4 px-4 py-4">
+                {% for dog in dogs.items %}
+                    {% include '_dog_card.html' %}
+                {% endfor %}
+                {# Macro for creating navigation links #}
+                <!-- source: https://github.com/MongoEngine/flask-mongoengine/blob/master/flask_mongoengine/pagination.py -->
+                {% macro render_navigation(pagination, endpoint) %}
+                    <div class='flex items-center justify-center gap-4 text-center pagination'>
+                        {% for page in pagination.iter_pages(left_edge=1, left_current=1, right_current=1, right_edge=1) %}
+                            <!-- Iterates over the page numbers in the pagination.  The four
+                            parameters control the thresholds how many numbers should be produced
+                            from the sides. -->
+                            {% if page %}
+                                {% if page != pagination.page %}
+                                    <a href="{{ url_for(endpoint, view=view, page=page) }}" class="paginate-btn">{{ page }}</a>
+                                {% else %}
+                                <p class="paginate-btn opacity-30">{{ page }}</p>
+                                {% endif %}
                             {% else %}
-                            <p class="paginate-btn opacity-30">{{ page }}</p>
+                                <span class="self-end font-bold ellipsis text-primary-500">…</span>
                             {% endif %}
-                        {% else %}
-                            <span class="self-end font-bold ellipsis text-primary-500">…</span>
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endmacro %}
+                {{ render_navigation(dogs, 'main.gallery') }}
+                <div class="grid py-6 dash-border place-items-center focus:ring-4 focus:ring-primary-300">
+                    <a href="{{url_for('dogs.upload_dog')}}" class="px-2 btn btn-primary">Upload a new dog!</a>
                 </div>
-            {% endmacro %}
-
-            {{ render_navigation(dogs, 'main.gallery') }}
-            <div class="grid py-6 dash-border place-items-center focus:ring-4 focus:ring-primary-300">
-                <a href="{{url_for('dogs.upload_dog')}}" class="px-2 btn btn-primary">Upload a new dog!</a>
             </div>
         </div>
     </div>

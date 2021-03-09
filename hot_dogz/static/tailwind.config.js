@@ -15,7 +15,7 @@ module.exports = {
         'dog1': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog1_crop.jpg')",
         'dog2': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog2_crop.jpg')",
         'dog4': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog4_crop.jpg')",
-        'dog5': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog5_crop.jpg')",
+        'dog5': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog5.jpg')",
        },
       minHeight: {
         "screen/2": "50vh",

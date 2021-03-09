@@ -76,6 +76,13 @@ html {
     animation: animate-flash 2.5s ease-out forwards;
 }
 
+.bg-fade {
+    animation-name: bg-fade;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+
 @keyframes animate-flash {
     0% {
         opacity: 1;
@@ -85,5 +92,17 @@ html {
     }
     100% {
         opacity: 0;
+    }
+}
+
+@keyframes bg-fade {
+    0% {
+        background-color: rgba(255,255,255,0.1);
+    }
+    50% {
+        background-color: rgba(255,255,255,.2);
+    }
+    100% {
+        background-color: rgba(255,255,255,0.8);
     }
 }
