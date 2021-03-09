@@ -1,18 +1,21 @@
-let dogCards = document.getElementById('gallery-container').children;
-console.log(dogCards)
-for(let card of dogCards){
-  card.style.visibility = 'hidden'
-  card.style.opacity = 0
+// check if on gallery page by searching for main gallery container
+let galleryContainer = document.querySelector('.gallery-animate')
+
+if(galleryContainer) {
+  // if true, perform opacity animation on each child element
+  let dogCards = galleryContainer.children
+  for (let i = 0; i < dogCards.length; i++){
+    fadeIn(i, dogCards[i])
+  }
+  
+  // Source on adding a delay within a loop: https://www.geeksforgeeks.org/how-to-add-a-delay-in-a-javascript-loop/
+  function fadeIn(i, card){
+    setTimeout(function() {
+      card.classList.remove('opacity-0')
+    }, 750 + (250 * i));
+  }
 }
 
-for (let i = 0; i < dogCards.length; i++){
-  moveLeft(i, dogCards[i])
-}
 
-// Source on adding a delay within a loop: https://www.geeksforgeeks.org/how-to-add-a-delay-in-a-javascript-loop/
-function moveLeft(i, card){
-  setTimeout(function() {
-    card.style.visibility = 'visible'
-    card.style.opacity = 1
-  }, 750 + (250 * i));
-}
+
+

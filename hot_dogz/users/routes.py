@@ -13,7 +13,7 @@ users = Blueprint('users', __name__)
 def login():
     """route for logging in users"""
     if current_user.is_authenticated:
-        return redirect(url_for('main.gallery', view='hot'))
+        return redirect(url_for('main.gallery', view='hot', animate='on'))
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
         # Used try/except, as mongoengine objects.get() returns DoesNotExist error if document doesn't exist
@@ -32,7 +32,7 @@ def login():
         # If the user had pressed to go to a page behind a @login_required
         # Then redirect to that 'next' page, otherwise go to main gallery
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('main.gallery', view='hot')
+            next_page = url_for('main.gallery', view='hot', animate='on')
         return redirect(next_page)
     # 'GET' functioning
     return render_template('login.html', title="Login", form=form)
@@ -51,7 +51,7 @@ def register():
     """route for registering new users"""
     if current_user.is_authenticated:
         # redirect users to main page if they are already registered
-        return redirect(url_for('main.gallery', view='hot'))
+        return redirect(url_for('main.gallery', view='hot', animate='on'))
     form = RegisterForm()
     if request.method == 'POST' and form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
@@ -130,8 +130,10 @@ def like(dog_id):
         dog.update(push__liked_by=current_user.id)
         dog.update(inc__likes=1)
         flash(f'"Thanks for the like!" ~ {dog.name}', 'thumbs-up')
-
-    return redirect(request.referrer)
+    view = 'new' if 'new?' in request.referrer else 'hot'
+    page = request.referrer.split('page=')[-1] if 'page=' in request.referrer else '1'
+    print(view, page)
+    return redirect(url_for('main.gallery', view=view, page=page, animate=False))
 
 
 @users.route('/favourite/<dog_id>')
@@ -146,5 +148,7 @@ def favourite(dog_id):
     else:
         dog.update(push__faved_by=current_user.id)
         flash(f"{dog.name} added to favourites!", 'heart')
-
-    return redirect(request.referrer)
+    view = 'new' if 'new?' in request.referrer else 'hot'
+    page = request.referrer.split('page=')[-1] if 'page=' in request.referrer else '1'
+    print(view, page)
+    return redirect(url_for('main.gallery', view=view, page=page, animate=False))

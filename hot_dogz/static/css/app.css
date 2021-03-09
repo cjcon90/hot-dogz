@@ -78,7 +78,18 @@ html {
 
 .bg-fade {
     animation-name: bg-fade;
-    animation-duration: 3s;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+.bg-no-fade {
+    background-color: rgba(255,255,255,0.7);
+}
+
+.fade-in {
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-delay: 1s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: both;
 }
@@ -103,6 +114,15 @@ html {
         background-color: rgba(255,255,255,.2);
     }
     100% {
-        background-color: rgba(255,255,255,0.8);
+        background-color: rgba(255,255,255,0.7);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
