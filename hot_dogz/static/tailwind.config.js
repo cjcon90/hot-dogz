@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: true,
+    enabled: false,
     content: ['../templates/**/*.html']
   },
   darkMode: false, // or 'media' or 'class'
@@ -18,6 +18,7 @@ module.exports = {
         'dog4': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog4_crop.jpg')",
         'dog5': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog5.jpg')",
         'dog6': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog6_up.jpg')",
+        'dog7': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog7_crop.jpg')",
        },
       minHeight: {
         "screen/2": "50vh",

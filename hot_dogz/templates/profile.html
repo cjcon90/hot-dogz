@@ -4,14 +4,21 @@
     <!-- USER PROFILE -->
     <div class="container mx-auto shadow-lg">
         <!-- DETAILS (avatar, username, edit buttons if current user) -->
-        <div class="flex items-center py-4 justify-evenly">
-            <img src="{{user.img_url}}" alt="" class="w-32 ">
-            <div class="flex flex-col justify-between h-24">
+        <div class="flex py-4 justify-evenly">
+            <div>
+                <img src="{{user.img_url}}" alt="" class="w-32 ">
+                <div class="w-full -mt-4">
+                    <a href="{{url_for('users.select_avatar')}}" aria-label="avatar select">
+                        <i class="px-2 py-1 -mt-10 text-xl bg-white border-2 rounded-full border-primary-500 fas fa-camera text-primary-500"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col justify-between pt-6 pb-2">
                 <h1 class="text-4xl text-center uppercase font-title text-secondary-500 "> {{user.username}} </h1>
                  {% if user.username == current_user.username %}
-                 <div class="flex gap-2">
-                    <a href=" {{url_for('users.select_avatar')}} " class="btn-small">Edit Avatar</a>
+                 <div class="flex gap-2 ">
                     <a href=" {{url_for('users.edit_profile')}} " class="btn-small">Edit Account</a>
+                    <a href="{{url_for('users.delete_account')}}" class="btn-small">Delete Account</a>
                 </div>
                  {% endif %}
             </div>

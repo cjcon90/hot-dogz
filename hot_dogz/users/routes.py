@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
 from jwt import MissingRequiredClaimError
 from mongoengine.errors import DoesNotExist
-from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm, RequestPasswordForm, ResetPasswordForm
+from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm, RequestPasswordForm, ResetPasswordForm, DeleteAccountForm
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 from hot_dogz.models import User, Dog
@@ -148,6 +148,33 @@ def edit_profile():
         form.username.data = current_user.username
         form.email.data = current_user.email
     return render_template('edit_profile.html', title='Edit Profile', form=form)
+
+
+@users.route('/delete_account/', methods=['GET', 'POST'])
+@login_required
+def delete_account():
+    """route for editing username, email
+    or password"""
+    form = DeleteAccountForm()
+    if form.validate_on_submit():
+        user = User.objects(username=current_user.username).first()
+        # Complete password check before deletion
+        if not user.check_password(form.password.data):
+            flash('Invalid Password', 'exclamation')
+            return redirect(url_for('users.profile', username=current_user.username))
+        else:
+            #Logout user to home screen
+            logout_user()
+            # Delete stored cloudinary image for each of user's dogs
+            dogs = Dog.objects(owner=user)
+            for dog in dogs:
+                dog.delete_dog_image(user.username, dog.pk)
+            # Delete user (which will cascade delete dogs, comments, etc)
+            user.delete()
+            flash('Account deleted! Hope to see you again', 'check-circle')
+            return redirect(url_for('main.index'))
+
+    return render_template('delete_account.html', title='Delete Account', form=form)
 
 
 

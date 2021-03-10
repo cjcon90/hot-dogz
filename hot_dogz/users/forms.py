@@ -64,3 +64,8 @@ class EditProfileForm(FlaskForm):
             existing = User.objects(email=email.data).first()
             if existing is not None:
                 raise ValidationError('Please use a different email.')
+
+
+class DeleteAccountForm(FlaskForm):
+    password = PasswordField('Confirm Password', validators=[DataRequired(message="Please enter a password")])
+    submit = SubmitField('Delete Account')
