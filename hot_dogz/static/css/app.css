@@ -31,7 +31,7 @@ html {
 }
 
 .btn-small {
-    @apply px-2 py-1 text-sm text-white rounded-md bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-primary-300;
+    @apply px-2 py-1 text-sm text-white rounded-md focus:ring-2;
 }
 
 .paginate-btn {
@@ -52,7 +52,7 @@ html {
 
 /* FLASH COLORS TO MATCH ICON NAMES */
 .comment {
-    @apply bg-yellow-600;
+    @apply bg-blue-500;
 }
 .dog {
     @apply bg-green-500;

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- TEXT AREA FORM FOR EDITING COMMENTS -->
+    <div class="container flex flex-col items-center mx-auto bg-fixed bg-bottom bg-no-repeat bg-contain min-h-screen-less-nav bg-dog6">
+        <h1 class="py-4 text-4xl text-center font-title text-secondary-500 ">Edit Comment</h1>
+        <form action="" method="POST" class="flex flex-col p-4 bg-white border border-gray-100 rounded-lg shadow-lg w-80" novalidate>
+                {{ form.hidden_tag()}}
+                <fieldset class="pb-2">
+                    {{form.content.label}}
+                    {{form.content(class_='mb-3 w-full py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ')}}
+                    {% for error in form.content.errors %}
+                        <span class="text-red-500"> {{error}} </span>
+                    {% endfor %}
+                </fieldset>
+                <fieldset class="pb-2">
+                    {{form.submit(class_='w-full btn btn-secondary')}}
+                </fieldset>
+        </form>
+    </div>
+
+
+{% endblock %}

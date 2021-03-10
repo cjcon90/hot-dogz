@@ -2,9 +2,10 @@ from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
 from mongoengine.errors import DoesNotExist
 from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm, RequestPasswordForm, ResetPasswordForm, DeleteAccountForm
+from hot_dogz.dogs.forms import CommentInput
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
-from hot_dogz.models import User, Dog
+from hot_dogz.models import User, Dog, Comment
 from hot_dogz.users.utils import send_password_reset_email, deanimate
 from random import randint
 
@@ -226,3 +227,28 @@ def favourite(dog_id):
 
     # Return to previous page ensuring no gallery animation
     return deanimate(request.referrer)
+
+
+@users.route('/edit_comment/<comment_id>', methods=['GET', 'POST'])
+def edit_comment(comment_id):
+    form = CommentInput()
+    comment = Comment.objects(pk=comment_id).first()
+    dog_id = comment.dog.pk
+    if form.validate_on_submit():
+        comment.content = form.content.data
+        comment.save()
+        flash("Comment edited", "comment")
+        return redirect(url_for('dogs.dog_page', dog_id=dog_id))
+    form.content.data = comment.content
+    return render_template('edit_comment.html', form=form, title="Edit Comment" )
+
+
+@users.route('/delete_comment/<comment_id>', methods=['GET', 'POST'])
+def delete_comment(comment_id):
+    comment = Comment.objects(pk=comment_id).first()
+    dog_id = comment.dog.pk
+    if request.method == 'POST':
+        comment.delete()
+        flash("Comment deleted", "comment")
+        return redirect(url_for('dogs.dog_page', dog_id=dog_id))
+    return render_template('delete_comment.html', comment=comment, title="Delete Comment" )

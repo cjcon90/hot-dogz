@@ -2,11 +2,18 @@
 <div class="flex items-center px-2 mx-4 border-2 border-gray-300 border-dashed rounded-lg">
     <img src="{{comment.author.img_url}}" alt="{{comment.author.username}}'s avatar" class="w-auto h-20 ">
     <div class="flex flex-col justify-center flex-1 gap-1 p-1">
-        <p class="text ">{{comment.content}}</p>
+        <p class="text">{{comment.content}}</p>
         <hr class="border border-dashed">
-        <div class="flex items-baseline justify-between text-xs">
-            <a href="{{url_for('users.profile', username=dog.owner.username)}}"
-            class="text-xs uppercase text-secondary-500 hover:underline focus:text-secondary-600">{{comment.author.username}}</a>
+        <div class="flex items-baseline justify-between text-xs text-center">
+            {% if comment.author == current_user %}
+                <div class="flex gap-2">
+                    <a href="{{url_for('users.edit_comment', comment_id=comment.pk)}}" class="btn-small btn-secondary">Edit</a>
+                    <a href="{{url_for('users.delete_comment', comment_id=comment.pk)}}" class="btn-small btn-primary">Delete</a>
+                </div>
+            {% else %}
+                <a href="{{url_for('users.profile', username=dog.owner.username)}}"
+                class="text-xs uppercase text-secondary-500 hover:underline focus:text-secondary-600">{{comment.author.username}}</a>
+            {% endif %}
             <p class="italic">{{comment.date.strftime('%d.%m.%Y')}}</p>
         </div>
     </div>
