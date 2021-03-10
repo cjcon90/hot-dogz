@@ -20,5 +20,6 @@ def deanimate(path):
     but without repeating gallery page animation
     """
     view = 'new' if 'new?' in path else 'hot'
-    page = path.split('page=')[-1] if 'page=' in path else '1'
+    # Parse the return URL for page number
+    page = path.replace('&animate=False','').split('page=')[-1] if 'page=' in path else '1'
     return redirect(url_for('main.gallery', view=view, page=page, animate=False))
