@@ -33,19 +33,19 @@
               </div>
               {% endif %}
             <div class="flex text-sm" v-else>
+              <!-- Login & Sign Up buttons vs My Account depending on whether user is signed in -->
                 {% if current_user.is_anonymous %}
                     <a class="ml-2 w-28 btn btn-secondary " href="{{url_for('users.login')}}">Login</a>
                     <a class="ml-2 w-28 btn btn-primary " href="{{url_for('users.register')}}">Sign up</a>
                 {% else %}
                     <a class="w-28 btn btn-primary " href="{{url_for('users.profile', username=current_user.username)}}">My Profile</a>
                 {% endif %}
-                
             </div>
           </div>
       </nav>
     </header>
     <!-- (bottom margin to offset fixed bottom navigation bar
-          unless it is welcome screen or user is anonymous) -->
+          unless it is A. welcome screen or B. user is anonymous) -->
     <main class="{{'mb-14' if title and current_user.is_authenticated}} md:mb-0 min-h-screen-less-nav container mx-auto">
       <!-- FLASH MESSAGES -->
       {% with messages = get_flashed_messages(with_categories=true) %}
@@ -53,6 +53,7 @@
           <div class="absolute w-full top-10">
             {% for category, message in messages %}
               <div class="w-11/12 p-2 m-2 mx-auto text-center text-white {{category}} rounded-lg shadow-xl animate-flash ">
+                <!-- Category decides color of flash and icon used -->
                 <p><i class="fas fa-{{category}} mr-4"></i>{{message}}</p>
               </div>
             {% endfor %}
@@ -64,7 +65,8 @@
           
       {% endblock content %}
     </main>
-    <!-- BOTTOM NAVIGATION BAR VISIBLE ON MOBILE -->
+    <!-- BOTTOM NAVIGATION BAR -->
+    <!-- Only visible on mobile and if user is signed in -->
     {% if current_user.is_authenticated %}
     <div class="fixed bottom-0 w-full bottomNav">
         <nav class="bottom-0 w-full text-xs bg-gray-700 md:hidden">

@@ -30,6 +30,7 @@ class User(UserMixin, db.Document):
     # Reset password code courtesy of Miguel Grinberg:
     # https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-x-email-support
     def get_reset_password_token(self, expires_in=600):
+        # Return a time limited JWT token for emailing to users requesting reset
         id = JSONEncoder().encode(self.id)
         return jwt.encode(
             {'reset_password': id, 'exp': time() + expires_in},
@@ -38,13 +39,13 @@ class User(UserMixin, db.Document):
 
     @staticmethod
     def verify_reset_password_token(token):
+        # receive returned JWT token following user's clicking link in password
+        # Verify and return correct user
         try:
             id = json.loads(jwt.decode(token, current_app.config['SECRET_KEY'],
                             algorithms=['HS256'])['reset_password'], object_hook=decoder)
-
         except:
             return
-
         return User.objects(pk=id).first()
 
 
@@ -56,11 +57,13 @@ class User(UserMixin, db.Document):
         return f"User('{self.username}','{self.email}')"
 
 
+
 class Breed(db.Document):
     breed_name = db.StringField(required=True)
 
     def __repr__(self):
         return f"Breed('{self.breed_name}')"
+
 
 
 class Dog(db.Document):

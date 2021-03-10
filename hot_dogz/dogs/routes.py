@@ -31,22 +31,25 @@ def upload_dog():
 @dogs.route('/edit_dog/<dog_id>', methods=['GET', 'POST'])
 @login_required
 def edit_dog(dog_id):
+    """Route for editing a dog's details"""
     dog = Dog.objects(pk=dog_id).first()
     form = EditForm()
     if form.validate_on_submit():
+        # Update Breed and about section
         dog.update(name=form.name.data)
         new_breed = Breed.objects(pk=form.breed.data).first()
         dog.update(breed=new_breed)
         dog.update(about=form.about.data)
+        # If an imgage is selected, run set image function on Dog model
         if(form.img_url.data):
             dog.set_dog_image(form.img_url.data, current_user.username, dog.pk)
         dog.save()
         flash('Updated dog details!', 'check-circle')
         return redirect(url_for('users.profile', username=current_user.username))
+    # Pre-fill data for GET requests
     elif request.method == 'GET':
         form.name.data = dog.name
         form.breed.data = dog.breed.breed_name
-        form.img_url.data = dog.img_url
         form.about.data = dog.about
     return render_template('upload_dog.html', form=form, title="Edit Dog")
 
@@ -54,9 +57,11 @@ def edit_dog(dog_id):
 @dogs.route('/delete_dog/<dog_id>', methods=['GET', 'POST'])
 @login_required
 def delete_dog(dog_id):
+    """Route for deleting a dog from database"""
     dog = Dog.objects(pk=dog_id).first()
     if request.method == 'POST':
         user = current_user.username
+        # Delete dog's image from cloudinary database before deleting dog
         dog.delete_dog_image(user, dog.pk)
         dog.delete()
         flash("Dog post successfuly deleted", "check-circle")

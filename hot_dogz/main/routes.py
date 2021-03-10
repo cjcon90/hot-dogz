@@ -44,4 +44,4 @@ def contact():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    return render_template('contact.html', form=form)
+    return render_template('contact.html', form=form, title="Contact Us")

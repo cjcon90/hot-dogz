@@ -1,10 +1,13 @@
+<!-- Like (thumb) and Favourite (heart) button functionality -->
 <div class="flex text-xl justify-evenly ">
     <div class="like-box">
         <a href="{{url_for('users.like', dog_id=dog.pk)}}" aria-label="Like dog">
+            <!-- Color blue if likes or else gray, and display total likes counter next to icon -->
             <i class="{{'text-blue-600' if current_user in dog.liked_by else 'text-gray-400'}} fas fa-thumbs-up"></i> {{dog.liked_by|length}}
         </a>
     </div>
     <div class="fave-box">
+        <!-- Color red if user has already favourited or dog belongs to them, else color gray -->
         <a href="{{url_for('users.favourite', dog_id=dog.pk)}}" aria-label="Add dog to favourites">
             <i class="{{'text-red-600' if current_user in dog.faved_by or current_user == dog.owner else 'text-gray-400'}} fas fa-heart"></i>
         </a>

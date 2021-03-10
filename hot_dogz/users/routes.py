@@ -1,6 +1,5 @@
 from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
-from jwt import MissingRequiredClaimError
 from mongoengine.errors import DoesNotExist
 from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm, RequestPasswordForm, ResetPasswordForm, DeleteAccountForm
 from flask_login import current_user, login_user, logout_user
