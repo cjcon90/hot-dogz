@@ -6,7 +6,7 @@
     </div>
     <div class="fave-box">
         <a href="{{url_for('users.favourite', dog_id=dog.pk)}}" aria-label="Add dog to favourites">
-            <i class="{{'text-red-600' if current_user in dog.faved_by else 'text-gray-400'}} fas fa-heart"></i>
+            <i class="{{'text-red-600' if current_user in dog.faved_by or current_user == dog.owner else 'text-gray-400'}} fas fa-heart"></i>
         </a>
     </div>
 </div>

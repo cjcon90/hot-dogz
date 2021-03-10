@@ -214,8 +214,11 @@ def favourite(dog_id):
         flash('You must be a registered user to do that!', 'exclamation')
         return deanimate(request.referrer)
     dog = Dog.objects(pk=dog_id).first_or_404()
+    if dog.owner == current_user:
+        flash(f"{dog.name} is already saved, they're yours!", 'heart')
+        return deanimate(request.referrer)
     # Remove from favourites if already favourites
-    if current_user in dog.faved_by:
+    elif current_user in dog.faved_by:
         dog.update(pull__faved_by=current_user.id)
     # else add to favourites
     else:
