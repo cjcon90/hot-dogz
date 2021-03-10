@@ -3,8 +3,8 @@
 {% block content %}
 <!-- UPLOAD DOG FORM PAGE -->
 <h1 class="title text-secondary-500 ">{{title}}</h1>
-    <div class="container flex flex-col items-center mx-auto">
-        <form action="" method="POST" enctype="multipart/form-data" class="flex flex-col max-w-2xl p-4 border border-gray-100 rounded-lg shadow-lg " novalidate>
+    <div class="flex flex-col items-center max-w-sm mx-auto">
+        <form action="" method="POST" enctype="multipart/form-data" class="flex flex-col max-w-2xl p-4 border border-gray-100 rounded-lg shadow-md " novalidate>
                 {{ form.hidden_tag()}}
                 <fieldset class="pb-2 ">
                     {{form.name.label}}

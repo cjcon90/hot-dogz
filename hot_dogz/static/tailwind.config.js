@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: false,
+    enabled: true,
     content: ['../templates/**/*.html']
   },
   darkMode: false, // or 'media' or 'class'
@@ -23,7 +23,7 @@ module.exports = {
       minHeight: {
         "screen/2": "50vh",
         "screen-less-nav": "calc(100vh - 4rem)",
-        "screen-less-both-nav": "calc(100vh - 120px)"
+        "screen-less-both-nav": "calc(100vh - 8rem)"
       },
       maxHeight: {
         "screen/2": "50vh",

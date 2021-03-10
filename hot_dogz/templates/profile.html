@@ -2,7 +2,7 @@
 
 {% block content %}
     <!-- USER PROFILE -->
-    <div class="container mx-auto shadow-lg">
+    <div class="container mx-auto shadow-md">
         <!-- DETAILS (avatar, username, edit buttons if current user) -->
         <div class="flex py-4 justify-evenly">
             <div>
@@ -19,8 +19,8 @@
                 <h1 class="text-4xl text-center uppercase font-title text-secondary-500 "> {{user.username}} </h1>
                  {% if user.username == current_user.username %}
                  <div class="flex gap-2 ">
-                    <a href=" {{url_for('users.edit_profile')}} " class="btn-small">Edit Account</a>
-                    <a href="{{url_for('users.delete_account')}}" class="btn-small">Delete Account</a>
+                    <a href=" {{url_for('users.edit_profile')}} " class="btn-small btn-primary">Edit Account</a>
+                    <a href="{{url_for('users.delete_account')}}" class="btn-small btn-primary">Delete Account</a>
                 </div>
                  {% endif %}
             </div>
@@ -28,7 +28,7 @@
         <!-- USER UPLOADS -->
         <div class="">
             <h1 class="py-2 text-5xl text-center font-title text-secondary-500"> My Dogs </h1>
-            <div class="flex flex-col gap-4 p-2">
+            <div class="flex flex-col gap-6 p-4">
                 {% if user_dogs|length %}
                     {% for dog in user_dogs %}
                         {% include '_dog_card.html' %}
@@ -44,7 +44,7 @@
         <!-- USER FAVOURITES -->
         <div class="">
             <h1 class="py-2 text-5xl text-center font-title text-secondary-500"> My Favourites </h1>
-            <div class="flex flex-col gap-4 p-2">
+            <div class="flex flex-col gap-6 p-4">
                 {% if favourites|length %}
                     {% for dog in favourites %}
                         {% include '_dog_card.html' %}

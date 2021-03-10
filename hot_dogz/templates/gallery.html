@@ -42,7 +42,7 @@
                     </div>
                 {% endmacro %}
                 {{ render_navigation(dogs, 'main.gallery') }}
-                <div class="grid py-6 dash-border place-items-center focus:ring-4 focus:ring-primary-300">
+                <div class="grid w-full max-w-sm py-6 mx-auto dash-border place-items-center">
                     <a href="{{url_for('dogs.upload_dog')}}" class="px-2 btn btn-primary">Upload a new dog!</a>
                 </div>
             </div>

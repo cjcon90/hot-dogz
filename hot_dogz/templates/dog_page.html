@@ -44,7 +44,7 @@
         {% else %}
             <p class="pt-2 text-lg font-bold text-center text-gray-500">No comments yet!</p>
         {% endif %}
-        <form action="" method='POST' class="px-4 border border-gray-100 rounded-lg shadow-lg">
+        <form action="" method='POST' class="px-4 border border-gray-100 rounded-lg shadow-md">
             {{form.hidden_tag()}}
             {{form.content(placeholder="Add your comment here", rows="3", class_='form-input', id="comment")}}
             {{form.submit(class_="w-full bg-secondary-500 hover:bg-secondary-600 text-white p-3 rounded-lg font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-secondary-400")}}

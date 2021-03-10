@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/ea8e9f1dd8.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Crete+Round:ital@0;1&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Lobster&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/ea8e9f1dd8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/compiled.css') }}" type="text/css">
     {% if title %}
     <title>{{ title }} - Hot Dogz</title>
@@ -46,7 +46,7 @@
     </header>
     <!-- (bottom margin to offset fixed bottom navigation bar
           unless it is A. welcome screen or B. user is anonymous) -->
-    <main class="{{'mb-14' if title and current_user.is_authenticated}} md:mb-0 min-h-screen-less-nav container mx-auto">
+    <main class="{{'mb-14 min-h-screen-less-both-nav' if title and current_user.is_authenticated}} md:min-h-screen-less-nav md:mb-0 container mx-auto">
       <!-- FLASH MESSAGES -->
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -70,7 +70,7 @@
     {% if current_user.is_authenticated %}
     <div class="fixed bottom-0 w-full bottomNav">
         <nav class="bottom-0 w-full text-xs bg-gray-700 md:hidden">
-          <ul class="grid grid-cols-4 pb-1 text-base font-bold text-center text-gray-300">
+          <ul class="grid h-16 grid-cols-4 pb-1 text-base font-bold text-center text-gray-300 place-items-center">
             <li>
               <a href="{{url_for('users.logout')}}" class="focus:text-white ">
                 <span class="block">Logout</span>

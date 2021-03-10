@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
     <!-- LOGIN FORM PAGE -->
-    <div class="container flex flex-col items-center mx-auto">
+    <div class="container flex flex-col items-center mx-auto mt-10">
         <h1 class="title text-secondary-500 ">Log in</h1>
-        <form action="" method="POST" class="flex flex-col p-4 border border-gray-100 rounded-lg shadow-lg w-80" novalidate>
+        <form action="" method="POST" class="flex flex-col p-4 border border-gray-100 rounded-lg shadow-md w-80" novalidate>
                 {{ form.hidden_tag()}}
                 <fieldset class="pb-2">
                     {{form.username.label}}

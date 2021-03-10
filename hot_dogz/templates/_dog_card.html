@@ -1,6 +1,6 @@
 <!-- Dog Card Component - displayed on main gallery and on user profiles -->
 <!-- Start as invisible if animated == 'on' (only used for main gallery page) -->
-<div class="w-full transition-opacity duration-1000 bg-white border-4 dash-border  {{'opacity-0' if animate == 'on'}}">
+<div class="max-w-sm mx-auto transition-opacity duration-1000 bg-white border-4 dash-border  {{'opacity-0' if animate == 'on'}}">
     <div class="flex">
         <div class="grid flex-1 place-items-center">
             <img src="{{dog.img_url_thumb}}" alt="A picture of my dog {{dog.name}}" class="object-cover w-full h-32 p-1 rounded-lg " loading="lazy">
