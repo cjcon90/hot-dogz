@@ -1,8 +1,12 @@
-<div class="flex text-lg justify-evenly ">
+<div class="flex text-xl justify-evenly ">
     <div class="like-box">
-        <a href="{{url_for('users.like', dog_id=dog.pk)}}"><i class="{{'text-blue-600' if current_user in dog.liked_by else 'text-gray-400'}} fas fa-thumbs-up"></i> {{dog.liked_by|length}}</a>
+        <a href="{{url_for('users.like', dog_id=dog.pk)}}" aria-label="Like dog">
+            <i class="{{'text-blue-600' if current_user in dog.liked_by else 'text-gray-400'}} fas fa-thumbs-up"></i> {{dog.liked_by|length}}
+        </a>
     </div>
     <div class="fave-box">
-        <a href="{{url_for('users.favourite', dog_id=dog.pk)}}"><i class="{{'text-red-600' if current_user in dog.faved_by else 'text-gray-400'}} fas fa-heart"></i></a>
+        <a href="{{url_for('users.favourite', dog_id=dog.pk)}}" aria-label="Add dog to favourites">
+            <i class="{{'text-red-600' if current_user in dog.faved_by else 'text-gray-400'}} fas fa-heart"></i>
+        </a>
     </div>
 </div>

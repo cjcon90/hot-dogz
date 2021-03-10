@@ -108,7 +108,7 @@ def profile(username):
     Route for displaying a user's profile page
     displaying own dogs and favourite dogs
     """
-    user = User.objects(username=username)
+    user = User.objects(username=username).first()
     user_dogs = Dog.objects(owner=user)
     favourites = Dog.objects(faved_by__contains=current_user.id)
     return render_template('profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs, favourites=favourites)

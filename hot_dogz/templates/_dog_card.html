@@ -1,4 +1,28 @@
-<div class="grid w-full grid-cols-2 transition-opacity duration-1000 bg-white border-4 dash-border h-36 {{'opacity-0' if animate == 'on'}}">
+<div class="w-full transition-opacity duration-1000 bg-white border-4 dash-border  {{'opacity-0' if animate == 'on'}}">
+    <div class="flex">
+        <div class="grid flex-1 place-items-center">
+            <img src="{{dog.img_url_thumb}}" alt="A picture of my dog {{dog.name}}" class="object-cover w-full h-32 p-1 rounded-lg " loading="lazy">
+        </div>
+        <div class="flex flex-col flex-1 px-1 text-gray-600 justify-evenly">
+            <p>Name: <span class="font-semibold">{{dog.name}}</span></p>
+            <p>Breed: <span class="font-semibold">{{dog.breed.breed_name}}</span></p>
+            {% if dog.owner == current_user %}
+                <div class="flex gap-2">
+                    <a href="{{url_for('dogs.edit_dog', dog_id=dog.pk)}}" class="underline">Edit</a>
+                    <a href="{{url_for('dogs.delete_dog', dog_id=dog.pk)}}" class="underline ">Delete</a>
+                </div>
+            {% else %}
+                <p>Human: <span class="font-semibold ">{{dog.owner.username}}</span></p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="flex pb-1">
+        <a href="{{url_for('dogs.dog_page', dog_id=dog.pk)}}" class="self-end flex-1 text-center underline ">Full Size / Comments</a>
+        <div class="flex-1">{% include '_interactions.html' %}</div>
+    </div>
+</div>
+
+<!-- <div class="grid w-full grid-cols-2 transition-opacity duration-1000 bg-white border-4 dash-border h-36 {{'opacity-0' if animate == 'on'}}">
     <div class="grid place-items-center">
         <img src="{{dog.img_url_thumb}}" alt="A picture of my dog {{dog.name}}" class="object-cover h-32 px-1 rounded-lg" loading="lazy">
     </div>
@@ -16,4 +40,4 @@
         {% include '_interactions.html' %}
         <a href="{{url_for('dogs.dog_page', dog_id=dog.pk)}}" class="underline">Full Size / Comments</a>
     </div>
-</div>
+</div> -->
