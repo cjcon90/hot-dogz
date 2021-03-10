@@ -2,12 +2,14 @@ from flask import Flask
 from flask_mongoengine import MongoEngine
 from flask_login import LoginManager
 from config import Config
+from flask_mail import Mail
 
 
 
 db = MongoEngine()
 login = LoginManager()
 login.login_view = 'users.login' # for @login_required decorator
+mail = Mail()
 
 
 # From Flask docs: Factories & Extensions:
@@ -20,6 +22,8 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     login.init_app(app)
+    mail.init_app(app)
+
 
     from hot_dogz.users.routes import users
     from hot_dogz.dogs.routes import dogs

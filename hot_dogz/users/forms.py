@@ -1,17 +1,17 @@
+from flask.app import Flask
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from hot_dogz.models import User
 from flask_login import current_user
 
-# Form for loggin in existing users
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(message="Please enter a username")])
     password = PasswordField('Password', validators=[DataRequired(message="Please enter a password")])
     submit = SubmitField('Sign In')
 
 
-# Form for registering new users
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(message="Please enter a username")])
     email = StringField('Email', validators=[DataRequired(message="Please enter an email"), Email(message="Please enter a valid email address")])
@@ -33,7 +33,16 @@ class RegisterForm(FlaskForm):
             raise ValidationError('Please use a different email.')
 
 
-# Form for editing a user's username or email
+class RequestPasswordForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(message="Please enter an email"), Email(message="Please enter a valid email address")])
+    submit = SubmitField('Submit')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired(message="Please enter a password")])
+    password2 = PasswordField(
+        'Repeat Password', validators=[DataRequired(message="Please double check password"), EqualTo('password', message="Passwords don't match! Please try again")])
+    submit = SubmitField('Submit')
+
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(message="Please enter a username")])
     email = StringField('Email', validators=[DataRequired(message="Please enter an email"), Email(message="Please enter a valid email address")])

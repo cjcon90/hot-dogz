@@ -2,6 +2,7 @@ from flask import render_template, redirect, url_for, Blueprint, request, flash
 from flask_login import current_user
 from hot_dogz.models import Dog
 from hot_dogz.main.forms import ContactForm
+from hot_dogz.main.utils import send_email
 
 main = Blueprint('main', __name__)
 

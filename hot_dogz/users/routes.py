@@ -1,10 +1,11 @@
 from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
 from mongoengine.errors import DoesNotExist
-from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm
+from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm, RequestPasswordForm, ResetPasswordForm
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
-from hot_dogz.models import User, Dog, Favourite
+from hot_dogz.models import User, Dog
+from hot_dogz.users.utils import send_password_reset_email
 from random import randint
 
 users = Blueprint('users', __name__)
@@ -66,13 +67,46 @@ def register():
     # 'GET' functioning
     return render_template('register.html', title="Register", form=form)
 
+
+@users.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.gallery', view='hot'))
+    form = RequestPasswordForm()
+    if form.validate_on_submit():
+        user = User.objects(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password', 'check-circle')
+        return redirect(url_for('users.login'))
+    return render_template('reset_password_request.html',
+                           title='Reset Password', form=form)
+
+@users.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('main.gallery', view='hot'))
+    user = User.verify_reset_password_token(token)
+    print(user)
+    if not user:
+        print('NOT USER!?')
+        return redirect(url_for('users.login'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        user.save()
+        flash('Your password has been reset.', 'check-circle')
+        return redirect(url_for('users.login'))
+    return render_template('reset_password.html', form=form)
+
+
 @users.route('/profile/<username>')
 def profile(username):
     """
     Route for displaying a user's profile page
     displaying own dogs and favourite dogs
     """
-    user = User.objects(username=username).first_or_404()
+    user = User.objects(username=username)
     user_dogs = Dog.objects(owner=user)
     favourites = Dog.objects(faved_by__contains=current_user.id)
     return render_template('profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs, favourites=favourites)
