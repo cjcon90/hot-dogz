@@ -20,7 +20,7 @@ def login():
     if request.method == 'POST' and form.validate_on_submit():
         # Used try/except, as mongoengine objects.get() returns DoesNotExist error if document doesn't exist
         try:
-            user = User.objects.get(username=form.username.data)
+            user = User.objects.get(username=form.username.data.lower())
         except DoesNotExist:
             user = None
         # If user doesn't exist or password doesn't match, notify user and reload page
@@ -56,7 +56,7 @@ def register():
         return redirect(url_for('main.gallery', view='hot', animate='on'))
     form = RegisterForm()
     if request.method == 'POST' and form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data.lower(), email=form.email.data)
         user.set_password(form.password.data)
         # Set a random avatar in case the user exits out of avatar select screen
         user.set_avatar(f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{randint(1,16)}.png')

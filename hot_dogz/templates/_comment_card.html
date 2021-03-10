@@ -4,7 +4,7 @@
         <p class="text ">{{comment.content}}</p>
         <hr class="border border-dashed">
         <div class="flex items-baseline justify-between text-xs">
-            <p>{{comment.author.username}}</p>
+            <a href="{{url_for('users.profile', username=dog.owner.username)}}" class="text-xs uppercase text-secondary-500 hover:underline focus:text-secondary-600">{{comment.author.username}}</a>
             <p class="italic">{{comment.date.strftime('%d.%m.%Y')}}</p>
         </div>
     </div>

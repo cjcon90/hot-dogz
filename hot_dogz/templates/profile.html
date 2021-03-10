@@ -8,12 +8,14 @@
             <div>
                 <img src="{{user.img_url}}" alt="" class="w-32 ">
                 <div class="w-full -mt-4">
+                    {% if user.username == current_user.username %}
                     <a href="{{url_for('users.select_avatar')}}" aria-label="avatar select">
                         <i class="px-2 py-1 -mt-10 text-xl bg-white border-2 rounded-full border-primary-500 fas fa-camera text-primary-500"></i>
                     </a>
+                    {% endif %}
                 </div>
             </div>
-            <div class="flex flex-col justify-between pt-6 pb-2">
+            <div class="flex flex-col {{'justify-between' if user.username == current_user.username else 'justify-center'}} pt-6 pb-2">
                 <h1 class="text-4xl text-center uppercase font-title text-secondary-500 "> {{user.username}} </h1>
                  {% if user.username == current_user.username %}
                  <div class="flex gap-2 ">
