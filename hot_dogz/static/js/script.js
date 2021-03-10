@@ -4,6 +4,7 @@ let galleryContainer = document.querySelector('.gallery-animate')
 if(galleryContainer) {
   // if true, perform opacity animation on each child element
   let dogCards = galleryContainer.children
+  
   for (let i = 0; i < dogCards.length; i++){
     fadeIn(i, dogCards[i])
   }

@@ -24,7 +24,7 @@
                 {# Macro for creating navigation links #}
                 <!-- source: https://github.com/MongoEngine/flask-mongoengine/blob/master/flask_mongoengine/pagination.py -->
                 {% macro render_navigation(pagination, endpoint) %}
-                    <div class='flex items-center justify-center gap-4 text-center pagination'>
+                    <div class="flex items-center justify-center gap-4 text-center pagination {{'opacity-0' if animate == 'on'}}">
                         {% for page in pagination.iter_pages(left_edge=1, left_current=1, right_current=1, right_edge=1) %}
                             <!-- Iterates over the page numbers in the pagination.  The four
                             parameters control the thresholds how many numbers should be produced
@@ -42,7 +42,7 @@
                     </div>
                 {% endmacro %}
                 {{ render_navigation(dogs, 'main.gallery') }}
-                <div class="grid w-full max-w-sm py-6 mx-auto dash-border place-items-center">
+                <div class="grid w-full max-w-sm py-6 mx-auto dash-border place-items-center {{'opacity-0' if animate == 'on'}}">
                     <a href="{{url_for('dogs.upload_dog')}}" class="px-2 btn btn-primary">Upload a new dog!</a>
                 </div>
             </div>
