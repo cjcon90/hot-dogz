@@ -11,6 +11,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
     mail.send(msg)
 
 
+# class to make Object ID JSON serializable
 #credit for encoder
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -19,6 +20,7 @@ class JSONEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, o)
 
 
+# function to convert jwt response to a valid ObjectID
 # credit for decoder: https://stackoverflow.com/a/17649582
 def decoder(dct):
     for k, v in dct.items():

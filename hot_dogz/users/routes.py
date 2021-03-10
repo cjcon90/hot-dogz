@@ -1,11 +1,12 @@
 from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
+from jwt import MissingRequiredClaimError
 from mongoengine.errors import DoesNotExist
 from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm, RequestPasswordForm, ResetPasswordForm
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 from hot_dogz.models import User, Dog
-from hot_dogz.users.utils import send_password_reset_email
+from hot_dogz.users.utils import send_password_reset_email, deanimate
 from random import randint
 
 users = Blueprint('users', __name__)
@@ -70,6 +71,7 @@ def register():
 
 @users.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
+    """Route for requesting a password Reset"""
     if current_user.is_authenticated:
         return redirect(url_for('main.gallery', view='hot'))
     form = RequestPasswordForm()
@@ -84,12 +86,12 @@ def reset_password_request():
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
+    """Password reset form, if request and
+    jwt token signing was successful"""
     if current_user.is_authenticated:
         return redirect(url_for('main.gallery', view='hot'))
     user = User.verify_reset_password_token(token)
-    print(user)
     if not user:
-        print('NOT USER!?')
         return redirect(url_for('users.login'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
@@ -155,19 +157,23 @@ def like(dog_id):
     Route for liking a dog and increasing their
     like count
     """
+    # Only allow registered users to like
+    if current_user.is_anonymous:
+        flash('You must be a registered user to do that!', 'exclamation')
+        return deanimate(request.referrer)
     dog = Dog.objects(pk=dog_id).first_or_404()
+    # Remove from likes if already liked
     if current_user in dog.liked_by:
         dog.update(pull__liked_by=current_user.id)
         dog.update(dec__likes=1)
-
+    # lse add to likes
     else:
         dog.update(push__liked_by=current_user.id)
         dog.update(inc__likes=1)
         flash(f'"Thanks for the like!" ~ {dog.name}', 'thumbs-up')
-    view = 'new' if 'new?' in request.referrer else 'hot'
-    page = request.referrer.split('page=')[-1] if 'page=' in request.referrer else '1'
-    print(view, page)
-    return redirect(url_for('main.gallery', view=view, page=page, animate=False))
+
+    # Return to previous page ensuring no gallery animation
+    return deanimate(request.referrer)
 
 
 @users.route('/favourite/<dog_id>')
@@ -176,13 +182,18 @@ def favourite(dog_id):
     Route for saving a dog to the current
     user's favourites
     """
+    # Only allow registered users to favourite
+    if current_user.is_anonymous:
+        flash('You must be a registered user to do that!', 'exclamation')
+        return deanimate(request.referrer)
     dog = Dog.objects(pk=dog_id).first_or_404()
+    # Remove from favourites if already favourites
     if current_user in dog.faved_by:
         dog.update(pull__faved_by=current_user.id)
+    # else add to favourites
     else:
         dog.update(push__faved_by=current_user.id)
         flash(f"{dog.name} added to favourites!", 'heart')
-    view = 'new' if 'new?' in request.referrer else 'hot'
-    page = request.referrer.split('page=')[-1] if 'page=' in request.referrer else '1'
-    print(view, page)
-    return redirect(url_for('main.gallery', view=view, page=page, animate=False))
+
+    # Return to previous page ensuring no gallery animation
+    return deanimate(request.referrer)

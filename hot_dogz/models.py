@@ -8,7 +8,6 @@ from hot_dogz.main.utils import JSONEncoder, decoder
 import datetime
 from cloudinary import uploader
 from time import time
-from bson.objectid import ObjectId
 import jwt
 import json
 import os

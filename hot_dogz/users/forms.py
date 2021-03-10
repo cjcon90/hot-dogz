@@ -37,16 +37,19 @@ class RequestPasswordForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(message="Please enter an email"), Email(message="Please enter a valid email address")])
     submit = SubmitField('Submit')
 
+
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(message="Please enter a password")])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(message="Please double check password"), EqualTo('password', message="Passwords don't match! Please try again")])
     submit = SubmitField('Submit')
 
+
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(message="Please enter a username")])
     email = StringField('Email', validators=[DataRequired(message="Please enter an email"), Email(message="Please enter a valid email address")])
     submit = SubmitField('Submit')
+
 
     # Function to check that username (if new) isn't already registered on site
     def validate_username(self, username):
