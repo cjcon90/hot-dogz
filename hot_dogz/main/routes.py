@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, Blueprint, request, flash
+from flask import render_template, redirect, url_for, Blueprint, request, flash, current_app
 from flask_login import current_user
 from hot_dogz.models import Dog
 from hot_dogz.main.forms import ContactForm
@@ -39,6 +39,17 @@ def gallery(view):
 def contact():
     form = ContactForm()
     if form.validate_on_submit():
+        send_email(subject='[Hot Dogz] Contact Form Submission',
+               sender=current_app.config['ADMINS'][0],
+               recipients=[current_app.config['ADMINS'][1]],
+               text_body=render_template('email/contact_message.txt',
+                                         user=form.username.data,
+                                         email=form.email.data,
+                                         msg=form.message.data),
+               html_body=render_template('email/contact_message.html',
+                                         user=form.username.data,
+                                         email=form.email.data,
+                                         msg=form.message.data))
         flash("Thank you! Your message has been sent", "check-circle")
         return redirect(url_for('main.gallery', view='hot'))
     elif request.method == 'GET':

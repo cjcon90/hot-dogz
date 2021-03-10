@@ -1,0 +1,9 @@
+New message from HOT DOGZ contact form:
+
+From: {{user}}
+
+Email: {{email}}
+
+Message:
+
+{{msg}}
