@@ -2,41 +2,47 @@
 
 {% block content %}
 
-<div class="relative bg-bottom bg-no-repeat min-h-screen-less-both-nav md:min-h-screen-less-nav bg-dog8">
+<div class="relative bg-bottom bg-no-repeat min-h-screen-less-both-nav md:min-h-screen-less-nav bg-dog8 lg:bg-50%">
     <h1 class="title text-secondary-500 ">{{title}}</h1>
-        <form action="" method="POST" enctype="multipart/form-data" class="z-10 flex flex-col p-4 mx-auto bg-white border border-gray-100 rounded-lg shadow-md fade-in w-80" novalidate>
+        <form action="" method="POST" enctype="multipart/form-data" class="z-10 flex flex-col p-4 mx-auto bg-white border border-gray-100 rounded-lg shadow-md fade-in w-80 lg:w-1/2 " novalidate>
             {{ form.hidden_tag()}}
-            <fieldset class="pb-2 ">
-                {{form.name.label}}
-                {{form.name(class_='form-input ')}}
-                {% for error in form.name.errors %}
-                    <span class="text-red-500 "> {{error}} </span>
-                {% endfor %}
-            </fieldset>
-            <fieldset class="pb-2 ">
-                {{form.img_url.label}}
-                {{form.img_url(class_='form-input ')}}
-                {% for error in form.img_url.errors %}
-                    <span class="text-red-500 "> {{error}} </span>
-                {% endfor %}
-            </fieldset>
-            <fieldset class="pb-2 ">
-                {{form.breed.label}}
-                {{form.breed(class_='form-input ')}}
-                {% for error in form.breed.errors %}
-                    <span class="text-red-500 "> {{error}} </span>
-                {% endfor %}
-            </fieldset>
-            <fieldset class="pb-2 ">
-                {{form.about.label}}
-                {{form.about(class_='form-input h-32', placeholder="Age / \nLikes /\nDislikes /\nSocial media links, etc!")}}
-                {% for error in form.about.errors %}
-                    <span class="text-red-500 "> {{error}} </span>
-                {% endfor %}
-            </fieldset>
-            <fieldset class="pb-2">
-                {{form.submit(class_='w-full btn btn-secondary')}}
-            </fieldset>
+            <div class="gap-6 lg:grid lg:grid-cols-2">
+                <div>
+                    <fieldset class="pb-2 ">
+                        {{form.name.label}}
+                        {{form.name(class_='form-input ')}}
+                        {% for error in form.name.errors %}
+                            <span class="text-red-500 "> {{error}} </span>
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset class="pb-2 ">
+                        {{form.img_url.label}}
+                        {{form.img_url(class_='form-input ')}}
+                        {% for error in form.img_url.errors %}
+                            <span class="text-red-500 "> {{error}} </span>
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset class="pb-2 ">
+                        {{form.breed.label}}
+                        {{form.breed(class_='form-input ')}}
+                        {% for error in form.breed.errors %}
+                            <span class="text-red-500 "> {{error}} </span>
+                        {% endfor %}
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset class="pb-2 ">
+                        {{form.about.label}}
+                        {{form.about(class_='form-input h-32 lg:h-40 lg:mb-5', placeholder="Age / \nLikes /\nDislikes /\nSocial media links, etc!")}}
+                        {% for error in form.about.errors %}
+                            <span class="text-red-500 "> {{error}} </span>
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset class="pb-2">
+                        {{form.submit(class_='w-full btn btn-secondary')}}
+                    </fieldset>
+                </div>
+            </div>
         </form>
 </div>
 {% endblock content %}

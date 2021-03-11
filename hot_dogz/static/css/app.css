@@ -5,6 +5,7 @@ html {
     scroll-behavior: smooth;
 }
 
+
 @tailwind utilities;
 
 /* Card border style */
@@ -46,7 +47,7 @@ html {
 /* TYPOGRAPHY */
 
 .title {
-    @apply py-4 text-6xl tracking-wide text-center font-title;
+    @apply py-4 text-6xl tracking-wide text-center font-title lg:text-7xl lg:py-6;
 }
 
 
@@ -153,5 +154,11 @@ html {
     }
     .bg-max-sm-contain {
         background-size: contain;
+    }
+}
+
+@media only screen and (min-width: 2400px){
+    html {
+        font-size: 150%;
     }
 }

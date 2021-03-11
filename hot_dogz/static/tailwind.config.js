@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: false,
+    enabled: true,
     content: ['../templates/**/*.html']
   },
   darkMode: false, // or 'media' or 'class'
@@ -9,6 +9,13 @@ module.exports = {
       welcome: ['lobster', 'cursive'],
       title: ['Crete Round', 'serif'],
       body: ['Lato', 'sans-serif']
+    },
+    backgroundSize: {
+      'auto': 'auto',
+      'cover': 'cover',
+      'contain': 'contain',
+      '50%': '50%',
+      '40%': '40%',
     },
     extend: {
       backgroundImage: {
@@ -20,7 +27,7 @@ module.exports = {
         'dog6': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog6_up.jpg')",
         'dog7': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog7_crop.jpg')",
         'dog8': "url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog8.jpg')",
-       },
+      },
       minHeight: {
         "screen/2": "50vh",
         "screen-less-nav": "calc(100vh - 4rem)",
