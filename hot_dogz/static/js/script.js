@@ -13,7 +13,7 @@ if(galleryContainer) {
   function fadeIn(i, card){
     setTimeout(function() {
       card.classList.remove('opacity-0')
-    }, 750 + (250 * i));
+    }, 500 + (250 * i));
   }
 }
 

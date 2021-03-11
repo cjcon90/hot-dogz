@@ -46,7 +46,7 @@
     </header>
     <!-- (bottom margin to offset fixed bottom navigation bar
           unless it is A. welcome screen or B. user is anonymous) -->
-    <main class="{{'mb-14 min-h-screen-less-both-nav' if title and current_user.is_authenticated}} md:min-h-screen-less-nav md:mb-0 container mx-auto">
+    <main class="{{'mb-14 min-h-screen-less-both-nav' if title and current_user.is_authenticated}} md:min-h-screen-less-nav md:mb-0 mx-auto">
       <!-- FLASH MESSAGES -->
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

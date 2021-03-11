@@ -556,12 +556,6 @@ html {
   scroll-behavior: smooth;
 }
 
-@media only screen and (max-width: 767px){
-  html {
-    font-size: 85%;
-  }
-}
-
 .bg-fixed {
   background-attachment: fixed;
 }
@@ -623,6 +617,10 @@ html {
 
 .bg-dog7 {
   background-image: url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog7_crop.jpg');
+}
+
+.bg-dog8 {
+  background-image: url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog8.jpg');
 }
 
 .bg-opacity-30 {
@@ -920,10 +918,6 @@ html {
 
 .max-w-md {
   max-width: 28rem;
-}
-
-.max-w-2xl {
-  max-width: 42rem;
 }
 
 .max-w-3xl {
@@ -1608,7 +1602,7 @@ html {
   letter-spacing: 0.025em;
 }
 
-/* FLASH COLORS TO MATCH ICON NAMES */
+/* FLASH COLORS & ICON NAMES */
 
 .comment {
   --tw-bg-opacity: 1;
@@ -1647,11 +1641,13 @@ html {
           animation: animate-flash 2.5s ease-out forwards;
 }
 
+/* ANIMATIONS */
+
 .bg-fade {
   -webkit-animation-name: bg-fade;
           animation-name: bg-fade;
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
+  -webkit-animation-duration: 1.5s;
+          animation-duration: 1.5s;
   -webkit-animation-timing-function: ease-in-out;
           animation-timing-function: ease-in-out;
   -webkit-animation-fill-mode: both;
@@ -1659,7 +1655,7 @@ html {
 }
 
 .bg-no-fade {
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.85);
 }
 
 .fade-in {
@@ -1667,8 +1663,8 @@ html {
           animation-name: fade-in;
   -webkit-animation-duration: 1s;
           animation-duration: 1s;
-  -webkit-animation-delay: 1s;
-          animation-delay: 1s;
+  -webkit-animation-delay: .5s;
+          animation-delay: .5s;
   -webkit-animation-timing-function: ease-in-out;
           animation-timing-function: ease-in-out;
   -webkit-animation-fill-mode: both;
@@ -1713,7 +1709,7 @@ html {
   }
 
   100% {
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.85);
   }
 }
 
@@ -1727,7 +1723,7 @@ html {
   }
 
   100% {
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.85);
   }
 }
 
@@ -1751,10 +1747,32 @@ html {
   }
 }
 
+/* SPECIFIC MEDIA QUERIES */
+
+/* Reduce base font-size on mobile to ease transition from mobile to tablet styling */
+
+@media only screen and (max-width: 767px){
+  html {
+    font-size: 85%;
+  }
+
+  .bg-max-sm-contain {
+    background-size: contain;
+  }
+}
+
 @media (min-width: 640px) {
 }
 
 @media (min-width: 768px) {
+  .md\:bg-right-bottom {
+    background-position: right bottom;
+  }
+
+  .md\:bg-cover {
+    background-size: cover;
+  }
+
   .md\:flex {
     display: flex;
   }

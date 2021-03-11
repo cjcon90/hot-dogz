@@ -5,11 +5,6 @@ html {
     scroll-behavior: smooth;
 
 }
-@media only screen and (max-width: 767px){
-    html {
-        font-size: 85%;
-    }
-}
 
 @tailwind utilities;
 
@@ -56,7 +51,7 @@ html {
 }
 
 
-/* FLASH COLORS TO MATCH ICON NAMES */
+/* FLASH COLORS & ICON NAMES */
 .comment {
     @apply bg-blue-500;
 }
@@ -82,20 +77,21 @@ html {
     animation: animate-flash 2.5s ease-out forwards;
 }
 
+/* ANIMATIONS */
 .bg-fade {
     animation-name: bg-fade;
-    animation-duration: 2s;
+    animation-duration: 1.5s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: both;
 }
 .bg-no-fade {
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.85);
 }
 
 .fade-in {
     animation-name: fade-in;
     animation-duration: 1s;
-    animation-delay: 1s;
+    animation-delay: .5s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: both;
 }
@@ -120,7 +116,7 @@ html {
         background-color: rgba(255,255,255,.2);
     }
     100% {
-        background-color: rgba(255,255,255,0.7);
+        background-color: rgba(255,255,255,0.85);
     }
 }
 
@@ -130,5 +126,17 @@ html {
     }
     100% {
         opacity: 1;
+    }
+}
+
+/* SPECIFIC MEDIA QUERIES */
+
+/* Reduce base font-size on mobile to ease transition from mobile to tablet styling */
+@media only screen and (max-width: 767px){
+    html {
+        font-size: 85%;
+    }
+    .bg-max-sm-contain {
+        background-size: contain;
     }
 }
