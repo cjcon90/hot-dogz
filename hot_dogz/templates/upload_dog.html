@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- UPLOAD DOG FORM PAGE -->
+
 <div class="relative bg-bottom bg-no-repeat min-h-screen-less-both-nav md:min-h-screen-less-nav bg-dog8 md:bg-cover">
     <h1 class="title text-secondary-500 ">{{title}}</h1>
-        <form action="" method="POST" class="z-10 flex flex-col p-4 mx-auto bg-white border border-gray-100 rounded-lg shadow-md fade-in w-80" novalidate>
+        <form action="" method="POST" enctype="multipart/form-data" class="z-10 flex flex-col p-4 mx-auto bg-white border border-gray-100 rounded-lg shadow-md fade-in w-80" novalidate>
             {{ form.hidden_tag()}}
             <fieldset class="pb-2 ">
                 {{form.name.label}}
