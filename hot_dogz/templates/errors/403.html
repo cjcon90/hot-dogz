@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="min-h-screen bg-fixed bg-bottom bg-no-repeat bg-contain bg-dog1">
+    <div class="min-h-screen">
         <div class="flex flex-col items-center gap-4 py-4 text-center">
             <h1 class="text-2xl"><span class="text-4xl font-title text-primary-500">Oops.</span> Wrong permissions (403)</h1>
             <p>Please check your account and try again.</p>
             <button class="w-40 btn btn-secondary focus:outline-none" onclick="history.back(-1)">Go Back</button>
         </div>
+        <img src="https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog1_crop.jpg"
+        alt="Picture of a bulldopg in a tutu">
     </div>
 {% endblock %}

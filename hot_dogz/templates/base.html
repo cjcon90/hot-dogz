@@ -14,7 +14,7 @@
     <title>Welcome to Hot Dogz!</title>
     {% endif %}
 </head>
-<body class="text-gray-800">
+<body class="mx-auto text-gray-800 max-w-screen-2xl">
   <!-- TOP NAVIGATION BAR -->
     <nav class="flex justify-between h-16 px-2 py-1 text-lg lg:mx-10">
         <a href="{{url_for('main.index')}}" aria-label="Home" class="self-start pb-1 rounded-full outline-none text-primary-500 focus:ring-4 focus:ring-primary-200 hover:text-primary-600">
@@ -50,7 +50,7 @@
       <!-- FLASH MESSAGES -->
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-          <div class="absolute w-full top-10">
+          <div class="absolute w-full x-center md:w-screen/2 ">
             {% for category, message in messages %}
               <div class="w-11/12 p-2 m-2 mx-auto text-center text-white {{category}} rounded-lg shadow-xl animate-flash ">
                 <!-- Category decides color of flash and icon used -->

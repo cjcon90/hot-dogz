@@ -3,7 +3,6 @@
 
 html {
     scroll-behavior: smooth;
-
 }
 
 @tailwind utilities;
@@ -80,7 +79,7 @@ html {
 /* ANIMATIONS */
 .bg-fade {
     animation-name: bg-fade;
-    animation-duration: 1.5s;
+    animation-duration: 2s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: both;
 }
@@ -92,6 +91,14 @@ html {
     animation-name: fade-in;
     animation-duration: 1s;
     animation-delay: .5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+
+.fade-in-slow {
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-delay: 2s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: both;
 }
@@ -127,6 +134,14 @@ html {
     100% {
         opacity: 1;
     }
+}
+
+/* POSITIONING */
+
+.x-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* SPECIFIC MEDIA QUERIES */
