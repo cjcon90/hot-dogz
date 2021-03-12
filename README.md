@@ -1,5 +1,7 @@
 # Hot Dogz
 
+![AmIResponsive Mockup Screenshot](docs/screenshots/mockups.png)
+
 ## Milestone Project 3
 
 - This project aims to build a full-stack web application using the python micro-framework Flask, MongoDB database, Tailwind CSS & JavaScript
