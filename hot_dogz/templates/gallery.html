@@ -6,9 +6,9 @@
             <h1 class="title text-secondary-500 ">Gallery</h1>
             <div class="grid grid-cols-2 py-4 lg:py-2 place-items-center">
                 <a href="{{url_for('main.gallery', view='hot', animate='on')}}"
-                class="font-title {{'text-5xl text-primary-500 italic' if view == 'hot' else 'text-4xl text-secondary-500'}} hover:underline focus:italic">HOT</a>
+                class="font-title hover:underline focus:italic {{'text-5xl text-primary-500 italic' if view == 'hot' else 'text-4xl text-secondary-500'}}">HOT</a>
                 <a href="{{url_for('main.gallery', view='new', animate='on')}}"
-                class="font-title {{'text-5xl text-primary-500 italic' if view == 'new' else 'text-4xl text-secondary-500'}} hover:underline focus:italic">NEW</a>
+                class="font-title hover:underline focus:italic {{'text-5xl text-primary-500 italic' if view == 'new' else 'text-4xl text-secondary-500'}}">NEW</a>
             </div>
             <p class="text-lg font-bold text-center lg:text-xl text-primary-500">
                 {% if view == 'hot' %}
@@ -17,7 +17,7 @@
                     <i class="far fa-star"></i> <span class="text-gray-500">Check out the newest dogs</span> <i class="far fa-star"></i>
                 {% endif %}
             </p>
-            <div class="flex flex-col gap-y-6 px-4 py-4 {{'gallery-animate' if animate == 'on'}} lg:grid lg:grid-cols-2 lg:max-w-4xl lg:mx-auto">
+            <div class="flex flex-col gap-6 p-4 lg:grid lg:grid-cols-2 lg:w-max lg:mx-auto {{'gallery-animate' if animate == 'on'}}">
                 {% for dog in dogs.items %}
                     {% include '_dog_card.html' %}
                 {% endfor %}

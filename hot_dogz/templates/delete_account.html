@@ -3,10 +3,10 @@
 {% block content %}
     <div class="bg-bottom bg-no-repeat bg-contain min-h-screen-less-nav bg-dog7 lg:bg-50% lg:bg-right-bottom">
         <div class="flex flex-col gap-3 py-4 text-center">
-            <h2 class="text-3xl">Are you <strong>sure</strong> you want to delete your account?</h2>
-            <h3 class="text-2xl">This can't be undone!</h3>
+            <h2 class="text-3xl text-primary-500 font-title">Are you <strong>sure</strong> you want to delete your account?</h2>
+            <h3 class="text-2xl font-semibold text-gray-600">This can't be undone!</h3>
         </div>
-        <form action="" method="POST" class="flex flex-col p-4 mx-auto border border-gray-100 rounded-lg shadow-md w-80" novalidate>
+        <form action="" method="POST" class="flex flex-col p-4 mx-auto bg-white border border-gray-100 rounded-lg shadow-md w-80" novalidate>
                 {{ form.hidden_tag()}}
                 <fieldset class="pb-2">
                     {{form.password.label}}

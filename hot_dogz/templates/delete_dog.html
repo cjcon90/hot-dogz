@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="flex flex-col gap-3 py-4 text-center">
-        <h2 class="text-3xl">Are you <strong>sure</strong> you want to delete {{dog.name}}?</h2>
+        <h2 class="text-3xl text-primary-500 font-title">Are you <strong>sure</strong> you want to delete {{dog.name}}?</h2>
         <img src="{{dog.img_url_thumb}}" alt="A picture of {{dog.name}}" class="max-w-xs mx-auto max-h-80 ">
-        <h3 class="text-2xl">This can't be undone!</h3>
+        <h3 class="text-2xl font-semibold text-gray-600">This can't be undone!</h3>
     </div>
     <form action="" method="POST" class="flex flex-col gap-4 mx-auto w-60" novalidate>
         <button type="submit" class="w-full btn btn-primary">Delete</button>
