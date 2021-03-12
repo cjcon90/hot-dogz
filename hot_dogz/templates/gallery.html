@@ -17,7 +17,7 @@
                     <i class="far fa-star"></i> <span class="text-gray-500">Check out the newest dogs</span> <i class="far fa-star"></i>
                 {% endif %}
             </p>
-            <div class="flex flex-col gap-4 px-4 py-4 {{'gallery-animate' if animate == 'on'}} lg:grid lg:grid-cols-2">
+            <div class="flex flex-col gap-6 px-4 py-4 {{'gallery-animate' if animate == 'on'}} lg:grid lg:grid-cols-2">
                 {% for dog in dogs.items %}
                     {% include '_dog_card.html' %}
                 {% endfor %}
