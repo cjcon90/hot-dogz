@@ -1,0 +1,16 @@
+<div class="flex items-center justify-center gap-4 text-center pagination {{'fade-in-slow' if animate == 'on'}}">
+    {% for page in pagination.iter_pages(left_edge=1, left_current=1, right_current=1, right_edge=1) %}
+        <!-- Iterates over the page numbers in the pagination.  The four
+        parameters control the thresholds how many numbers should be produced
+        from the sides. -->
+        {% if page %}
+            {% if page != pagination.page %}
+                <a href="{{ url_for(endpoint, view=view, page=page) }}" class="paginate-btn">{{ page }}</a>
+            {% else %}
+            <p class="paginate-btn opacity-30">{{ page }}</p>
+            {% endif %}
+        {% else %}
+            <span class="self-end font-bold ellipsis text-primary-500">…</span>
+        {% endif %}
+    {% endfor %}
+</div>

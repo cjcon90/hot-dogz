@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <!-- MAIN GALLERY PAGE -->
-    <div class="bg-fixed bg-bottom bg-no-repeat bg-max-sm-contain {{'bg-dog5' if view == 'hot' else 'bg-dog2'}} lg:mb-6">
+    <div class="bg-fixed bg-bottom bg-no-repeat bg-max-sm-contain {{'bg-dog5' if view == 'hot' else 'bg-dog2'}} mb-6">
         <div class="{{'bg-fade' if animate == 'on' else 'bg-no-fade'}} max-w-screen-lg mx-auto min-h-screen-less-nav ">
             <h1 class="title text-secondary-500 ">Gallery</h1>
             <div class="grid grid-cols-2 py-4 lg:py-2 place-items-center">
@@ -17,7 +17,7 @@
                     <i class="far fa-star"></i> <span class="text-gray-500">Check out the newest dogs</span> <i class="far fa-star"></i>
                 {% endif %}
             </p>
-            <div class="flex flex-col gap-6 px-4 py-4 {{'gallery-animate' if animate == 'on'}} lg:grid lg:grid-cols-2">
+            <div class="flex flex-col gap-y-6 px-4 py-4 {{'gallery-animate' if animate == 'on'}} lg:grid lg:grid-cols-2 lg:max-w-4xl lg:mx-auto">
                 {% for dog in dogs.items %}
                     {% include '_dog_card.html' %}
                 {% endfor %}
@@ -26,22 +26,7 @@
                 {# Macro for creating navigation links #}
                     <!-- source: https://github.com/MongoEngine/flask-mongoengine/blob/master/flask_mongoengine/pagination.py -->
                     {% macro render_navigation(pagination, endpoint) %}
-                        <div class="flex items-center justify-center gap-4 text-center pagination {{'fade-in-slow' if animate == 'on'}}">
-                            {% for page in pagination.iter_pages(left_edge=1, left_current=1, right_current=1, right_edge=1) %}
-                                <!-- Iterates over the page numbers in the pagination.  The four
-                                parameters control the thresholds how many numbers should be produced
-                                from the sides. -->
-                                {% if page %}
-                                    {% if page != pagination.page %}
-                                        <a href="{{ url_for(endpoint, view=view, page=page) }}" class="paginate-btn">{{ page }}</a>
-                                    {% else %}
-                                    <p class="paginate-btn opacity-30">{{ page }}</p>
-                                    {% endif %}
-                                {% else %}
-                                    <span class="self-end font-bold ellipsis text-primary-500">…</span>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+                    {% include '_pagination.html' %}
                     {% endmacro %}
                     {{ render_navigation(dogs, 'main.gallery') }}
                     <div class="grid w-full max-w-sm py-6 mx-auto dash-border place-items-center {{'fade-in-slow' if animate == 'on'}}">

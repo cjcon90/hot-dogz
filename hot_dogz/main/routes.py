@@ -1,5 +1,6 @@
 from flask import render_template, redirect, url_for, Blueprint, request, flash, current_app
 from flask_login import current_user
+from flask_login.utils import login_required
 from hot_dogz.models import Dog
 from hot_dogz.main.forms import ContactForm
 from hot_dogz.main.utils import send_email
@@ -36,6 +37,7 @@ def gallery(view):
 
 
 @main.route('/contact', methods=['GET', 'POST'])
+@login_required
 def contact():
     form = ContactForm()
     if form.validate_on_submit():

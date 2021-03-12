@@ -36,7 +36,7 @@ html {
 }
 
 .paginate-btn {
-    @apply w-8 h-8 text-xl font-bold border-2 rounded-full border-primary-500 text-primary-500 focus:text-white focus:border-white focus:bg-primary-500;
+    @apply w-8 h-8 text-xl font-bold bg-white border-2 rounded-full border-primary-500 text-primary-500 hover:border-primary-600 hover:text-primary-600 focus:text-white focus:border-white focus:bg-primary-500;
 }
 
 /* FORMS */
