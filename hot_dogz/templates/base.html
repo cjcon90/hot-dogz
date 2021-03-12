@@ -44,9 +44,12 @@
           </div>
       </nav>
     </header>
-    <!-- (bottom margin to offset fixed bottom navigation bar
-          unless it is A. welcome screen or B. user is anonymous) -->
-    <main class="{{'min-h-screen-less-both-nav' if title and current_user.is_authenticated}} md:min-h-screen-less-nav md:mb-0 mx-auto">
+    <!--
+      Conditional height settings for mobile viewports:
+      Set height minus both navs if on mobile and not on index.html (as there is no bottom nav on splahs page)
+      else set height minus top nav only.
+      Then set height minus top only for *all* views tablet and above-->
+    <main class="{{'min-h-screen-less-both-nav' if title and current_user.is_authenticated else 'min-h-screen-less-nav'}} md:min-h-screen-less-nav md:mb-0 mx-auto">
       <!-- FLASH MESSAGES -->
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -99,7 +102,7 @@
         </nav>
       </div>
     {% endif %}
-    <footer class="flex flex-col h-20 py-2 pb-4 {{'mb-16' if title and current_user.is_authenticated}} text-center text-gray-300 bg-gray-700 md:m-0">
+    <footer class="flex flex-col h-20 py-2 pb-4 {{'mb-16' if title and current_user.is_authenticated}} text-center text-gray-300 bg-gray-700 md:m-0 text-sm sm:text-base">
       <p>Created by <a href="https://www.cjcon90.dev" class="font-semibold hover:text-white focus:underline">Ciaran Concannon</a></p>
       <p>Pug photos coutesy of <a href="https://burst.shopify.com/@matthew_henry" class="font-semibold hover:text-white focus:underline">Matthew Henry</a></p>
       <p><a href="https://www.flaticon.com/free-icon/pawprint_1076928?term=dog%20paw&page=1&position=2&page=1&position=2&related_id=1076928&origin=search"
