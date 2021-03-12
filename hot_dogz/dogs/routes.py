@@ -9,15 +9,11 @@ dogs = Blueprint('dogs', __name__)
 
 
 @dogs.route('/upload_dog', methods = ['GET', 'POST'])
-# Removed @login_required for this route
-# as it was preventing flash message from working
+@login_required
 def upload_dog():
     """
     Route for uploading a dog to the database
     """
-    if current_user.is_anonymous:
-        flash('You must be a registered user to do that!', 'exclamation')
-        return redirect(url_for('users.login'))
     form = UploadForm()
     if request.method == 'POST' and form.validate_on_submit():
         # Upload dog and add owner to likes by default

@@ -70,6 +70,7 @@ def register():
 
 
 @users.route('/reset_password_request', methods=['GET', 'POST'])
+@login_required
 def reset_password_request():
     """Route for requesting a password Reset"""
     if current_user.is_authenticated:
@@ -85,6 +86,7 @@ def reset_password_request():
                            title='Reset Password', form=form)
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
+@login_required
 def reset_password(token):
     """Password reset form, if request and
     jwt token signing was successful"""
@@ -179,15 +181,12 @@ def delete_account():
 
 
 @users.route('/like/<dog_id>')
+@login_required
 def like(dog_id):
     """
     Route for liking a dog and increasing their
     like count
     """
-    # Only allow registered users to like
-    if current_user.is_anonymous:
-        flash('You must be a registered user to do that!', 'exclamation')
-        return deanimate(request.referrer)
     dog = Dog.objects(pk=dog_id).first_or_404()
     # Remove from likes if already liked
     if current_user in dog.liked_by:
@@ -198,21 +197,17 @@ def like(dog_id):
         dog.update(push__liked_by=current_user.id)
         dog.update(inc__likes=1)
         flash(f'"Thanks for the like!" ~ {dog.name}', 'thumbs-up')
-
     # Return to previous page ensuring no gallery animation
     return deanimate(request.referrer)
 
 
 @users.route('/favourite/<dog_id>')
+@login_required
 def favourite(dog_id):
     """
     Route for saving a dog to the current
     user's favourites
     """
-    # Only allow registered users to favourite
-    if current_user.is_anonymous:
-        flash('You must be a registered user to do that!', 'exclamation')
-        return deanimate(request.referrer)
     dog = Dog.objects(pk=dog_id).first_or_404()
     if dog.owner == current_user:
         flash(f"{dog.name} is already saved, they're yours!", 'heart')
@@ -230,6 +225,7 @@ def favourite(dog_id):
 
 
 @users.route('/edit_comment/<comment_id>', methods=['GET', 'POST'])
+@login_required
 def edit_comment(comment_id):
     form = CommentInput()
     comment = Comment.objects(pk=comment_id).first()
@@ -244,6 +240,7 @@ def edit_comment(comment_id):
 
 
 @users.route('/delete_comment/<comment_id>', methods=['GET', 'POST'])
+@login_required
 def delete_comment(comment_id):
     comment = Comment.objects(pk=comment_id).first()
     dog_id = comment.dog.pk

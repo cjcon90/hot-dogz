@@ -8,7 +8,11 @@ from flask_mail import Mail
 
 db = MongoEngine()
 login = LoginManager()
-login.login_view = 'users.login' # for @login_required decorator
+# configure view and message when users attemp to access a
+# view for which @login_required
+login.login_view = 'users.login'
+login.login_message = 'You must be logged in to do that!'
+login.login_message_category = 'exclamation'
 mail = Mail()
 
 
@@ -17,6 +21,7 @@ mail = Mail()
 # so one extension object can be used for multiple apps."
 def create_app(config_class=Config):
     app = Flask(__name__)
+
     # add config settings to flask app (from config.py)
     app.config.from_object(Config)
 
