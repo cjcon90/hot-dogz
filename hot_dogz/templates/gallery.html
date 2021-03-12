@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
     <!-- MAIN GALLERY PAGE -->
-    <div class="bg-fixed bg-bottom bg-no-repeat bg-max-sm-contain {{'bg-dog5' if view == 'hot' else 'bg-dog2'}} mb-6">
-        <div class="{{'bg-fade' if animate == 'on' else 'bg-no-fade'}} max-w-screen-lg mx-auto min-h-screen-less-nav ">
+    <div class="bg-fixed bg-bottom bg-no-repeat bg-max-sm-contain {{'bg-dog5' if view == 'hot' else 'bg-dog2'}}">
+        <div class="pb-10 {{'bg-fade' if animate == 'on' else 'bg-no-fade'}} max-w-screen-lg mx-auto min-h-screen-less-nav ">
             <h1 class="title text-secondary-500 ">Gallery</h1>
             <div class="grid grid-cols-2 py-4 lg:py-2 place-items-center">
                 <a href="{{url_for('main.gallery', view='hot', animate='on')}}"
