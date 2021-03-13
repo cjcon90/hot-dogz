@@ -197,8 +197,9 @@ def like(dog_id):
         dog.update(push__liked_by=current_user.id)
         dog.update(inc__likes=1)
         flash(f'"Thanks for the like!" ~ {dog.name}', 'thumbs-up')
-    # Return to previous page ensuring no gallery animation
-    return deanimate(request.referrer)
+        
+    # Return to previous page ensuring no repeating animation if coming from gallery view
+    return redirect(request.referrer) if '/profile/' in request.referrer else deanimate(request.referrer)
 
 
 @users.route('/favourite/<dog_id>')
@@ -220,8 +221,8 @@ def favourite(dog_id):
         dog.update(push__faved_by=current_user.id)
         flash(f"{dog.name} added to favourites!", 'heart')
 
-    # Return to previous page ensuring no gallery animation
-    return deanimate(request.referrer)
+    # Return to previous page ensuring no repeating animation if coming from gallery view
+    return redirect(request.referrer) if '/profile/' in request.referrer else deanimate(request.referrer)
 
 
 @users.route('/edit_comment/<comment_id>', methods=['GET', 'POST'])

@@ -150,7 +150,7 @@ html {
 /* Reduce base font-size on mobile to ease transition from mobile to tablet styling */
 @media only screen and (max-width: 767px){
     html {
-        font-size: 85%;
+        font-size: 80%;
     }
     .bg-max-sm-contain {
         background-size: contain;
@@ -159,6 +159,6 @@ html {
 
 @media only screen and (min-width: 2400px){
     html {
-        font-size: 150%;
+        font-size: 125%;
     }
 }

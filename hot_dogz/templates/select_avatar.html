@@ -2,10 +2,10 @@
 
 {% block content %}
 <!-- AVATAR SELECTION PAGE -->
-<h1 class="mb-10 text-5xl text-center">Select Avatar</h1>
-<div class="container grid max-w-3xl grid-cols-4 gap-2 mx-auto">
+<h1 class="title text-secondary-500">Select Avatar</h1>
+<div class="container grid max-w-3xl grid-cols-4 gap-2 py-4 mx-auto">
     {% for avatar in avatars %}
-        <div class="p-2 border border-gray-300 rounded-full shadow-md hover:bg-blue-100"><a href="{{url_for('users.select_avatar', selected=avatar)}}"><img src="{{avatar}}" alt=""></a></div>
+        <div class="p-2 border-2 border-gray-300 border-dashed rounded-full shadow-lg hover:border-red-500 focus:bg-primary-500"><a href="{{url_for('users.select_avatar', selected=avatar)}}"><img src="{{avatar}}" alt=""></a></div>
     {% endfor %}
 </div>
 {% endblock content %}
