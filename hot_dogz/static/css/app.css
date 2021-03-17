@@ -50,7 +50,6 @@ html {
     @apply py-4 text-6xl tracking-wide text-center font-title lg:text-7xl lg:py-6;
 }
 
-
 /* FLASH COLORS & ICON NAMES */
 .comment {
     @apply bg-blue-500;

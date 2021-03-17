@@ -41,7 +41,7 @@ def edit_dog(dog_id):
         dog.update(breed=new_breed)
         dog.update(about=form.about.data)
         # If an imgage is selected, run set image function on Dog model
-        if(form.img_url.data):
+        if form.img_url.data:
             dog.set_dog_image(form.img_url.data, current_user.username, dog.pk)
         dog.save()
         flash('Updated dog details!', 'check-circle')

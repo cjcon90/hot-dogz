@@ -6,17 +6,25 @@ from hot_dogz.models import Breed
 
 
 class UploadForm(FlaskForm):
-    name = StringField("Dog's name", validators=[DataRequired()])
-    img_url = FileField("Photo", validators=[FileRequired(), FileAllowed(['jpg', 'jpeg', 'png'])])
-    breed = SelectField("Breed", choices=[(breed.pk, breed.breed_name) for breed in Breed.objects], validators=[DataRequired()])
+    name = StringField("Dog's name",
+                       validators=[DataRequired()])
+    img_url = FileField("Photo",
+                        validators=[FileRequired(), FileAllowed(['jpg', 'jpeg', 'png'])])
+    breed = SelectField("Breed",
+                        choices=[(breed.pk, breed.breed_name) for breed in Breed.objects],
+                        validators=[DataRequired()])
     about = TextAreaField("Tell us about your dog!")
     submit = SubmitField('Upload')
 
 
 class EditForm(FlaskForm):
-    name = StringField("Dog's name", validators=[DataRequired()])
-    img_url = FileField("Photo", validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
-    breed = SelectField("Breed", choices=[(breed.pk, breed.breed_name) for breed in Breed.objects], validators=[DataRequired()])
+    name = StringField("Dog's name",
+                       validators=[DataRequired()])
+    img_url = FileField("Photo",
+                        validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
+    breed = SelectField("Breed",
+                        choices=[(breed.pk, breed.breed_name) for breed in Breed.objects],
+                        validators=[DataRequired()])
     about = TextAreaField("Tell us about your dog!")
     submit = SubmitField('Submit')
 

@@ -12,7 +12,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
 
 
 # class to make Object ID JSON serializable
-#credit for encoder
+# credit for encoder
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, ObjectId):

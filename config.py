@@ -1,7 +1,9 @@
 import os
 import cloudinary
 
-# I used python-dotenv library to automatically import configs from a .flaskenv file in root folder when working locally
+
+# I used python-dotenv library to automatically import configs
+# from a .flaskenv file in root folder when working locally
 class Config(object):
     # Flask Secret Key
     SECRET_KEY = os.environ.get('SECRET_KEY')

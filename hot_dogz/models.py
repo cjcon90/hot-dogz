@@ -19,10 +19,8 @@ class User(UserMixin, db.Document):
     password_hash = db.StringField(required=True)
     img_url = db.URLField()
 
-
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
-
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -36,26 +34,22 @@ class User(UserMixin, db.Document):
             {'reset_password': id, 'exp': time() + expires_in},
             current_app.config['SECRET_KEY'], algorithm='HS256')
 
-
     @staticmethod
     def verify_reset_password_token(token):
         # receive returned JWT token following user's clicking link in password
         # Verify and return correct user
         try:
             id = json.loads(jwt.decode(token, current_app.config['SECRET_KEY'],
-                            algorithms=['HS256'])['reset_password'], object_hook=decoder)
+                                       algorithms=['HS256'])['reset_password'], object_hook=decoder)
         except:
             return
         return User.objects(pk=id).first()
 
-
     def set_avatar(self, img_url):
         self.img_url = img_url
 
-
     def __repr__(self):
         return f"User('{self.username}','{self.email}')"
-
 
 
 class Breed(db.Document):
@@ -63,7 +57,6 @@ class Breed(db.Document):
 
     def __repr__(self):
         return f"Breed('{self.breed_name}')"
-
 
 
 class Dog(db.Document):
@@ -105,10 +98,10 @@ class Dog(db.Document):
         self.img_url_card = f"{endpoint}{card_transformation}{version}{public_id}.{image_format}"
         self.img_url_thumb = f"{endpoint}{thumb_transformation}{version}{public_id}.{image_format}"
 
-    def delete_dog_image(self, user, pk):
+    @staticmethod
+    def delete_dog_image(user, pk):
         public_id = f"hot_dogz/{user}/{pk}"
         uploader.destroy(public_id)
-        
 
 
 class Comment(db.Document):
@@ -127,6 +120,7 @@ class Favourite(db.Document):
 
     def __repr__(self):
         return f"Favourite('{self.dog.name}', favourited by '{self.user.username}')"
+
 
 # Load the user from the database for flask-login
 @login.user_loader
