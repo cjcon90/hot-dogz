@@ -78,10 +78,13 @@ def dog_page(dog_id):
     dog = Dog.objects(pk=dog_id).first()
     form = CommentInput()
     if request.method == 'POST' and form.validate_on_submit():
-        comment = Comment(author=current_user.id, dog=dog, content=form.content.data)
-        comment.save()
-        flash('Your comment has been submitted!', 'comment')
-        return redirect(url_for('dogs.dog_page', dog_id=dog_id))
+        if current_user.is_authenticated:
+            comment = Comment(author=current_user.id, dog=dog, content=form.content.data)
+            comment.save()
+            flash('Your comment has been submitted!', 'comment')
+        else:
+            flash('You must be logged in to leave a comment!', 'exclamation')
+            return redirect(url_for('users.login'))
     comments=Comment.objects(dog=dog)
     for comment in comments:
         print(comment)
