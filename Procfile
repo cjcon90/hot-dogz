@@ -1,1 +1,1 @@
-web: gunicorn hot_dogz:run
+web: gunicorn run:app
