@@ -30,12 +30,12 @@ module.exports = {
       },
       minHeight: {
         "screen/2": "50vh",
-        "screen-less-nav": "calc(100vh - 4rem)",
-        "screen-less-both-nav": "calc(100vh - 8rem)"
+        "screen-less-nav": "calc(calc(var(--vh, 1vh) * 100) - 4rem)",
+        "screen-less-both-nav": "calc(calc(var(--vh, 1vh) * 100) - 8rem)"
       },
       maxHeight: {
         "screen/2": "50vh",
-        "screen-less-nav": "calc(100vh - 4rem)"
+        "screen-less-nav": "calc(calc(var(--vh, 1vh) * 100) - 4rem)"
       },
       width: {
         "screen/2": "calc(100vw / 2)",

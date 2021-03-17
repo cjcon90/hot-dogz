@@ -972,11 +972,11 @@ html {
 }
 
 .min-h-screen-less-nav {
-  min-height: calc(100vh - 4rem);
+  min-height: calc(calc(var(--vh, 1vh) * 100) - 4rem);
 }
 
 .min-h-screen-less-both-nav {
-  min-height: calc(100vh - 8rem);
+  min-height: calc(calc(var(--vh, 1vh) * 100) - 8rem);
 }
 
 .object-contain {
@@ -1936,7 +1936,7 @@ html {
   }
 
   .md\:min-h-screen-less-nav {
-    min-height: calc(100vh - 4rem);
+    min-height: calc(calc(var(--vh, 1vh) * 100) - 4rem);
   }
 
   .md\:w-auto {
