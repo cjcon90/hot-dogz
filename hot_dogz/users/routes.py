@@ -70,7 +70,6 @@ def register():
 
 
 @users.route('/reset_password_request', methods=['GET', 'POST'])
-@login_required
 def reset_password_request():
     """Route for requesting a password Reset"""
     if current_user.is_authenticated:
@@ -86,7 +85,6 @@ def reset_password_request():
                            title='Reset Password', form=form)
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
-@login_required
 def reset_password(token):
     """Password reset form, if request and
     jwt token signing was successful"""
