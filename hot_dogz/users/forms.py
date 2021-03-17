@@ -18,23 +18,21 @@ class RegisterForm(FlaskForm):
                                               message="Please enter a username between 2 and 12 characters long")])
     email = StringField('Email', validators=[DataRequired(message="Please enter an email"),
                                              Email(message="Please enter a valid email address"),
-                                             Length(max=100, message="Email is too long")])
+                                             Length(max=100, message="Email is too long (100 character max)")])
     password = PasswordField('Password', validators=[DataRequired(message="Please enter a password")])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(message="Please double check password"),
                                        EqualTo('password', message="Passwords don't match! Please try again")])
     submit = SubmitField('Register')
 
-    @staticmethod
     # Function to check that username isn't already registered on site
-    def validate_username(username):
+    def validate_username(self, username):
         existing = User.objects(username=username.data).first()
         if existing is not None:
             raise ValidationError('Please use a different username.')
 
-    @staticmethod
     # Function to check that email isn't already registered on site
-    def validate_email(email):
+    def validate_email(self, email):
         existing = User.objects(email=email.data).first()
         if existing is not None:
             raise ValidationError('Please use a different email.')
@@ -55,12 +53,15 @@ class ResetPasswordForm(FlaskForm):
 
 
 class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(message="Please enter a username")])
+    username = StringField('Username',
+                           validators=[DataRequired(message="Please enter a username"),
+                                       Length(min=2, max=12,
+                                              message="Please enter a username between 2 and 12 characters long")])
     email = StringField('Email', validators=[DataRequired(message="Please enter an email"),
-                                             Email(message="Please enter a valid email address")])
+                                             Email(message="Please enter a valid email address"),
+                                             Length(max=100, message="Email is too long (100 character max)")])
     submit = SubmitField('Submit')
 
-    @staticmethod
     # Function to check that username (if new) isn't already registered on site
     def validate_username(self, username):
         if username.data != current_user.username:
@@ -68,7 +69,6 @@ class EditProfileForm(FlaskForm):
             if existing is not None:
                 raise ValidationError('Please use a different username.')
 
-    @staticmethod
     # Function to check that email (if new) isn't already registered on site
     def validate_email(self, email):
         if email.data != current_user.email:
