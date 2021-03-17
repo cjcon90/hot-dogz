@@ -14,8 +14,8 @@ import os
 
 
 class User(UserMixin, db.Document):
-    username = db.StringField(required=True)
-    email = db.EmailField(required=True)
+    username = db.StringField(max_length=12, unique=True, required=True)
+    email = db.EmailField(max_length=100, unique=True, required=True)
     password_hash = db.StringField(required=True)
     img_url = db.URLField()
 
@@ -60,13 +60,13 @@ class Breed(db.Document):
 
 
 class Dog(db.Document):
-    name = db.StringField(required=True)
+    name = db.StringField(max_length=20, required=True)
     img_url = db.URLField()
     img_url_card = db.URLField()
     img_url_thumb = db.URLField()
     owner = db.ReferenceField(User, reverse_delete_rule=CASCADE)
     breed = db.ReferenceField(Breed)
-    about = db.StringField(default="No info on this doggo yet!")
+    about = db.StringField(max_length=250, default="No info on this doggo yet!")
     liked_by = db.ListField(db.ReferenceField(User))
     likes = db.IntField()
     faved_by = db.ListField(db.ReferenceField(User))
@@ -107,7 +107,7 @@ class Dog(db.Document):
 class Comment(db.Document):
     author = db.ReferenceField(User, reverse_delete_rule=CASCADE)
     dog = db.ReferenceField(Dog, reverse_delete_rule=CASCADE)
-    content = db.StringField(required=True)
+    content = db.StringField(max_length=250, required=True)
     date = db.DateTimeField(default=datetime.datetime.utcnow)
 
     def __repr__(self):
