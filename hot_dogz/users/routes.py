@@ -110,7 +110,7 @@ def profile(username):
     """
     user = User.objects(username=username).first()
     user_dogs = Dog.objects(owner=user)
-    favourites = Dog.objects(faved_by__contains=current_user.id)
+    favourites = Dog.objects(faved_by__contains=user.id)
     return render_template('profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs, favourites=favourites)
 
 
