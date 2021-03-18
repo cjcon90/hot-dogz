@@ -33,14 +33,16 @@
     <!-- USER UPLOADS -->
     <div class="flex flex-col items-center">
         <h1 class="py-2 text-4xl text-center sm:text-5xl font-title text-secondary-500"> My Dogs </h1>
-        <div class="flex flex-col gap-6 p-6 lg:grid lg:grid-flow-col">
-            {% if user_dogs|length %}
-            {% for dog in user_dogs %}
-            {% include '_dog_card.html' %}
-            {% endfor %}
-            {% else %}
-            <p class="text-xl font-bold text-center text-gray-500">No dogs uploaded yet!</p>
-            {% endif %}
+        <div class="overflow-y-auto scroll-box max-h-96">
+            <div class="flex flex-col gap-6 p-6 lg:grid lg:grid-flow-col">
+                {% if user_dogs|length %}
+                {% for dog in user_dogs %}
+                {% include '_dog_card.html' %}
+                {% endfor %}
+                {% else %}
+                <p class="text-xl font-bold text-center text-gray-500">No dogs uploaded yet!</p>
+                {% endif %}
+            </div>
         </div>
         {% if user.username == current_user.username %}
         <a href=" {{url_for('dogs.upload_dog')}} " class="w-40 py-1 mx-auto text-base btn btn-primary ">Upload dog</a>
@@ -50,11 +52,13 @@
     <div>
         <h1 class="py-6 text-4xl text-center sm:text-5xl font-title text-secondary-500"> My Favourites </h1>
         {% if favourites|length %}
-        <div
-            class="flex flex-wrap items-center justify-center max-w-screen-xl py-6 mx-auto justify-items-center gap-y-6 gap-x-2 ">
-            {% for dog in favourites %}
-            {% include '_dog_card.html' %}
-            {% endfor %}
+        <div class="overflow-y-auto scroll-box lg:mb-6 max-h-96">
+            <div
+                class="flex flex-wrap items-center justify-center max-w-screen-xl py-6 mx-auto justify-items-center gap-y-6 gap-x-2">
+                {% for dog in favourites %}
+                {% include '_dog_card.html' %}
+                {% endfor %}
+            </div>
         </div>
         {% else %}
         <p class="py-6 text-xl font-bold text-center text-gray-500">No favourite dogs saved yet!</p>

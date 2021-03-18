@@ -927,6 +927,10 @@ html {
   max-height: 20rem;
 }
 
+.max-h-96 {
+  max-height: 24rem;
+}
+
 .max-w-xs {
   max-width: 20rem;
 }
@@ -1013,6 +1017,10 @@ html {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
 
 .p-1 {
@@ -1983,6 +1991,10 @@ html {
 
   .lg\:mb-5 {
     margin-bottom: 1.25rem;
+  }
+
+  .lg\:mb-6 {
+    margin-bottom: 1.5rem;
   }
 
   .lg\:max-w-2xl {

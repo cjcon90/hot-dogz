@@ -5,7 +5,6 @@ html {
     scroll-behavior: smooth;
 }
 
-
 @tailwind utilities;
 
 /* Card border style */
@@ -13,6 +12,7 @@ html {
 .dash-border {
     @apply border-4 border-gray-300 border-dashed rounded-lg;
 }
+
 
 /* BUTTONS */
 .btn {
@@ -43,6 +43,7 @@ html {
 .form-input {
     @apply w-full px-4 py-3 mb-3 bg-white border border-gray-400 rounded-md focus:outline-none focus:ring-1;
 }
+
 
 /* TYPOGRAPHY */
 
