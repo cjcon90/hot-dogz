@@ -73,7 +73,7 @@ html {
 /* FLASH ANIMATIONS */
 
 .animate-flash {
-    animation: animate-flash 2.5s ease-out forwards;
+    animation: animate-flash 3s ease-out forwards;
 }
 
 /* ANIMATIONS */

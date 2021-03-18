@@ -600,10 +600,6 @@ html {
   background-color: rgba(201, 75, 73, var(--tw-bg-opacity));
 }
 
-.bg-dog1 {
-  background-image: url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog1_crop.jpg');
-}
-
 .bg-dog2 {
   background-image: url('https://res.cloudinary.com/cjcon90/image/upload/w_700,c_scale,q_auto,f_jpg/v1614203125/hot_dogz/wallpapers/dog2_crop.jpg');
 }
@@ -965,10 +961,6 @@ html {
 
 .max-w-screen-2xl {
   max-width: 1536px;
-}
-
-.min-h-screen {
-  min-height: 100vh;
 }
 
 .min-h-screen-less-nav {
@@ -1728,8 +1720,8 @@ html {
 /* FLASH ANIMATIONS */
 
 .animate-flash {
-  -webkit-animation: animate-flash 2.5s ease-out forwards;
-          animation: animate-flash 2.5s ease-out forwards;
+  -webkit-animation: animate-flash 3s ease-out forwards;
+          animation: animate-flash 3s ease-out forwards;
 }
 
 /* ANIMATIONS */
