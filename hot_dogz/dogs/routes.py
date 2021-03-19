@@ -33,6 +33,9 @@ def upload_dog():
 def edit_dog(dog_id):
     """Route for editing a dog's details"""
     dog = Dog.objects(pk=dog_id).first()
+    if dog.owner != current_user:
+        flash("You cannot edit someone else's dog!", "exclamation")
+        return redirect(url_for('main.gallery', view='hot'))
     form = EditForm()
     if form.validate_on_submit():
         # Update Breed and about section
@@ -59,6 +62,9 @@ def edit_dog(dog_id):
 def delete_dog(dog_id):
     """Route for deleting a dog from database"""
     dog = Dog.objects(pk=dog_id).first()
+    if dog.owner != current_user:
+        flash("You cannot delete someone else's dog!", "exclamation")
+        return redirect(url_for('main.gallery', view='hot'))
     if request.method == 'POST':
         user = current_user.username
         # Delete dog's image from cloudinary database before deleting dog
