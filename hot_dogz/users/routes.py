@@ -229,6 +229,9 @@ def favourite(dog_id):
 def edit_comment(comment_id):
     form = CommentInput()
     comment = Comment.objects(pk=comment_id).first()
+    if comment.author != current_user:
+        flash("You cannot edit someone else's comment!", "exclamation")
+        return redirect(url_for('main.gallery', view='hot'))
     dog_id = comment.dog.pk
     if form.validate_on_submit():
         comment.content = form.content.data
@@ -243,6 +246,9 @@ def edit_comment(comment_id):
 @login_required
 def delete_comment(comment_id):
     comment = Comment.objects(pk=comment_id).first()
+    if comment.author != current_user:
+        flash("You cannot delete someone else's comment!", "exclamation")
+        return redirect(url_for('main.gallery', view='hot'))
     dog_id = comment.dog.pk
     if request.method == 'POST':
         comment.delete()
