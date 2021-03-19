@@ -11,7 +11,7 @@
                     <a href="{{url_for('users.delete_comment', comment_id=comment.pk)}}" class="btn-small btn-primary">Delete</a>
                 </div>
             {% else %}
-                <a href="{{url_for('users.profile', username=dog.owner.username)}}"
+                <a href="{{url_for('users.profile', username=comment.author.username)}}"
                 class="text-xs uppercase text-secondary-500 hover:underline focus:text-secondary-600">{{comment.author.username}}</a>
             {% endif %}
             <p class="italic">{{comment.date.strftime('%d.%m.%Y')}}</p>
