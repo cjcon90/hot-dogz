@@ -1104,6 +1104,10 @@ html {
   padding-bottom: 2.5rem;
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .static {
   position: static;
 }

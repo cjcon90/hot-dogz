@@ -1,20 +1,29 @@
 {% extends 'base.html' %}
-
+<!-- CONTACT FORM -->
 {% block content %}
-    <div class="relative bg-bottom bg-no-repeat md:bg-right-bottom min-h-screen-less-both-nav md:min-h-screen-less-nav bg-dog3 lg:bg-50%">
+<!-- Add contional height to offset bottom nav bar if user is logged in -->
+    <div class="relative bg-bottom bg-no-repeat md:bg-right-bottom {{'min-h-screen-less-both-nav' if current_user.is_authenticated else 'min-h-screen-less-nav'}} md:min-h-screen-less-nav bg-dog3 lg:bg-50%">
         <h1 class="title text-secondary-500 ">Contact Us</h1>
             <form action="" method="POST" class="z-10 flex flex-col max-w-screen-sm p-4 mx-auto bg-white border border-gray-100 rounded-lg shadow-md fade-in w-80 lg:w-1/4 " novalidate>
                 {{ form.hidden_tag()}}
                 <fieldset class="pb-2">
                     {{form.username.label}}
-                    {{form.username(class_='mb-3 w-full py-3 px-4 border border-gray-400 focus:outline-none  rounded-md bg-gray-200')}}
+                    {% if current_user.is_authenticated %}
+                        {{form.username(class_='mb-3 w-full py-3 px-4 border border-gray-400 focus:outline-none rounded-md bg-gray-200 pointer-events-none')}}
+                    {% else %}
+                        {{form.username(class_='form-input')}}
+                    {% endif %}
                     {% for error in form.username.errors %}
                         <span class="text-red-500"> {{error}} </span>
                     {% endfor %}
                 </fieldset>
                 <fieldset class="pb-2">
                     {{form.email.label}}
-                    {{form.email(class_='mb-3 w-full py-3 px-4 border border-gray-400 focus:outline-none rounded-md bg-gray-200')}}
+                    {% if current_user.is_authenticated %}
+                        {{form.email(class_='mb-3 w-full py-3 px-4 border border-gray-400 focus:outline-none rounded-md bg-gray-200 pointer-events-none')}}
+                    {% else %}
+                        {{form.email(class_='form-input')}}
+                    {% endif %}
                     {% for error in form.email.errors %}
                         <span class="text-red-500 "> {{error}} </span>
                     {% endfor %}
