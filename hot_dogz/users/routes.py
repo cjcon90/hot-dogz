@@ -133,39 +133,47 @@ def select_avatar():
     return render_template('select_avatar.html', avatars=avatars, title='Choose Avatar')
 
 
-@users.route('/edit_profile/', methods=['GET', 'POST'])
+@users.route('/edit_profile/<user_id>', methods=['GET', 'POST'])
 @login_required
-def edit_profile():
+def edit_profile(user_id):
     """route for editing username, email
     or password"""
+    user = User.objects(pk=user_id).first()
+    if user != current_user and current_user.username != 'admin':
+        flash("You cannot edit someone else's profile!", "exclamation")
+        return redirect(url_for('main.gallery', view='hot'))
     form = EditProfileForm()
     if form.validate_on_submit():
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        current_user.save()
+        user.username = form.username.data
+        user.email = form.email.data
+        user.save()
         flash('Account updated successfully!', 'check-circle')
-        return redirect(url_for('users.profile', username=current_user.username))
+        return redirect(url_for('users.profile', username=user.username))
     elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
+        form.username.data = user.username
+        form.email.data = user.email
     return render_template('edit_profile.html', title='Edit Profile', form=form)
 
 
-@users.route('/delete_account/', methods=['GET', 'POST'])
+@users.route('/delete_account/<user_id>', methods=['GET', 'POST'])
 @login_required
-def delete_account():
+def delete_account(user_id):
     """route for editing username, email
     or password"""
+    user = User.objects(pk=user_id).first()
+    if user != current_user and current_user.username != 'admin':
+        flash("You cannot delete someone else's profile!", "exclamation")
+        return redirect(url_for('main.gallery', view='hot'))
     form = DeleteAccountForm()
     if form.validate_on_submit():
-        user = User.objects(username=current_user.username).first()
-        # Complete password check before deletion
-        if not user.check_password(form.password.data):
+        # Complete password check before deletion (admin can enter admin password)
+        if not current_user.check_password(form.password.data):
             flash('Invalid Password', 'exclamation')
-            return redirect(url_for('users.profile', username=current_user.username))
+            return redirect(url_for('users.profile', username=user.username))
         else:
-            #Logout user to home screen
-            logout_user()
+            if current_user.username != 'admin':
+                #Logout user to home screen
+                logout_user()
             # Delete stored cloudinary image for each of user's dogs
             dogs = Dog.objects(owner=user)
             for dog in dogs:
@@ -229,7 +237,7 @@ def favourite(dog_id):
 def edit_comment(comment_id):
     form = CommentInput()
     comment = Comment.objects(pk=comment_id).first()
-    if comment.author != current_user:
+    if comment.author != current_user and current_user.username != 'admin':
         flash("You cannot edit someone else's comment!", "exclamation")
         return redirect(url_for('main.gallery', view='hot'))
     dog_id = comment.dog.pk
@@ -246,7 +254,7 @@ def edit_comment(comment_id):
 @login_required
 def delete_comment(comment_id):
     comment = Comment.objects(pk=comment_id).first()
-    if comment.author != current_user:
+    if comment.author != current_user and current_user.username != 'admin':
         flash("You cannot delete someone else's comment!", "exclamation")
         return redirect(url_for('main.gallery', view='hot'))
     dog_id = comment.dog.pk

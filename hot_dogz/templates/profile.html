@@ -20,11 +20,11 @@
         <div
             class="flex flex-col py-6 gap-4 {{'justify-between' if user.username == current_user.username else 'justify-center'}}">
             <h1 class="text-4xl text-center uppercase sm:text-6xl font-title text-secondary-500 ">{{user.username}}</h1>
-            {% if user.username == current_user.username %}
+            {% if user.username == current_user.username or current_user.username == 'admin' %}
             <div class="flex justify-between gap-10">
-                <a href=" {{url_for('users.edit_profile')}} "
+                <a href=" {{url_for('users.edit_profile', user_id=user.id)}} "
                     class="text-lg font-semibold text-gray-600 hover:underline focus:italic">Edit Account</a>
-                <a href="{{url_for('users.delete_account')}}"
+                <a href="{{url_for('users.delete_account', user_id=user.id)}}"
                     class="text-lg font-semibold text-gray-600 hover:underline focus:italic">Delete Account</a>
             </div>
             {% endif %}

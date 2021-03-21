@@ -33,7 +33,7 @@ def upload_dog():
 def edit_dog(dog_id):
     """Route for editing a dog's details"""
     dog = Dog.objects(pk=dog_id).first()
-    if dog.owner != current_user:
+    if dog.owner != current_user and current_user.username != 'admin':
         flash("You cannot edit someone else's dog!", "exclamation")
         return redirect(url_for('main.gallery', view='hot'))
     form = EditForm()
@@ -62,7 +62,7 @@ def edit_dog(dog_id):
 def delete_dog(dog_id):
     """Route for deleting a dog from database"""
     dog = Dog.objects(pk=dog_id).first()
-    if dog.owner != current_user:
+    if dog.owner != current_user and current_user.username != 'admin':
         flash("You cannot delete someone else's dog!", "exclamation")
         return redirect(url_for('main.gallery', view='hot'))
     if request.method == 'POST':

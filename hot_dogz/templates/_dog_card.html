@@ -9,7 +9,7 @@
             <p>Name: <span class="font-semibold">{{dog.name}}</span></p>
             <p>Breed: <span class="font-semibold">{{dog.breed.breed_name}}</span></p>
             <!-- Display dog's owner unless it is current user, if so display edit and delete buttons -->
-            {% if dog.owner == current_user %}
+            {% if dog.owner == current_user or current_user.username == 'admin' %}
                 <div class="flex gap-2">
                     <a href="{{url_for('dogs.edit_dog', dog_id=dog.pk)}}" class="underline">Edit</a>
                     <a href="{{url_for('dogs.delete_dog', dog_id=dog.pk)}}" class="underline ">Delete</a>
