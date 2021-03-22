@@ -1,4 +1,3 @@
-from hashlib import new
 from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
 from hot_dogz.dogs.forms import CommentInput, UploadForm, EditForm

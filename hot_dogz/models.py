@@ -114,14 +114,6 @@ class Comment(db.Document):
         return f"Comment('{self.content}', author = '{self.author.username}')"
 
 
-class Favourite(db.Document):
-    user = db.ReferenceField(User, reverse_delete_rule=CASCADE)
-    dog = db.ReferenceField(Dog, reverse_delete_rule=CASCADE)
-
-    def __repr__(self):
-        return f"Favourite('{self.dog.name}', favourited by '{self.user.username}')"
-
-
 # Load the user from the database for flask-login
 @login.user_loader
 def load_user(id):

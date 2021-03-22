@@ -872,8 +872,8 @@ html {
   line-height: 1;
 }
 
-.text-8xl {
-  font-size: 6rem;
+.text-7xl {
+  font-size: 4.5rem;
   line-height: 1;
 }
 
@@ -1921,6 +1921,11 @@ html {
     display: none;
   }
 
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
   .md\:text-9xl {
     font-size: 8rem;
     line-height: 1;
@@ -2004,10 +2009,6 @@ html {
     margin-bottom: 1.5rem;
   }
 
-  .lg\:max-w-lg {
-    max-width: 32rem;
-  }
-
   .lg\:max-w-2xl {
     max-width: 42rem;
   }
@@ -2053,9 +2054,6 @@ html {
 }
 
 @media (min-width: 1280px) {
-  .xl\:max-w-2xl {
-    max-width: 42rem;
-  }
 }
 
 @media (min-width: 1536px) {
