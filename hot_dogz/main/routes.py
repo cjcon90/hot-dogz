@@ -15,7 +15,7 @@ def index():
     if current_user.is_authenticated:
         # redirect users to main page if they are already registered
         return redirect(url_for('main.gallery', view='hot', animate='on'))
-    return render_template('index.html')
+    return render_template('main/index.html')
 
 
 @main.route('/gallery/<view>')
@@ -33,7 +33,7 @@ def gallery(view):
     elif view == 'new':
         dogs = Dog.objects.order_by('-upload_date').paginate(page=page, per_page=6)
     animate = request.args.get('animate')
-    return render_template('gallery.html', title="Gallery", dogs=dogs, view=view, animate=animate)
+    return render_template('main/gallery.html', title="Gallery", dogs=dogs, view=view, animate=animate)
 
 
 @main.route('/contact', methods=['GET', 'POST'])
@@ -60,4 +60,4 @@ def contact():
         if current_user.is_authenticated:
             form.username.data = current_user.username
             form.email.data = current_user.email
-    return render_template('contact.html', form=form, title="Contact Us")
+    return render_template('main/contact.html', form=form, title="Contact Us")

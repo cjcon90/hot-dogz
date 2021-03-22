@@ -22,6 +22,6 @@
     <div class="flex pb-1">
         <a href="{{url_for('dogs.dog_page', dog_id=dog.pk)}}" class="self-end flex-1 text-center underline ">Full Size / Comments</a>
         <!-- Inclide heart and like buttons -->
-        <div class="flex-1">{% include '_interactions.html' %}</div>
+        <div class="flex-1">{% include 'dog/_interactions.html' %}</div>
     </div>
 </div>

@@ -37,7 +37,7 @@ def login():
             next_page = url_for('main.gallery', view='hot', animate='on')
         return redirect(next_page)
     # 'GET' functioning
-    return render_template('login.html', title="Login", form=form)
+    return render_template('user/login.html', title="Login", form=form)
 
 
 @users.route('/logout')
@@ -66,7 +66,7 @@ def register():
         # Redirect to avatar select screen for manual select
         return redirect(url_for('users.select_avatar'))
     # 'GET' functioning
-    return render_template('register.html', title="Register", form=form)
+    return render_template('user/register.html', title="Register", form=form)
 
 
 @users.route('/reset_password_request', methods=['GET', 'POST'])
@@ -82,7 +82,7 @@ def reset_password_request():
         flash('Check your email for the instructions to reset your password', 'check-circle')
         flash('(Remember to check your spam folder!)', 'comment')
         return redirect(url_for('users.login'))
-    return render_template('reset_password_request.html',
+    return render_template('user/reset_password_request.html',
                            title='Reset Password', form=form)
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -100,7 +100,7 @@ def reset_password(token):
         user.save()
         flash('Your password has been reset.', 'check-circle')
         return redirect(url_for('users.login'))
-    return render_template('reset_password.html', form=form)
+    return render_template('user/reset_password.html', form=form)
 
 
 @users.route('/profile/<username>')
@@ -112,7 +112,7 @@ def profile(username):
     user = User.objects(username=username).first()
     user_dogs = Dog.objects(owner=user)
     favourites = Dog.objects(faved_by__contains=user.id)
-    return render_template('profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs, favourites=favourites)
+    return render_template('user/profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs, favourites=favourites)
 
 
 @users.route('/select_avatar')
@@ -130,7 +130,7 @@ def select_avatar():
         return redirect(url_for('users.profile', username=current_user.username))
     #Default functioning to present available avatars
     avatars = [f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{i}.png' for i in range(1,17)]
-    return render_template('select_avatar.html', avatars=avatars, title='Choose Avatar')
+    return render_template('user/select_avatar.html', avatars=avatars, title='Choose Avatar')
 
 
 @users.route('/edit_profile/<user_id>', methods=['GET', 'POST'])
@@ -152,7 +152,7 @@ def edit_profile(user_id):
     elif request.method == 'GET':
         form.username.data = user.username
         form.email.data = user.email
-    return render_template('edit_profile.html', title='Edit Profile', form=form)
+    return render_template('user/edit_profile.html', title='Edit Profile', form=form)
 
 
 @users.route('/delete_account/<user_id>', methods=['GET', 'POST'])
@@ -183,7 +183,7 @@ def delete_account(user_id):
             flash('Account deleted! Hope to see you again', 'check-circle')
             return redirect(url_for('main.index'))
 
-    return render_template('delete_account.html', title='Delete Account', form=form)
+    return render_template('user/delete_account.html', title='Delete Account', form=form)
 
 
 
@@ -247,7 +247,7 @@ def edit_comment(comment_id):
         flash("Comment edited", "comment")
         return redirect(url_for('dogs.dog_page', dog_id=dog_id))
     form.content.data = comment.content
-    return render_template('edit_comment.html', form=form, title="Edit Comment" )
+    return render_template('user/edit_comment.html', form=form, title="Edit Comment" )
 
 
 @users.route('/delete_comment/<comment_id>', methods=['GET', 'POST'])
@@ -262,4 +262,4 @@ def delete_comment(comment_id):
         comment.delete()
         flash("Comment deleted", "comment")
         return redirect(url_for('dogs.dog_page', dog_id=dog_id))
-    return render_template('delete_comment.html', comment=comment, title="Delete Comment" )
+    return render_template('user/delete_comment.html', comment=comment, title="Delete Comment" )

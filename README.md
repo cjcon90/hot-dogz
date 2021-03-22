@@ -53,7 +53,7 @@
 
 - [Mobile Wireframes](docs/wireframes/mobile.pdf)
 - [Desktop Wireframes](docs/wireframes/desktop.pdf)
-- Tablet wireframes were to follow the mobile design, centered and sized up
+- (Tablet design planned to follow same layout as mobile)
 
 #### Changes from Wireframes
 
@@ -216,10 +216,35 @@ I used three fonts throughout the website. A display font on the welcome page, a
 
 ### Dog Pages
 
+#### Dog Profile Page
+
+- Displays a larger thumbnail image of dog, without cropping to card aspect ratio
+	- This image features a link to see original, user upload full-size image
+- Display's dog info: name, breed, upload date, owner and about section
+- If current user is dog's owner, then displays buttons to edit or delete dog
+	- Edit dog will load a form with any information pre-filled
+	- Uploading a new profile picture will replace the previous picture in the Hot Dogz cloudinary database
+	- Delete dog will ask user's to confirm before deletion 
+- Otherwise displays text prompting current user to leave a comment   
+
+#### Comments
+
+- Displays avatar of comment author and name, both of which act as a link to their user page
+- Displays comment content and date comment was added
+- If current user is author, it displays edit and delete comment buttons
+	- Edit comment will navigate to a text entry, pre-filled witih the comment user is editing
+	- Delete comment will display the comment text as a blockquote and ask user to confirm delete
+
+### Admin
+
+- There is an admin user account which has permissions to delete or edit any user, dog or comment on the site
+- A preview of the admin account on the gallery home page will show edit/delete options for all uploaded dogs:
+![admin_view](docs/screenshots/admin_view.png)
 
 
 ### Custom Error Pages
 
+- Three cusotm error 
 
 ### Features left to Implement.
 

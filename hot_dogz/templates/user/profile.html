@@ -37,7 +37,7 @@
             <div class="flex flex-col gap-6 p-6 lg:grid lg:grid-flow-col">
                 {% if user_dogs|length %}
                 {% for dog in user_dogs %}
-                {% include '_dog_card.html' %}
+                {% include 'dog/_dog_card.html' %}
                 {% endfor %}
                 {% else %}
                 <p class="text-xl font-bold text-center text-gray-500">No dogs uploaded yet!</p>
@@ -56,7 +56,7 @@
             <div
                 class="flex flex-wrap items-center justify-center max-w-screen-xl py-6 mx-auto justify-items-center gap-y-6 gap-x-2">
                 {% for dog in favourites %}
-                {% include '_dog_card.html' %}
+                {% include 'dog/_dog_card.html' %}
                 {% endfor %}
             </div>
         </div>

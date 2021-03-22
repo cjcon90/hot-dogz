@@ -24,7 +24,7 @@ def upload_dog():
         flash('Dog Uploaded!', 'dog')
         return redirect(url_for('users.profile', username=current_user.username))
     # 'GET' functioning
-    return render_template('upload_dog.html', form=form, title="Upload Dog")
+    return render_template('dog/upload_dog.html', form=form, title="Upload Dog")
 
 
 @dogs.route('/edit_dog/<dog_id>', methods=['GET', 'POST'])
@@ -52,7 +52,7 @@ def edit_dog(dog_id):
     elif request.method == 'GET':
         form.name.data = dog.name
         form.about.data = dog.about
-    return render_template('upload_dog.html', form=form, title="Edit Dog")
+    return render_template('dog/upload_dog.html', form=form, title="Edit Dog")
 
 
 @dogs.route('/delete_dog/<dog_id>', methods=['GET', 'POST'])
@@ -70,7 +70,7 @@ def delete_dog(dog_id):
         dog.delete()
         flash("Dog post successfuly deleted", "check-circle")
         return redirect(url_for('users.profile', username=user))
-    return render_template('delete_dog.html', dog=dog)
+    return render_template('dog/delete_dog.html', dog=dog)
 
 
 @dogs.route('/dog/<dog_id>', methods=['GET', 'POST'])
@@ -92,4 +92,4 @@ def dog_page(dog_id):
     comments=Comment.objects(dog=dog)
     for comment in comments:
         print(comment)
-    return render_template('dog_page.html', dog=dog, form=form, comments=comments, title=f"{dog.name}'s Page")
+    return render_template('dog/dog_page.html', dog=dog, form=form, comments=comments, title=f"{dog.name}'s Page")
