@@ -4,8 +4,8 @@
   "description": "A dog photo sharing app built with Flask",
   "main": "index.js",
   "scripts": {
-    "build:css": "postcss css/app.css -o css/compiled.css",
-    "watch:css": "postcss css/app.css -o css/compiled.css --watch"
+    "build:css": "postcss css/app.css -o css/output.css",
+    "watch:css": "postcss css/app.css -o css/output.css --watch"
   },
   "repository": {
     "type": "git",
