@@ -35,7 +35,7 @@ def edit_dog(dog_id):
     if dog.owner != current_user and current_user.username != 'admin':
         flash("You cannot edit someone else's dog!", "exclamation")
         return redirect(url_for('main.gallery', view='hot'))
-    form = EditForm()
+    form = EditForm(breed=dog.breed.id)
     if form.validate_on_submit():
         # Update Breed and about section
         dog.update(name=form.name.data)
@@ -51,7 +51,6 @@ def edit_dog(dog_id):
     # Pre-fill data for GET requests
     elif request.method == 'GET':
         form.name.data = dog.name
-        form.breed.data = dog.breed.breed_name
         form.about.data = dog.about
     return render_template('upload_dog.html', form=form, title="Edit Dog")
 

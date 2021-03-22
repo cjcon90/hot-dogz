@@ -121,6 +121,7 @@ Due to certain complexities involved in this, particularly taking into account t
 - The app's primary color was based on the pawprint logo colour [found on the mobile phone in the main landing page image](https://res.cloudinary.com/cjcon90/image/upload/v1615248344/hot_dogz/wallpapers/dog4_crop.jpg) (#cf5551)
 - This colour was darkened slightly for use as the primary colour in the app to ensure there was proper contrast on all text/buttons
 - I then used the [Adobe color wheel](https://color.adobe.com/create/color-wheel) to find a complimentary colour that also offered good contrast for white backgrounds and text
+- Different shades of the primary and secondary colours were created with [Tailwind Shades](https://www.tailwindshades.com)
 - For borders I used a light gray, matching the original design in the wireframes
 
 ![color palette](docs/color_palette.png)
@@ -170,51 +171,51 @@ I used three fonts throughout the website. A display font on the welcome page, a
 - There are two different navigations, depending on whether you are on mobile or tablet+
 - On mobile there is a bottom navigation bar, making it easy to access the main links with your thumb (visible once the user has signed in)
 - The top mobile navigation simply consists of a 'My Profile' button (or Login/Register buttons if a user has not yet signed in)
-![bottom nav image](docs/screenshots/gallery_mobile.pdf)
+![bottom nav image](docs/screenshots/gallery_mobile.png)
 - On desktop, the links that are present in the mobile bottom navigation are instead added alongside the 'My Profile' button in the top navigation bar
-![top nav image](docs/screenshots/gallery_desktop.pdf)
-
-
+![top nav only](docs/screenshots/gallery_desktop.png)
 
 #### Contact page.
 
+- If user is not logged in:
+	- Form has fillable Name/Email/Message fields
+- If user is logged in
+	- Form has read-only, pre-filled username/email fields for current user
+	- Has fillable message form
+- All messages sent from contact form send message to hotdogzapp@gmail.com    
 
-### Users
+### User Pages
 
-  - #### Sign Up.
+#### Register / Login
 
+- Both the Register and Login pages have a simple, clean form asking for username / password
+- Register form asks for email and password confirmation
+- Both pages link to eachother if user is already registered / not regisatered yet
+- Both pages link to contact page
+- Login page links to a password reset page, if user has forgotten their login password
 
-  - #### Login.
+#### Password Change Request
 
+- Request page features a single email field for users to request a password reset link
+- Feedback is given to check your email regardless of whether it is a registered email or not for security reasons (not identifying whether an email is regisatered or not)
+- If it is a registered email, a link with a JWT token is sent to the user's email
+- This link leads to a Password Change form with two password fields to type and confirm the users new password
 
-  - #### Account
+#### Profile
 
+- Displays this user's chosen avatar
+- Displays any dogs this user has uploaded
+- Displays any dogs this user has favourited
+- If this user is the current user, it presents links to:
+	- Change your avatar
+		- Here you can choose from 16 dog themed user avatars
+	- Edit your account
+		- Here you can change your username or email 
+	- Delete your account 
+		- Presents a screen to confirm your password in order to delete your account, along with any of your uploaded dogs/comments
 
-  - #### Update account.
+### Dog Pages
 
-
-  - #### Delete account.
-
-
-### Gallery
-
- - #### Recent Posts.
-
- - #### Trending Posts
-
- - #### Top Posts
-
- - #### Like / Favourite Post
-
- - #### Add Post
-
-### Post Page
-
- - #### Comments
-
- - #### Update Post
-
- - #### Delete Post.
 
 
 ### Custom Error Pages

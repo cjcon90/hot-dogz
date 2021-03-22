@@ -22,19 +22,21 @@
                     <a href="{{url_for('users.profile', username=dog.owner.username)}}" class="font-semibold text-secondary-500 ">{{dog.owner.username}}</a>
                 </div>
             </div>
-            {% if dog.owner == current_user %}
-            <div class="flex gap-2 justify-evenly">
-                <div class="flex-1"><a href=" {{url_for('dogs.edit_dog', dog_id=dog.pk)}} " class="btn-small">Edit Dog</a></div>
-                <div class="flex-1"><a href=" {{url_for('dogs.delete_dog', dog_id=dog.pk)}}  " class="btn-small">Delete Dog</a></div>
-            </div>
-            {% endif %}
+        
             <div class="p-4 text-center">
                 <p class="text-sm text-gray-600 uppercase">About:</p>
                 <p class="text-base font-semibold text-secondary-500 ">{{dog.about if dog.about else "No info yet!"}}</p>
             </div>
+            {% if current_user == dog.owner %}
+            <div class="flex justify-center gap-8">
+                <div><a href=" {{url_for('dogs.edit_dog', dog_id=dog.pk)}} " class="btn btn-primary btn-small">Edit Dog</a></div>
+                <div><a href=" {{url_for('dogs.delete_dog', dog_id=dog.pk)}}  " class="btn btn-primary btn-small">Delete Dog</a></div>
+            </div>
+            {% else %}
             <div>
                 <a href="#comment" class="text-2xl tracking-wide font-title text-primary-500">Leave {{dog.name}} a comment! <i class="fas fa-hand-point-down"></i></a>
             </div>
+            {% endif %}
         </div>
         <!-- DOG COMMENT SECTION -->
         <div class="flex flex-col gap-6 py-4">
