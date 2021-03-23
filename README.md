@@ -68,7 +68,7 @@ There were some changes from the initial wireframes, some of which were stylisti
 Due to certain complexities involved in this, particularly taking into account that the app may not have regular uploads, to achieve a minimum viable product I decided to go with just 'Hot' (most liked of all time) and 'New' (newly uploaded dogs) for the app.
 4. Similarly, in order to achieve a MVP, breed selection was kept to one select item, with an option for mixed-breed included in the options.
 5. Images were used for some form pages, but not for the login/register page as outlined in the app which were kept clean
-6. In desktop view, 'My Dogs' and 'Favourites' were originally positioned side by side, however in practice - as a user would likely have much more favouirites than uploads, to these were kept one above the other is it provided a more balanced layout.
+6. In desktop view, 'My Dogs' and 'Favourites' were originally positioned side by side, however in practice - as a user would likely have much more favourites than uploads, to these were kept one above the other is it provided a more balanced layout.
 
 ## Database Models and Schema
 
@@ -289,11 +289,11 @@ I used three fonts throughout the website. A display font on the welcome page, a
 - [Werkzeug](https://werkzeug.palletsprojects.com/en/1.0.x/utils/#module-werkzeug.security)
 	- Werkzeug Security Helpers were used to hash the user passwords before storing in the database
 
-- [Flask-mail](https://flask-login.readthedocs.io/en/latest/)
+- [Flask-Mail](https://flask-login.readthedocs.io/en/latest/)
 	- For sending emails relating to the contact and password reset forms
 		- For the Heroku deployment, I used the Heroku Sendgrid extension instead, as Flask-Mail was giving me the error `SMTP AUTH extension not supported by server`, although it worked locally.
 
-- [Flask-mongoengine](http://docs.mongoengine.org/projects/flask-mongoengine/en/latest/)
+- [Flask-Mongoengine](http://docs.mongoengine.org/projects/flask-mongoengine/en/latest/)
 	- For interacting with the MongoDB database
 
 - [Flask-Wtf](https://flask-wtf.readthedocs.io/en/stable/)
@@ -345,14 +345,26 @@ I used three fonts throughout the website. A display font on the welcome page, a
 
 - For the `img_url_card` I wanted images to be a fixed size of 350px x 525px, so I used the transformations `c_fill,g_auto,h_350,w_525,q_auto:low`
 	- Crop is set to fill
-	- `g_auto` = Gravity set to 'auto'. The gravity determines which part of an image to focus on and decides where the crop should be made Setting it to auto leaves cloudinary's AI decide where to crop the image, which generally focuses on a dog's face. An example can be seen here:
-		- Without gravity:
-		![Without gravity](docs/screenshots/without_gravity.png)
-		- With gravity set to 'auto': 
-		![With Gravity set to 'auto'](docs/screenshots/with_gravity.png)
+	- `g_auto` = Gravity set to 'auto'. The 'gravity' transformation determines which part of an image to focus on and decides where a crop should be made
+	- Setting it to 'auto' leaves Cloudinary's AI decide where to crop the image, which generally focuses on a dog's face. An example can be seen here:
 
-### Other Frameworks Libraries and Programs.
+**Without gravity**:
+![Without gravity](docs/screenshots/without_gravity.png)
+**With gravity set to 'auto'**: 
+![With Gravity set to 'auto'](docs/screenshots/with_gravity.png)
 
+
+### Other Tools, Libraries & Programs
+
+- [Font Awesome](https://fontawesome.com) - FOr icons used throughout the site
+- [GIMP - GNU Image Manipulation Program](https://www.gimp.org) - For image editing
+- [favicon.io](https://favicon.io) - For creating favicon .ico
+- [Google Fonts](https://fonts.google.com) - for importing chosen fonts
+- [Balsamiq](https://balsamiq.com) - For creating my wireframes
+- [QuickDBD](https://app.quickdatabasediagrams.com) - For creating my DB schema diagram
+- [Am I Responsive?](http://ami.responsivedesign.is) - For creating the mockup image at start of README
+- [VSCode](https://code.visualstudio.com) - My primary code editor of choice for the project
+- [PyCharm](https://www.jetbrains.com/pycharm/) - Secondary code editor, used particularly for additional PEP 8 compliance functionality
 
 ## Testing
 
@@ -360,17 +372,103 @@ I used three fonts throughout the website. A display font on the welcome page, a
 
 ## Deployment
 
-### Github and Heroku
+### Requirements To Deploy:
+- Python3
+- Github account
+- MongoDB account
+- Heroku account
+
+### Cloning This Project:
+To create a clone, follow the following steps.
+
+1. Log in to GitHub and go to the repository.
+2. Click on the button with the text “Code”.
+3. Click “Open with GitHub Desktop” and follow the prompts in the GitHub Desktop Application or follow the instructions from [GitHub](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-to-github-desktop) to see how to clone the repository in other ways.
+
+#### To Work With Your Local Clone:
+1. Install all the requirements:
+	- Go to the workspace of your local copy.
+	- create a virtual environment with `python3 -m venv venv`
+	- Activate your virtual environment with `source venv/bin/activate`
+	- Install requirements from requirements.txt file with `pip install -r requirements.txt`
+
+2. Create your database in MongoDB.
+    1. Signup Or Login For [MongoDB](https://www.mongodb.com/)
+    2. Create a cluster as well as a database.
+    3. Create the following collections in the Database:
+        1. breed
+        2. comment
+        3. dog
+        4. user
+3. Create a file in the root directory called ".flaskenv". This will contain all of your envornment variables. Your .flaskenv file should look similar to the following:
+```
+FLASK_APP=run.py
+FLASK_DEBUG=[0 for off, 1 if you want to run flask debug mode locally]
+SECRET_KEY=[random string]
+MONGO_URI=mongodb+srv://[mongoDBusername]:[mongoDB password]@[clustername].wijab.mongodb.net/[database name]?retryWrites=true&w=majority
+MONGO_DBNAME=[mongoDB database name]
+CLOUD_NAME=[cloudinary username]
+CLOUD_API_KEY=[cloudinary API key]
+CLOUD_API_SECRET=[cloudinary API secret key]
+CLOUDINARY_URL=[cloudinary connection URL]
+MAIL_SERVER=[your mail smtp string, i.e. 'smtp.googlemail.com' if using gmail]
+MAIL_PORT=[587 if using TLS, 465 if using SSL]
+MAIL_USE_TLS=[1 if true, 0 if false (if false then set MAIL_USE_SSL=1 instead)]
+MAIL_USERNAME=[email username, i.e. #####@gmail.com]
+MAIL_PASSWORD=[login password for email]
+```
+4. Make sure that .flaskenv is included in your .gitignore file. It should be included already in cloned file
+5. To read your environment variables from your .flaskenv file, you must ensure that you have installed Python-dotenv within your virtual environment: `pip install python-dotenv`. This should have alreayd happened when installing requirements earlier
+
+### Deploying To Heroku
+
+To deploy our application on Heroku, we are required to have a requirements.txt file as well as a Procfile. These files will allow Heroku understand 
+what dependencies are required to run the application, as well as tell Heroku which file to run, to launch the application.
+
+#### Create a procfile:
+- Within your root folder, type in the terminal `touch Procfile` to create the Procfile
+- In your IDE, insert the text `web: gunicorn run:app` in your Procfile and save
+	- gunicorn should have been installed via pip earlier 
+
+#### For Deployment:
+1. Open [Heroku](http://heroku.com/).
+2. Login or signup for Heroku.
+3. Once logged in create a new app and select the desired region. 
+4. Deployment method "GitHub" (if this section is accidentally missed, you can use the tab selection within your dashboard "DEPLOY")
+5. Select "connect to GitHub" and follow the on screen instructions. Once connected to your Github:
+   
+    - Search for your repository using the form provided.
+6. Once you have connected your GitHub repository:
+    - Navigate to the "Settings" tab:
+        - Scroll to the section "Config Vars" here you will have to tell Heroku what these variables are:
+            - Input all data found in .flaskenv file into the config var section
+    - Navigate back to the "Deploy" tab:
+        - Scroll to the "Manual Deploy" tab:
+            1. Select the branch you wish to deploy (master is default)
+            2. Click the "Deploy Branch" button. (This may take some time as Heroku uploads the app to their servers.) 
+
+- Once the build is complete, a "View App" button will appear just below the build progress box. You can click this to see immediately if the build was successful. If the app doesn't load first time, try refresh once prior to investigating further.
+
+- Common issues include outdated requirements.txt and/or missing Procfile, if errors occur, check these are both correct before investigating further
 
 
 ## Credits
 
-
 ### Code
 
+- My navbar designed was inspired by [this post on TailwindComponents by sebageounity](https://tailwindcomponents.com/component/bottom-and-header-nav-responsive)
+- Form design was inspired by [this post on TailwindComponents by darkcris1](https://tailwindcomponents.com/component/facebook-login-page)
+- Most of my Flask code and knowledge was inspired by Miguel Grinberg's [Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+- Flask knowledge was also supplemented by Corey Schafer's [Python Flask Tutorial on YouTube](https://www.youtube.com/watch?v=MwZwr5Tvyxo&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH), particularly the [use of Blueprints](https://www.youtube.com/watch?v=Wfx4YBzg16s&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH&index=11)
 
 ### Content
 
-### Media
-
-### Acknowledgements
+- Dog avatars sourced from [freepik](https://www.freepik.com/free-vector/different-dog-faces-collection_905468.htm)
+- Pug photos were sourced from [Burst by artist Matthew Henry](https://burst.shopify.com/@matthew_henry)
+- Other dog wallpapers were sourced from Shutterstock (via a Premium subscription for 1 month)
+	- [WildStrawberry](https://www.shutterstock.com/image-photo/dog-clothes-skier-fur-jacket-glasses-796792303)
+	- [Javier Brosch](https://www.shutterstock.com/image-photo/chic-fashionable-diva-luxury-cool-dog-478163164)
+	- [Javier Brosch 2](https://www.shutterstock.com/image-photo/cool-trendy-posing-french-bulldog-sunglasses-713809558)
+	- [Eric Isselee](https://www.shutterstock.com/image-photo/group-chihuahuas-dressed-wearing-glasses-bow-324845963)
+	- [WilleeCole Photography](https://www.shutterstock.com/image-photo/spoiled-dog-english-bulldog-dressed-like-87110962)
+- Breed list was taken from this list of [Top 100 dog breeds in the UK](https://www.mirror.co.uk/tv/tv-news/uk-best-dog-breeds-2019-13923931)
