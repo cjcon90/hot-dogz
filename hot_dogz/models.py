@@ -26,9 +26,11 @@ class User(UserMixin, db.Document):
         return check_password_hash(self.password_hash, password)
 
     # Reset password code courtesy of Miguel Grinberg:
-    # https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-x-email-support
+    # https://blog.miguelgrinberg.com/post/
+    # the-flask-mega-tutorial-part-x-email-support
     def get_reset_password_token(self, expires_in=600):
-        # Return a time limited JWT token for emailing to users requesting reset
+        # Return a time limited JWT token for
+        # emailing to users requesting reset
         id = JSONEncoder().encode(self.id)
         return jwt.encode(
             {'reset_password': id, 'exp': time() + expires_in},
@@ -40,8 +42,9 @@ class User(UserMixin, db.Document):
         # Verify and return correct user
         try:
             id = json.loads(jwt.decode(token, current_app.config['SECRET_KEY'],
-                                       algorithms=['HS256'])['reset_password'], object_hook=decoder)
-        except:
+                                       algorithms=['HS256'])['reset_password'],
+                            object_hook=decoder)
+        except ValueError:
             return
         return User.objects(pk=id).first()
 
@@ -66,7 +69,8 @@ class Dog(db.Document):
     img_url_thumb = db.URLField()
     owner = db.ReferenceField(User, reverse_delete_rule=CASCADE)
     breed = db.ReferenceField(Breed)
-    about = db.StringField(max_length=250, default="No info on this doggo yet!")
+    about = db.StringField(max_length=250,
+                           default="No info on this doggo yet!")
     liked_by = db.ListField(db.ReferenceField(User))
     likes = db.IntField()
     faved_by = db.ListField(db.ReferenceField(User))
@@ -77,9 +81,11 @@ class Dog(db.Document):
 
     def set_dog_image(self, dog_img, user, pk):
         # Get an individual folder for each user's dog uploads
-        # and set filename to dog's primary key, so a new photo upload overwrites the old one
+        # and set filename to dog's primary key,
+        # so a new photo upload overwrites the old one
         public_id = f"hot_dogz/{user}/{pk}"
-        # upload image to identified folder with eager transformations for smaller image
+        # upload image to identified folder
+        # with eager transformations for smaller image
         res = uploader.upload(dog_img, public_id=public_id, overwrite=True)
         # Get already configurated cloud name
         cloud_name = os.environ.get("CLOUD_NAME")
@@ -95,9 +101,10 @@ class Dog(db.Document):
         image_format = res["format"]
         # add links for full quality image and thumbnails to Dog model
         self.img_url = f"{endpoint}{version}{public_id}.{image_format}"
-        self.img_url_card = f"{endpoint}{card_transformation}{version}{public_id}.{image_format}"
-        self.img_url_thumb = f"{endpoint}{thumb_transformation}{version}{public_id}.{image_format}"
-
+        self.img_url_card = f"{endpoint}{card_transformation}" \
+                            f"{version}{public_id}.{image_format}"
+        self.img_url_thumb = f"{endpoint}{thumb_transformation}" \
+                             f"{version}{public_id}.{image_format}"
 
     def delete_dog_image(self, user, pk):
         public_id = f"hot_dogz/{user}/{pk}"

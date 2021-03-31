@@ -4,8 +4,6 @@ from flask_login import LoginManager
 from config import Config
 from flask_mail import Mail
 
-
-
 db = MongoEngine()
 login = LoginManager()
 # configure view and message when users attemp to access a
@@ -17,7 +15,8 @@ mail = Mail()
 
 
 # From Flask docs: Factories & Extensions:
-# "Using this design pattern, no application-specific state is stored on the extension object,
+# "Using this design pattern,
+# no application-specific state is stored on the extension object,
 # so one extension object can be used for multiple apps."
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -28,7 +27,6 @@ def create_app(config_class=Config):
     db.init_app(app)
     login.init_app(app)
     mail.init_app(app)
-
 
     from hot_dogz.users.routes import users
     from hot_dogz.dogs.routes import dogs

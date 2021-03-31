@@ -1,7 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request, Blueprint
 from flask_login.utils import login_required
 from mongoengine.errors import DoesNotExist
-from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm, RequestPasswordForm, ResetPasswordForm, DeleteAccountForm
+from hot_dogz.users.forms import LoginForm, RegisterForm, EditProfileForm, \
+    RequestPasswordForm, ResetPasswordForm, DeleteAccountForm
 from hot_dogz.dogs.forms import CommentInput
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
@@ -11,6 +12,7 @@ from random import randint
 
 users = Blueprint('users', __name__)
 
+
 @users.route('/login', methods=['GET', 'POST'])
 def login():
     """route for logging in users"""
@@ -18,12 +20,14 @@ def login():
         return redirect(url_for('main.gallery', view='hot', animate='on'))
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
-        # Used try/except, as mongoengine objects.get() returns DoesNotExist error if document doesn't exist
+        # Used try/except, as mongoengine objects.get() returns DoesNotExist
+        # error if document doesn't exist
         try:
             user = User.objects.get(username=form.username.data.lower())
         except DoesNotExist:
             user = None
-        # If user doesn't exist or password doesn't match, notify user and reload page
+        # If user doesn't exist or password doesn't match, notify user and
+        # reload page
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password', 'exclamation')
             return redirect(url_for('users.login'))
@@ -47,7 +51,6 @@ def logout():
     return redirect(url_for('main.index'))
 
 
-
 @users.route('/register', methods=['GET', 'POST'])
 def register():
     """route for registering new users"""
@@ -58,8 +61,11 @@ def register():
     if request.method == 'POST' and form.validate_on_submit():
         user = User(username=form.username.data.lower(), email=form.email.data)
         user.set_password(form.password.data)
-        # Set a random avatar in case the user exits out of avatar select screen
-        user.set_avatar(f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{randint(1,16)}.png')
+        # Set a random avatar in case the user exits out of avatar select
+        # screen
+        user.set_avatar(
+            f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365'
+            f'/hot_dogz/avatars/dog{randint(1, 16)}.png')
         user.save()
         login_user(user)
         flash("Registered! Please choose an avatar", 'check-circle')
@@ -79,11 +85,13 @@ def reset_password_request():
         user = User.objects(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash('Check your email for the instructions to reset your password', 'check-circle')
+        flash('Check your email for the instructions to reset your password',
+              'check-circle')
         flash('(Remember to check your spam folder!)', 'comment')
         return redirect(url_for('users.login'))
     return render_template('user/reset_password_request.html',
                            title='Reset Password', form=form)
+
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
@@ -112,7 +120,9 @@ def profile(username):
     user = User.objects(username=username).first()
     user_dogs = Dog.objects(owner=user)
     favourites = Dog.objects(faved_by__contains=user.id)
-    return render_template('user/profile.html', title=f"{user.username}", user=user, user_dogs=user_dogs, favourites=favourites)
+    return render_template('user/profile.html', title=f"{user.username}",
+                           user=user, user_dogs=user_dogs,
+                           favourites=favourites)
 
 
 @users.route('/select_avatar')
@@ -120,17 +130,22 @@ def profile(username):
 def select_avatar():
     """route for selecting avatar for new users
         or editing avatar for current users"""
-    
-    #Fuctioning if user has selected a new avatar
+
+    # Fuctioning if user has selected a new avatar
     if request.args.get('selected'):
         user = User.objects.get(username=current_user.username)
         user.set_avatar(request.args.get('selected'))
         user.save()
         flash('Your avatar has been updated!', 'check-circle')
-        return redirect(url_for('users.profile', username=current_user.username))
-    #Default functioning to present available avatars
-    avatars = [f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365/hot_dogz/avatars/dog{i}.png' for i in range(1,17)]
-    return render_template('user/select_avatar.html', avatars=avatars, title='Choose Avatar')
+        return redirect(
+            url_for('users.profile', username=current_user.username))
+    # Default functioning to present available avatars
+    avatars = [
+        f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365' \
+        f'/hot_dogz/avatars/dog{i}.png '
+        for i in range(1, 17)]
+    return render_template('user/select_avatar.html', avatars=avatars,
+                           title='Choose Avatar')
 
 
 @users.route('/edit_profile/<user_id>', methods=['GET', 'POST'])
@@ -152,7 +167,8 @@ def edit_profile(user_id):
     elif request.method == 'GET':
         form.username.data = user.username
         form.email.data = user.email
-    return render_template('user/edit_profile.html', title='Edit Profile', user=user, form=form)
+    return render_template('user/edit_profile.html', title='Edit Profile',
+                           user=user, form=form)
 
 
 @users.route('/delete_account/<user_id>', methods=['GET', 'POST'])
@@ -166,13 +182,14 @@ def delete_account(user_id):
         return redirect(url_for('main.gallery', view='hot'))
     form = DeleteAccountForm()
     if form.validate_on_submit():
-        # Complete password check before deletion (admin can enter admin password)
+        # Complete password check before deletion (admin can enter admin
+        # password)
         if not current_user.check_password(form.password.data):
             flash('Invalid Password', 'exclamation')
             return redirect(url_for('users.profile', username=user.username))
         else:
             if current_user.username != 'admin':
-                #Logout user to home screen
+                # Logout user to home screen
                 logout_user()
             # Delete stored cloudinary image for each of user's dogs
             dogs = Dog.objects(owner=user)
@@ -183,8 +200,8 @@ def delete_account(user_id):
             flash('Account deleted! Hope to see you again', 'check-circle')
             return redirect(url_for('main.index'))
 
-    return render_template('user/delete_account.html', user=user, title='Delete Account', form=form)
-
+    return render_template('user/delete_account.html', user=user,
+                           title='Delete Account', form=form)
 
 
 @users.route('/like/<dog_id>')
@@ -204,9 +221,12 @@ def like(dog_id):
         dog.update(push__liked_by=current_user.id)
         dog.update(inc__likes=1)
         flash(f'"Thanks for the like!" ~ {dog.name}', 'thumbs-up')
-        
-    # Return to previous page ensuring no repeating animation if coming from gallery view
-    return redirect(request.referrer) if '/profile/' in request.referrer else deanimate(request.referrer)
+
+    # Return to previous page ensuring no repeating animation if coming from
+    # gallery view
+    return redirect(
+        request.referrer) if '/profile/' in request.referrer else deanimate(
+        request.referrer)
 
 
 @users.route('/favourite/<dog_id>')
@@ -228,8 +248,11 @@ def favourite(dog_id):
         dog.update(push__faved_by=current_user.id)
         flash(f"{dog.name} added to favourites!", 'heart')
 
-    # Return to previous page ensuring no repeating animation if coming from gallery view
-    return redirect(request.referrer) if '/profile/' in request.referrer else deanimate(request.referrer)
+    # Return to previous page ensuring no repeating animation if coming from
+    # gallery view
+    return redirect(
+        request.referrer) if '/profile/' in request.referrer else deanimate(
+        request.referrer)
 
 
 @users.route('/edit_comment/<comment_id>', methods=['GET', 'POST'])
@@ -247,7 +270,8 @@ def edit_comment(comment_id):
         flash("Comment edited", "comment")
         return redirect(url_for('dogs.dog_page', dog_id=dog_id))
     form.content.data = comment.content
-    return render_template('user/edit_comment.html', form=form, comment=comment, title="Edit Comment" )
+    return render_template('user/edit_comment.html', form=form,
+                           comment=comment, title="Edit Comment")
 
 
 @users.route('/delete_comment/<comment_id>', methods=['GET', 'POST'])
@@ -262,4 +286,5 @@ def delete_comment(comment_id):
         comment.delete()
         flash("Comment deleted", "comment")
         return redirect(url_for('dogs.dog_page', dog_id=dog_id))
-    return render_template('user/delete_comment.html', comment=comment, title="Delete Comment" )
+    return render_template('user/delete_comment.html', comment=comment,
+                           title="Delete Comment")

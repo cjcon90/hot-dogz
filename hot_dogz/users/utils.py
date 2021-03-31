@@ -21,5 +21,7 @@ def deanimate(path):
     """
     view = 'new' if 'new?' in path else 'hot'
     # Parse the return URL for page number
-    page = path.replace('&animate=False','').split('page=')[-1] if 'page=' in path else '1'
-    return redirect(url_for('main.gallery', view=view, page=page, animate=False))
+    page = path.replace('&animate=False', '').split('page=')[
+        -1] if 'page=' in path else '1'
+    return redirect(
+        url_for('main.gallery', view=view, page=page, animate=False))

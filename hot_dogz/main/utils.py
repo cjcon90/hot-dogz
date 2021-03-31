@@ -27,6 +27,6 @@ def decoder(dct):
         if '_id' in dct:
             try:
                 dct['_id'] = ObjectId(dct['_id'])
-            except:
+            except KeyError:
                 pass
         return dct

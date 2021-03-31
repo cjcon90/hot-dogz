@@ -7,7 +7,7 @@ from hot_dogz.models import Comment, Dog, Breed
 dogs = Blueprint('dogs', __name__)
 
 
-@dogs.route('/upload_dog', methods = ['GET', 'POST'])
+@dogs.route('/upload_dog', methods=['GET', 'POST'])
 @login_required
 def upload_dog():
     """
@@ -16,15 +16,20 @@ def upload_dog():
     form = UploadForm()
     if request.method == 'POST' and form.validate_on_submit():
         # Upload dog and add owner to likes by default
-        dog = Dog(name=form.name.data, owner=current_user.id, breed=form.breed.data,about=form.about.data, liked_by=[current_user.id], likes=1)
+        dog = Dog(name=form.name.data, owner=current_user.id,
+                  breed=form.breed.data, about=form.about.data,
+                  liked_by=[current_user.id], likes=1)
         dog.save()
-        # Set dog image url to be dog's primary key, for easy deletion and overwriting
+        # Set dog image url to be dog's primary key, for easy deletion and
+        # overwriting
         dog.set_dog_image(form.img_url.data, current_user.username, dog.pk)
         dog.save()
         flash('Dog Uploaded!', 'dog')
-        return redirect(url_for('users.profile', username=current_user.username))
+        return redirect(
+            url_for('users.profile', username=current_user.username))
     # 'GET' functioning
-    return render_template('dog/upload_dog.html', form=form, title="Upload Dog")
+    return render_template('dog/upload_dog.html', form=form,
+                           title="Upload Dog")
 
 
 @dogs.route('/edit_dog/<dog_id>', methods=['GET', 'POST'])
@@ -47,12 +52,13 @@ def edit_dog(dog_id):
             dog.set_dog_image(form.img_url.data, current_user.username, dog.pk)
         dog.save()
         flash('Updated dog details!', 'check-circle')
-        return redirect(url_for('users.profile', username=current_user.username))
+        return redirect(url_for('dogs.dog_page', dog_id=dog.pk))
     # Pre-fill data for GET requests
     elif request.method == 'GET':
         form.name.data = dog.name
         form.about.data = dog.about
-    return render_template('dog/upload_dog.html', form=form, dog=dog, title="Edit Dog")
+    return render_template('dog/upload_dog.html', form=form, dog=dog,
+                           title="Edit Dog")
 
 
 @dogs.route('/delete_dog/<dog_id>', methods=['GET', 'POST'])
@@ -83,14 +89,16 @@ def dog_page(dog_id):
     form = CommentInput()
     if request.method == 'POST' and form.validate_on_submit():
         if current_user.is_authenticated:
-            comment = Comment(author=current_user.id, dog=dog, content=form.content.data)
+            comment = Comment(author=current_user.id, dog=dog,
+                              content=form.content.data)
             comment.save()
             form.content.data = ''
             flash('Your comment has been submitted!', 'comment')
         else:
             flash('You must be logged in to leave a comment!', 'exclamation')
             return redirect(url_for('users.login'))
-    comments=Comment.objects(dog=dog)
+    comments = Comment.objects(dog=dog)
     for comment in comments:
         print(comment)
-    return render_template('dog/dog_page.html', dog=dog, form=form, comments=comments, title=f"{dog.name}'s Page")
+    return render_template('dog/dog_page.html', dog=dog, form=form,
+                           comments=comments, title=f"{dog.name}'s Page")

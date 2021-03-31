@@ -1,4 +1,5 @@
-from flask import render_template, redirect, url_for, Blueprint, request, flash, current_app
+from flask import render_template, redirect, url_for, \
+    Blueprint, request, flash, current_app
 from flask_login import current_user
 from hot_dogz.models import Dog
 from hot_dogz.main.forms import UserContactForm, AnonContactForm
@@ -29,11 +30,14 @@ def gallery(view):
     """
     page = request.args.get("page", 1, type=int)
     if view == 'hot':
-        dogs = Dog.objects.order_by('-likes', '-upload_date').paginate(page=page, per_page=6)
+        dogs = Dog.objects.order_by('-likes', '-upload_date').paginate(
+            page=page, per_page=6)
     elif view == 'new':
-        dogs = Dog.objects.order_by('-upload_date').paginate(page=page, per_page=6)
+        dogs = Dog.objects.order_by('-upload_date').paginate(
+            page=page, per_page=6)
     animate = request.args.get('animate')
-    return render_template('main/gallery.html', title="Gallery", dogs=dogs, view=view, animate=animate)
+    return render_template('main/gallery.html', title="Gallery", dogs=dogs,
+                           view=view, animate=animate)
 
 
 @main.route('/contact', methods=['GET', 'POST'])
