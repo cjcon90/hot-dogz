@@ -103,7 +103,7 @@ Due to certain complexities involved in this, particularly taking into account t
 
 - I followed the following steps to set it up.
 	- signed up to Mongodb and created a shared cluster
-	- selected default AWS cloudn provider
+	- selected default AWS cloud provider
 	- selected Ireland region
 	- selected m0 cluster tier
 	- chose name for cluster
@@ -121,8 +121,9 @@ Due to certain complexities involved in this, particularly taking into account t
 - The app's primary color was based on the pawprint logo colour [found on the mobile phone in the main landing page image](https://res.cloudinary.com/cjcon90/image/upload/v1615248344/hot_dogz/wallpapers/dog4_crop.jpg) (#cf5551)
 - This colour was darkened slightly for use as the primary colour in the app to ensure there was proper contrast on all text/buttons
 - I then used the [Adobe color wheel](https://color.adobe.com/create/color-wheel) to find a complimentary colour that also offered good contrast for white backgrounds and text
-- Different shades of the primary and secondary colours were created with [Tailwind Shades](https://www.tailwindshades.com)
-- For borders I used a light gray, matching the original design in the wireframes
+- Different shades of the primary and secondary colours were created with [Tailwind Shades](https://www.tailwindshades.com) and added via the `tailwind.config.js`
+- For borders I used a mid-light gray (Tailwind color *gray-400*) matching the original design in the wireframes
+- For the bottom navbar and footer I used a dark charcoal gray (Tailwind color *gray-700*) 
 
 ![color palette](docs/color_palette.png)
 
@@ -182,7 +183,7 @@ I used three fonts throughout the website. A display font on the welcome page, a
 - If user is logged in
 	- Form has read-only, pre-filled username/email fields for current user
 	- Has fillable message form
-- All messages sent from contact form send message to hotdogzapp@gmail.com    
+- All messages sent from contact form send messages to my own email    
 
 ### User Pages
 
@@ -356,7 +357,7 @@ I used three fonts throughout the website. A display font on the welcome page, a
 
 ### Other Tools, Libraries & Programs
 
-- [Font Awesome](https://fontawesome.com) - FOr icons used throughout the site
+- [Font Awesome](https://fontawesome.com) - For icons used throughout the site
 - [GIMP - GNU Image Manipulation Program](https://www.gimp.org) - For image editing
 - [favicon.io](https://favicon.io) - For creating favicon .ico
 - [Google Fonts](https://fonts.google.com) - for importing chosen fonts
@@ -368,7 +369,7 @@ I used three fonts throughout the website. A display font on the welcome page, a
 
 ## Testing
 
-- #### Testing.
+**[Please see TESTING.md](TESTING.md)**
 
 ## Deployment
 
