@@ -141,8 +141,8 @@ def select_avatar():
             url_for('users.profile', username=current_user.username))
     # Default functioning to present available avatars
     avatars = [
-        f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365' \
-        f'/hot_dogz/avatars/dog{i}.png '
+        f'https://res.cloudinary.com/cjcon90/image/upload/v1613912365'
+        f'/hot_dogz/avatars/dog{i}.png'
         for i in range(1, 17)]
     return render_template('user/select_avatar.html', avatars=avatars,
                            title='Choose Avatar')
