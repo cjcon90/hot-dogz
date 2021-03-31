@@ -30,7 +30,7 @@
   <!-- TOP NAVIGATION BAR -->
     <nav class="flex justify-between h-16 px-2 py-1 mx-auto text-lg max-w-screen-2xl">
         <a href="{{url_for('main.index')}}" aria-label="Home" class="self-start pb-1 rounded-full outline-none text-primary-500 focus:ring-4 focus:ring-primary-200 hover:text-primary-600 h-14 w-14">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 512 512"  xmlns:v="https://vecta.io/nano" class="fill-current ">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 512 512" class="fill-current ">
                 <path d="M342.38 239.35c-23.039-35.941-62.277-57.402-104.96-57.402s-81.926 21.461-104.96 57.402l-55.516 86.605c-9.211 14.367-13.461 30.969-12.293 47.996s7.648 32.891 18.738 45.875c11.098 12.973 25.762 21.84 42.406 25.645s33.707 2.18 49.34-4.691l1.047-.465c39.336-16.945 84.285-16.789 123.52.465 10.121 4.449 20.844 6.699 31.664 6.699 5.883 0 11.801-.668 17.664-2.004 16.645-3.801 31.309-12.668 42.41-25.645 11.094-12.973 17.578-28.836 18.75-45.871a78.38 78.38 0 0 0-12.289-48.008zm-250.485-.11c16.516-6.344 29.062-19.652 35.328-37.477 5.965-16.961 5.477-36.109-1.379-53.922-6.859-17.801-19.336-32.332-35.133-40.922-16.594-9.019-34.824-10.488-51.312-4.133-33.172 12.754-48.395 53.746-33.93 91.398 11.555 29.969 38.504 48.887 65.75 48.887a57.31 57.31 0 0 0 20.676-3.832zm107.715-67.85c41.469 0 75.207-38.438 75.207-85.684 0-47.258-33.738-85.703-75.207-85.703s-75.199 38.445-75.199 85.703c0 47.246 33.734 85.684 75.199 85.684zm129.89 21.05h.004a61.3 61.3 0 0 0 19.367 3.129c30.242 0 59.715-22.012 70.961-55.84 6.477-19.473 6.051-40.062-1.199-57.973-7.586-18.75-21.645-32.359-39.59-38.324s-37.359-3.477-54.66 7c-16.527 10.008-29.191 26.246-35.66 45.719-13.652 41.078 4.641 84.273 40.777 96.289zm158.38-10l-.012-.012c-28.598-21.125-71.367-11.969-95.348 20.422-23.957 32.406-20.211 75.973 8.344 97.113 10.414 7.715 22.719 11.402 35.312 11.402 21.949 0 44.785-11.203 60.051-31.805 23.953-32.406 20.211-75.973-8.348-97.121z"/>
             </svg>
         </a>
@@ -44,7 +44,7 @@
                 <a class="block mr-4 hover:text-primary-600" href="{{url_for('main.gallery', view='hot', animate='on')}}">Gallery</a>
               </div>
               {% endif %}
-            <div class="flex text-sm" v-else>
+            <div class="flex text-sm">
               <!-- Login & Sign Up buttons vs My Account depending on whether user is signed in -->
                 {% if current_user.is_anonymous %}
                     <a class="ml-2 w-28 btn btn-secondary " href="{{url_for('users.login')}}">Login</a>
@@ -55,7 +55,6 @@
             </div>
           </div>
       </nav>
-    </header>
     <!--
       Conditional height settings for mobile viewports:
       Set height minus both navs if on mobile and not on index.html (as there is no bottom nav on splahs page)
@@ -115,12 +114,12 @@
       </div>
     {% endif %}
     <footer class="flex flex-col h-20 py-2 pb-4 {{'mb-16' if title and current_user.is_authenticated}} text-center text-gray-300 bg-gray-700 md:m-0 text-sm sm:text-base">
-      <p>Created by <a href="https://www.cjcon90.dev" class="font-semibold hover:text-white focus:underline" target="_blank" rel=”noreferrer noopener”>Ciaran Concannon</a></p>
-      <p>Pug photos coutesy of <a href="https://burst.shopify.com/@matthew_henry" class="font-semibold hover:text-white focus:underline" target="_blank" rel=”noreferrer noopener”>Matthew Henry</a></p>
+      <p>Created by <a href="https://www.cjcon90.dev" class="font-semibold hover:text-white focus:underline" target="_blank" rel=”noreferrer>Ciaran Concannon</a></p>
+      <p>Pug photos coutesy of <a href="https://burst.shopify.com/@matthew_henry" class="font-semibold hover:text-white focus:underline" target="_blank" rel=”noreferrer>Matthew Henry</a></p>
       <p><a href="https://www.flaticon.com/free-icon/pawprint_1076928?term=dog%20paw&page=1&position=2&page=1&position=2&related_id=1076928&origin=search"
-        class="font-semibold hover:text-white focus:underline" target="_blank" rel=”noreferrer noopener”>Hot Dogz Logo</a> and 
+        class="font-semibold hover:text-white focus:underline" target="_blank" rel=”noreferrer>Hot Dogz Logo</a> and 
         <a href="https://www.freepik.com/free-vector/different-dog-faces-collection_905468.htm"
-        class="font-semibold hover:text-white focus:underline" target="_blank" rel=”noreferrer noopener”>user avatars</a> courtesy of Freepik</p>
+        class="font-semibold hover:text-white focus:underline" target="_blank" rel=”noreferrer>user avatars</a> courtesy of Freepik</p>
     </footer>
     <script src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>

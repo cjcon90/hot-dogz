@@ -4,7 +4,7 @@
 <!-- Add contional height to offset bottom nav bar if user is logged in -->
     <div class="relative bg-bottom bg-no-repeat md:bg-right-bottom {{'min-h-screen-less-both-nav' if current_user.is_authenticated else 'min-h-screen-less-nav'}} md:min-h-screen-less-nav bg-dog3 lg:bg-50%">
         <h1 class="title text-secondary-500 ">Contact Us</h1>
-            <form action="" method="POST" class="z-10 flex flex-col max-w-screen-sm p-4 mx-auto bg-white border border-gray-100 rounded-lg shadow-md fade-in w-80 lg:w-1/4 " novalidate>
+            <form action="{{url_for('main.contact')}}" method="POST" class="z-10 flex flex-col max-w-screen-sm p-4 mx-auto bg-white border border-gray-100 rounded-lg shadow-md fade-in w-80 lg:w-1/4 " novalidate>
                 {{ form.hidden_tag()}}
                 <fieldset class="pb-2">
                     {{form.username.label}}

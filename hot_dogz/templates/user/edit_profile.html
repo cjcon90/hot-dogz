@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container flex flex-col items-center mx-auto bg-fixed bg-bottom bg-no-repeat bg-contain min-h-screen-less-nav md:min-h-screen-less-nav bg-dog6 lg:bg-50%">
     <h1 class="py-4 title text-secondary-500 ">Edit Profile</h1>
-    <form action="" method="POST" class="flex flex-col p-4 bg-white border border-gray-100 rounded-lg shadow-md w-80" novalidate>
+    <form action="{{url_for('users.edit_profile', user_id=user.id)}}" method="POST" class="flex flex-col p-4 bg-white border border-gray-100 rounded-lg shadow-md w-80" novalidate>
             {{ form.hidden_tag()}}
             <fieldset class="pb-2">
                 {{form.username.label}}

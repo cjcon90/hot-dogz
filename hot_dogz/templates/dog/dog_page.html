@@ -47,7 +47,7 @@
             {% else %}
                 <p class="text-lg font-bold text-center text-gray-500">No comments yet!</p>
             {% endif %}
-            <form action="" method='POST' class="p-4 mx-auto border border-gray-100 rounded-lg shadow-md lg:w-11/12">
+            <form action="{{url_for('dogs.dog_page', dog_id=dog.pk)}}" method='POST' class="p-4 mx-auto border border-gray-100 rounded-lg shadow-md lg:w-11/12">
                 {{form.hidden_tag()}}
                 {{form.content(placeholder="Add your comment here", rows="3", class_='form-input', id="comment")}}
                 {{form.submit(class_="w-full bg-secondary-500 hover:bg-secondary-600 text-white p-3 rounded-lg font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-secondary-400")}}

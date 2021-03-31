@@ -100,7 +100,7 @@ def reset_password(token):
         user.save()
         flash('Your password has been reset.', 'check-circle')
         return redirect(url_for('users.login'))
-    return render_template('user/reset_password.html', form=form)
+    return render_template('user/reset_password.html', token=token, form=form)
 
 
 @users.route('/profile/<username>')
@@ -152,7 +152,7 @@ def edit_profile(user_id):
     elif request.method == 'GET':
         form.username.data = user.username
         form.email.data = user.email
-    return render_template('user/edit_profile.html', title='Edit Profile', form=form)
+    return render_template('user/edit_profile.html', title='Edit Profile', user=user, form=form)
 
 
 @users.route('/delete_account/<user_id>', methods=['GET', 'POST'])
@@ -183,7 +183,7 @@ def delete_account(user_id):
             flash('Account deleted! Hope to see you again', 'check-circle')
             return redirect(url_for('main.index'))
 
-    return render_template('user/delete_account.html', title='Delete Account', form=form)
+    return render_template('user/delete_account.html', user=user, title='Delete Account', form=form)
 
 
 
@@ -247,7 +247,7 @@ def edit_comment(comment_id):
         flash("Comment edited", "comment")
         return redirect(url_for('dogs.dog_page', dog_id=dog_id))
     form.content.data = comment.content
-    return render_template('user/edit_comment.html', form=form, title="Edit Comment" )
+    return render_template('user/edit_comment.html', form=form, comment=comment, title="Edit Comment" )
 
 
 @users.route('/delete_comment/<comment_id>', methods=['GET', 'POST'])

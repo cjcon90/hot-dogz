@@ -52,7 +52,7 @@ def edit_dog(dog_id):
     elif request.method == 'GET':
         form.name.data = dog.name
         form.about.data = dog.about
-    return render_template('dog/upload_dog.html', form=form, title="Edit Dog")
+    return render_template('dog/upload_dog.html', form=form, dog=dog, title="Edit Dog")
 
 
 @dogs.route('/delete_dog/<dog_id>', methods=['GET', 'POST'])
@@ -85,6 +85,7 @@ def dog_page(dog_id):
         if current_user.is_authenticated:
             comment = Comment(author=current_user.id, dog=dog, content=form.content.data)
             comment.save()
+            form.content.data = ''
             flash('Your comment has been submitted!', 'comment')
         else:
             flash('You must be logged in to leave a comment!', 'exclamation')
