@@ -1,5 +1,42 @@
 # Testing
 
+## Table of Contents
+
+  * [Functionality](#functionality)
+    + [Navigation](#navigation)
+      - [Navigation Bar](#navigation-bar)
+    + [Main](#main)
+      - [Landing Page](#landing-page)
+      - [Gallery](#gallery)
+      - [Contact](#contact)
+    + [User Pages](#user-pages)
+      - [Login / Register](#login---register)
+      - [Avatar Selection](#avatar-selection)
+      - [Reset Password](#reset-password)
+      - [User Profile](#user-profile)
+    + [Dog Pages](#dog-pages)
+      - [Dog Page](#dog-page)
+      - [Comments](#comments)
+    + [Error](#error)
+  * [Performance](#performance)
+  * [Validators](#validators)
+    + [HTML](#html)
+    + [CSS](#css)
+    + [JavaScript](#javascript)
+  * [PEP8](#pep8)
+  * [Compatibility](#compatibility)
+    + [Hardware](#hardware)
+    + [Browsers](#browsers)
+  * [User Stories](#user-stories)
+    + [New Visitor](#new-visitor)
+    + [Repeat users](#repeat-users)
+    + [All users.](#all-users)
+    + [Website owner](#website-owner)
+  * [Known Bugs](#known-bugs)
+    + [Flask-Mail](#flask-mail)
+
+<small><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></small>
+
 ## Functionality
 
 ### Navigation
