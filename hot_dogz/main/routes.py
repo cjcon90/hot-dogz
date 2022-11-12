@@ -49,7 +49,7 @@ def contact():
     if form.validate_on_submit():
         send_email(subject='[Hot Dogz] Contact Form Submission',
                    sender=current_app.config['ADMINS'][0],
-                   recipients=[current_app.config['ADMINS'][1]],
+                   recipients=[current_app.config['ADMINS'][0]],
                    text_body=render_template('email/contact_message.txt',
                                              user=form.username.data,
                                              email=form.email.data,
